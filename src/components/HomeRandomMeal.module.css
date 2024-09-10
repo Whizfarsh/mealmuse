@@ -1,0 +1,55 @@
+ion-icon {
+	color: red;
+	font-size: 2rem;
+}
+.recipes {
+	/* width: 100%; */
+	margin-top: -8rem;
+	display: grid;
+	grid-template-columns: repeat(3, 25%);
+	row-gap: 2.4rem;
+	/* column-gap: 10rem; */
+	justify-content: space-around;
+	align-items: center;
+
+	padding: 1.4rem 6.4rem;
+	color: var(--dark-0);
+}
+
+.recipe {
+	width: 100%;
+	height: 18rem;
+	background-color: var(--light-1);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	padding: 0rem 1.4rem;
+
+	border-radius: 2rem;
+	box-shadow: 3px 6px 10px rgba(19, 1, 10, 0.7);
+
+	cursor: pointer;
+}
+.recipeTexts {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+}
+.recipeName {
+	font-size: 1.8rem;
+	font-weight: 600;
+}
+.recipeTexts p {
+	display: flex;
+	align-items: center;
+	column-gap: 0.5rem;
+}
+.recipeImage {
+	padding: 0.8rem 1.2rem;
+	width: 90%;
+	height: 90%;
+	margin-right: -10rem;
+	border-radius: 0 10rem 10rem 0;
+	object-fit: cover;
+}

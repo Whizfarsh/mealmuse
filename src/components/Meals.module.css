@@ -1,0 +1,129 @@
+a {
+	color: var(--dark-1);
+	text-decoration: none;
+}
+
+.mealsPlan {
+	margin: 6rem 0;
+	padding: 2.4rem 7.8rem;
+	background-color: var(--light-0);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.mealsPlan h2 {
+	/* text-align: center; */
+	align-self: flex-start;
+	font-size: 3.2rem;
+	margin-bottom: 1.3rem;
+	/* padding: 0rem 7.8rem; */
+}
+
+.grid3 {
+	display: grid;
+	/* display: flex; */
+	grid-template-columns: repeat(3, 1fr);
+	align-items: center;
+	justify-content: center;
+	/* grid-template-rows: auto; */
+	/* column-span: 1/2; */
+}
+
+.grid4 {
+	display: grid;
+	/* display: flex; */
+	grid-template-columns: repeat(4, 1fr);
+	align-items: center;
+	justify-content: space-between;
+}
+
+.meals {
+	width: 100%;
+	/* display: grid;
+	grid-template-columns: repeat(4, 1fr); */
+
+	gap: 2.4rem;
+	padding: 2.4rem 0rem;
+
+	/* background-color: var(--light-0); */
+}
+.meal {
+	/* height: 20rem; */
+	box-shadow: 3px 6px 10px rgba(19, 1, 10, 0.4);
+	/* grid-column: 1/2; */
+	/* width: 25rem; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--light-1);
+	border-radius: 1rem;
+	cursor: pointer;
+	/* padding: 2.4rem; */
+}
+.meal img {
+	border-radius: inherit;
+	width: 100%;
+	height: 20rem;
+	object-fit: cover;
+}
+.meal h4 {
+	padding: 0.4rem 1rem;
+	text-align: center;
+	margin: 0.6rem 0;
+}
+.info {
+	display: flex;
+	/* justify-content: space-between; */
+	gap: 1rem;
+	padding: 1rem;
+}
+.info p {
+	display: flex;
+	align-items: center;
+	column-gap: 0.5rem;
+}
+
+.duration ion-icon {
+	font-size: 2rem;
+	color: red;
+}
+.servings ion-icon {
+	color: red;
+	font-size: 2rem;
+}
+.mealInfo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 1rem;
+	/* padding: 20rem; */
+}
+
+.mealInfo p {
+	text-align: center;
+	/* padding: 1.4rem; */
+}
+
+.customMeals {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+
+	border: 1px solid var(--dark-3);
+	padding: 1.4rem;
+	height: 15rem;
+	width: 15rem;
+	border-radius: 50%;
+}
+.customMeals p {
+	font-size: 1.2rem;
+	text-align: center;
+}
+.customMeals ion-icon {
+	font-size: 3.4rem;
+	color: red;
+}

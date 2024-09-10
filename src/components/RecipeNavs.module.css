@@ -1,0 +1,66 @@
+.recipeNavs {
+	position: fixed;
+	background-color: var(--light-1);
+	width: 15%;
+	height: 100vh;
+}
+.userSection {
+	/* position: fixed; */
+	display: flex;
+	flex-direction: column;
+	/* row-gap: 1rem; */
+	justify-content: center;
+	align-items: center;
+	padding: 2.4rem;
+	/* margin: 1.4rem 0; */
+}
+
+.userImg {
+	width: 9rem;
+	height: 9rem;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.userSection p {
+	font-weight: 600;
+	font-size: 1.8rem;
+}
+
+.userSection button {
+	border: none;
+	background-color: inherit;
+	cursor: pointer;
+	/* background-color: var(--light-3); */
+	padding: 0.7rem;
+}
+.navOptions {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.recipeNavList {
+	margin-bottom: 1.2rem;
+	padding: 0.7rem 0.7rem;
+	border-radius: 0.6rem;
+	border: 1px solid var(--light-2);
+	cursor: pointer;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.9rem;
+}
+
+.active {
+	transition: all 200ms ease-in;
+	background-color: var(--dark-3);
+	/* color: var(--light-3) !important; */
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.active a {
+	color: var(--light-0);
+}

@@ -1,0 +1,39 @@
+.recipesContent {
+	margin: 1.2rem 1.8rem;
+}
+
+.recipesHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/* width: 50%;
+	margin: 1.4rem 0; */
+	/* padding: 0 1.2rem; */
+}
+
+.recipesHeader ion-icon {
+	font-size: 2.4rem;
+	color: var(--dark-2);
+	cursor: pointer;
+}
+
+.recipesDiets {
+	margin: 1.4rem 0;
+	display: flex;
+	gap: 1.4rem;
+}
+.recipesDiets select,
+.recipesDiets input {
+	padding: 0.6rem 1.2rem;
+	height: 3.4rem;
+	width: 30rem;
+	border-radius: 0.6rem;
+	background-color: var(--light-0);
+	border: 1px solid var(--light-1);
+}
+.recipesDiets select:focus,
+.recipesDiets select:active,
+.recipesDiets input:active,
+.recipesDiets input:focus {
+	outline: none;
+}

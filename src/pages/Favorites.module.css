@@ -1,0 +1,14 @@
+.favorites {
+	/* position: fixed; */
+	/* display: flex; */
+	display: grid;
+	grid-template-columns: 15% auto;
+	/* gap: 2.4rem; */
+	/* justify-content: space-around; */
+	/* background-color: red; */
+	/* justify-content: space-between; */
+}
+.favRecipes {
+	padding: 0.8rem 1rem;
+	/* width: calc(100%-15%); */
+}

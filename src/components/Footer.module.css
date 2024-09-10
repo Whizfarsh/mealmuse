@@ -1,0 +1,45 @@
+.footer {
+	margin-top: 4.2rem;
+	padding: 2.4rem 4.2rem;
+	background-color: var(--color-default-0);
+}
+.footerItems {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.footer p {
+	margin-top: 1.4rem;
+	/* text-align: center; */
+	color: var(--light-3);
+}
+.footerCol1 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.footerSocials ul {
+	display: flex;
+	column-gap: 1.2rem;
+}
+.footerSocials ul ion-icon {
+	color: #fff;
+}
+.footerMenu {
+	display: flex;
+	justify-content: space-between;
+	gap: 6.4rem;
+}
+
+h6 {
+	font-size: 1.6rem;
+}
+
+ul {
+	margin-top: 1.2rem;
+}
+
+li {
+	margin-bottom: 0.5rem;
+	text-transform: capitalize;
+}
