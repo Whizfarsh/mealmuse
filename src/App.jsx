@@ -3,6 +3,7 @@ import Homepage from "./pages/Homepage";
 import Recipes from "./pages/Recipes";
 import Favorites from "./pages/Favorites";
 import { useState } from "react";
+import { GlobalProvider } from "./content/GlobalContent";
 // import RecipeDetails from "./components/RecipeDetails";
 
 // const API_Key = "ae0fc98731a34ef1a9dd2aff9448752b";
@@ -17,25 +18,27 @@ export default function App() {
 		return getFavorites ? JSON.parse(getFavorites) : [];
 	});
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Homepage API_Key={API_Key} />} />
-				<Route path="/recipes" element={<Recipes API_Key={API_Key} />} />
-				<Route
-					path="recipes/:id"
-					element={
-						<Recipes
-							API_Key={API_Key}
-							setFavorites={setFavorites}
-							favorites={favorites}
-						/>
-					}
-				/>
-				<Route
-					path="/favorites"
-					element={<Favorites API_Key={API_Key} favorites={favorites} />}
-				/>
-			</Routes>
-		</BrowserRouter>
+		<GlobalProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Homepage />} />
+					<Route path="/recipes" element={<Recipes API_Key={API_Key} />} />
+					<Route
+						path="recipes/:id"
+						element={
+							<Recipes
+								API_Key={API_Key}
+								setFavorites={setFavorites}
+								favorites={favorites}
+							/>
+						}
+					/>
+					<Route
+						path="/favorites"
+						element={<Favorites API_Key={API_Key} favorites={favorites} />}
+					/>
+				</Routes>
+			</BrowserRouter>
+		</GlobalProvider>
 	);
 }

@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import Meals from "./Meals";
 import styles from "./Meals.module.css";
+import { useGlobal } from "../content/GlobalContent";
 
-function HomePageMeals({ API_Key }) {
-	// const [dayMeal, setDayMeal] = useState([]);
+function HomePageMeals() {
+	const { API_Key } = useGlobal();
 	const [fiveMinutesMeal, setFiveMinutesMeal] = useState([]);
 	const [mostPopular, setMostPopular] = useState([]);
 
@@ -36,7 +37,7 @@ function HomePageMeals({ API_Key }) {
 				);
 				const data = await res.json();
 
-				console.log(data.results);
+				// console.log(data.results);
 				setMostPopular(data.results);
 				// console.log(dayMeal);
 			} catch (err) {

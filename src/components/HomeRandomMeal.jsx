@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import styles from "./HomeRandomMeal.module.css";
 import { useState } from "react";
+import { useGlobal } from "../content/GlobalContent";
 
 // import styles from "./HomeMain.module.css";
 
-function HomeRandomMeal({ API_Key, convertMinutes }) {
+function HomeRandomMeal() {
+	const { API_Key, convertMinutes } = useGlobal();
 	const [homeRecipe, setHomeRecipe] = useState([]);
 	useEffect(function () {
 		async function fetchData() {

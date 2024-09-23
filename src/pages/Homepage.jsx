@@ -8,20 +8,13 @@ import HomeMain from "../components/HomeMain";
 import HomePageMeals from "../components/HomePageMeals";
 import HomeRandomMeal from "../components/HomeRandomMeal";
 
-const convertMinutes = function (minutesGiven) {
-	const hour = Math.ceil(minutesGiven / 60);
-	const minutes = minutesGiven % 60;
-
-	return `${hour}h:${minutes < 10 ? minutes + "0" : minutes} `;
-};
-
-function Homepage({ API_Key }) {
+function Homepage() {
 	return (
 		<div>
 			<Header />
 			<HomeMain>
-				<HomeRandomMeal API_Key={API_Key} convertMinutes={convertMinutes} />
-				<HomePageMeals API_Key={API_Key} convertMinutes={convertMinutes} />
+				<HomeRandomMeal />
+				<HomePageMeals />
 			</HomeMain>
 			<Footer />
 		</div>

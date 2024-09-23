@@ -9,7 +9,11 @@ function Searchform({ dispatch }) {
 		dispatch({ type: "searchUpdate", payload: e.target.value });
 	}
 	return (
-		<form className={styles.headerForm} onSubmit={(e) => e.preventDefault()}>
+		<form
+			action="/recipes"
+			className={styles.headerForm}
+			onSubmit={(e) => e.preventDefault()}
+		>
 			<input
 				onChange={handleSearch}
 				className={styles.serachInput}
