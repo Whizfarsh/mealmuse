@@ -1,49 +1,28 @@
 /* eslint-disable react/prop-types */
 // import Loading from "../components/Loading";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 // import { Outlet } from "react-router-dom";
 import RecipeNavs from "../components/RecipeNavs";
 import RecipesContent from "../components/RecipesContent";
 import styles from "./Recipes.module.css";
 import RecipeDetails from "../components/RecipeDetails";
-import { useReducer, useEffect } from "react";
+import { useEffect } from "react";
 import Favorites from "./Favorites";
+import { useRecipes } from "../content/RecipesContext";
+import { useGlobal } from "../content/GlobalContent";
 
-const initialState = {
-	isLoading: true,
-	searchQuery: "",
-	filterOptions: "Select option",
-	selectedFilter: "",
-	intoleranceText: "",
-	excludeText: "",
-	recipes: [],
-};
-
-function reducer(state, action) {
-	switch (action.type) {
-		case "searchUpdate":
-			return { ...state, searchQuery: action.payload };
-		case "filterOptionUpdate":
-			return { ...state, filterOptions: action.payload };
-		case "dataFetched":
-			return {
-				...state,
-				recipes: action.payload,
-				isLoading: false,
-			};
-		case "updateElectedFilter":
-			return { ...state, selectedFilter: action.payload };
-		default:
-			throw new Error("No action found");
-	}
-}
-
-function Recipes({ API_Key, setFavorites, favorites }) {
-	const curPage = useLocation().pathname;
-	const [
-		{ filterOptions, recipes, selectedFilter, searchQuery, isLoading },
+function Recipes() {
+	const { API_Key, setFavorites, favorites } = useGlobal();
+	const {
+		filterOptions,
+		recipes,
+		selectedFilter,
+		searchQuery,
+		isLoading,
 		dispatch,
-	] = useReducer(reducer, initialState);
+	} = useRecipes();
+	const navigate = useNavigate();
+	const curPage = useLocation().pathname;
 
 	const { id } = useParams();
 	// const curPage = useLocation().pathname;
@@ -85,6 +64,12 @@ function Recipes({ API_Key, setFavorites, favorites }) {
 		},
 		[filterOptions, selectedFilter, searchQuery]
 	);
+
+	useEffect(() => {
+		if (searchQuery && searchQuery.length > 3) {
+			navigate(`/recipes?q=${searchQuery}`);
+		}
+	}, [searchQuery, navigate]);
 	return (
 		<div className={styles.recipes}>
 			{/* <Loading /> */}
@@ -113,24 +98,6 @@ function Recipes({ API_Key, setFavorites, favorites }) {
 				</div>
 			)}
 			{curPage.includes("favorites") && <Favorites />}
-			{/* <div className={styles.recipesLists}>
-				{id ? (
-					<RecipeDetails
-						recipes={recipes}
-						dispatch={dispatch}
-						API_Key={API_Key}
-					/>
-				) : (
-					<RecipesContent
-						dispatch={dispatch}
-						recipes={recipes}
-						isLoading={isLoading}
-						filterOptions={filterOptions}
-					/>
-					// <Outlet />
-				)}
-			</div> */}
-			{/* <Outlet /> */}
 		</div>
 	);
 }
