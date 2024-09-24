@@ -56,7 +56,11 @@ function Recipes({ API_Key, setFavorites, favorites }) {
 			async function fetchRecipes() {
 				try {
 					const res = await fetch(
-						`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_Key}&query=${searchQuery}&${filterOptions}=${selectedFilter}&addRecipeInformation=true&number=10
+						`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_Key}&query=${searchQuery}${
+							filterOptions !== "Select option"
+								? `&${filterOptions}=${selectedFilter}`
+								: ""
+						}&addRecipeInformation=true&number=10
                         `,
 						{ signal: controller.signal }
 					);
