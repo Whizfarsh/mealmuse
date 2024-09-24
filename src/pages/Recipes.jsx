@@ -12,8 +12,8 @@ import Favorites from "./Favorites";
 const initialState = {
 	isLoading: true,
 	searchQuery: "",
-	filterOptions: "diet",
-	selectedFilter: "Whole30",
+	filterOptions: "Select option",
+	selectedFilter: "",
 	intoleranceText: "",
 	excludeText: "",
 	recipes: [],
@@ -23,7 +23,7 @@ function reducer(state, action) {
 	switch (action.type) {
 		case "searchUpdate":
 			return { ...state, searchQuery: action.payload };
-		case "dietOptions":
+		case "filterOptionUpdate":
 			return { ...state, filterOptions: action.payload };
 		case "dataFetched":
 			return {
@@ -31,7 +31,7 @@ function reducer(state, action) {
 				recipes: action.payload,
 				isLoading: false,
 			};
-		case "updateFilter":
+		case "updateElectedFilter":
 			return { ...state, selectedFilter: action.payload };
 		default:
 			throw new Error("No action found");
@@ -52,7 +52,6 @@ function Recipes({ API_Key, setFavorites, favorites }) {
 
 	useEffect(
 		function () {
-			// if (searchQuery <= 3) return;
 			const controller = new AbortController();
 			async function fetchRecipes() {
 				try {
@@ -67,6 +66,7 @@ function Recipes({ API_Key, setFavorites, favorites }) {
 					if (data.Response === "False")
 						throw new Error("Unable to fetch recipes");
 
+					console.log(data.results);
 					dispatch({ type: "dataFetched", payload: data.results });
 				} catch (err) {
 					if (!err.name === "AbortError") console.log(err);

@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+// import { useState } from "react";
 import styles from "./RecipesContent.module.css";
 import Searchform from "./Searchform";
 import Meals from "./Meals";
 import Loading from "./Loading";
+import FilterOptions from "./FilterOptions";
 // import { useLocation } from "react-router-dom";
 
 const filterObj = [
@@ -93,6 +94,7 @@ function RecipesContent({ dispatch, recipes, isLoading, filterOptions }) {
 				<div className={styles.recipesDiets}>
 					<FilterOptions
 						optionsArrays={[
+							"Select option",
 							"diet",
 							"Cuisine",
 							"Meal types",
@@ -100,38 +102,9 @@ function RecipesContent({ dispatch, recipes, isLoading, filterOptions }) {
 							"Exclude Ingredients",
 						]}
 						dispatch={dispatch}
+						selectedMain={selectedMain}
+						filterOptions={filterOptions}
 					/>
-					{filterOptions === "Intolerances" ||
-					filterOptions === "Exclude Ingredients" ? (
-						<input
-							onChange={(e) =>
-								dispatch({
-									type: `${
-										filterOptions === "Intolerances"
-											? "updateIntolerances"
-											: "updateExcludeText"
-									}`,
-									payload: e.target.value,
-								})
-							}
-							type="text"
-							placeholder={`Enter your ${filterOptions} here ...`}
-						/>
-					) : (
-						<select
-							onChange={(e) =>
-								dispatch({ type: "updateFilter", payload: e.target.value })
-							}
-						>
-							{selectedMain
-								? selectedMain.options.map((optn) => (
-										<option key={optn} value={optn}>
-											{optn}
-										</option>
-								  ))
-								: ""}
-						</select>
-					)}
 				</div>
 				{isLoading ? (
 					<Loading />
@@ -146,27 +119,6 @@ function RecipesContent({ dispatch, recipes, isLoading, filterOptions }) {
 }
 
 export default RecipesContent;
-
-function FilterOptions({ optionsArrays, dispatch }) {
-	const [selectedName, setSelectedName] = useState("diet");
-
-	function handleDiet(e) {
-		console.log(e.target.value);
-		setSelectedName(e.target.value);
-		dispatch({ type: "dietOptions", payload: e.target.value });
-	}
-	return (
-		<div>
-			<select value={selectedName} onChange={handleDiet}>
-				{optionsArrays.map((el) => (
-					<option key={el} value={el}>
-						{el}
-					</option>
-				))}
-			</select>
-		</div>
-	);
-}
 
 function RecipesRender({ children }) {
 	return <div>{children}</div>;
