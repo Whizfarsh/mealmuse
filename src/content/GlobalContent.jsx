@@ -49,7 +49,7 @@ function GlobalProvider({ children }) {
 
 	function login(email, password) {
 		if (email === FK_USER.email && password === FK_USER.password) {
-			dispatch({ type: "login", paload: FK_USER });
+			dispatch({ type: "login", payload: FK_USER });
 		}
 	}
 

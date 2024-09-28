@@ -1,7 +1,27 @@
 // import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Logo from "../components/Logo";
+import { useGlobal } from "../content/GlobalContent";
 import styles from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
 function Login() {
+	const navigate = useNavigate();
+	const { login, isAuthenticated } = useGlobal();
+
+	useEffect(
+		function () {
+			if (isAuthenticated === true) navigate("/recipes");
+		},
+		[isAuthenticated, navigate]
+	);
+
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	function handleLogin(e) {
+		e.preventDefault();
+		if (email && login) login(email, password);
+	}
 	return (
 		<div className={styles.login}>
 			<div className={styles.logoInfo}>
@@ -16,11 +36,14 @@ function Login() {
 				<p>Welcome back! Please login to your account.</p>
 				<button className={styles.googleSign}>Sign in with Google</button>
 				<strong>OR</strong>
-				<form className={styles.formLogin} action="">
+				<form className={styles.formLogin} onSubmit={handleLogin}>
 					<label htmlFor="email">Email</label>
-					<input type="email" name="" id="" />
+					<input type="email" onChange={(e) => setEmail(e.target.value)} />
 					<label htmlFor="password">Password</label>
-					<input type="password" name="" id="" />
+					<input
+						type="password"
+						onChange={(e) => setPassword(e.target.value)}
+					/>
 					<div className={styles.logOptions}>
 						<div className={styles.remember}>
 							<input type="checkbox" name="Remember me" />
@@ -28,7 +51,11 @@ function Login() {
 						</div>
 						<a href="">Forget password</a>
 					</div>
-					<button className={styles.btnLogin} type="button">
+					<button
+						className={styles.btnLogin}
+						type="button"
+						onClick={handleLogin}
+					>
 						Login
 					</button>
 				</form>
