@@ -1,3 +1,8 @@
+a {
+	color: var(--dark-2);
+	text-decoration: none;
+}
+
 .mealsPlan {
 	margin: 6rem 0;
 	padding: 2.4rem 7.8rem;
