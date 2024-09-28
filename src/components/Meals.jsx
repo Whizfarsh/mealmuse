@@ -24,8 +24,6 @@ function MealsLists({ recipe }) {
 	return (
 		<Link to={`/recipes/${recipe.id}`}>
 			<div className={styles.meal}>
-				{/* {recipe.image && <img src={recipe.image} alt="" />} */}
-				{/* <img src={recipe.image} alt="" /> */}
 				<img
 					src={
 						recipe.image ||

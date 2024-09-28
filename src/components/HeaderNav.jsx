@@ -1,7 +1,8 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./HeaderNav.module.css";
-import User from "./User";
+// import User from "./User";
 import Searchform from "./Searchform";
+// import Login from "../pages/Login";
 
 function HeaderNav() {
 	return (
@@ -20,7 +21,11 @@ function HeaderNav() {
 
 					{/* <div className={styles.navOther}> */}
 					<Searchform />
-					<User />
+					<Link to="/login">
+						<button className={styles.btnLogin}>LOGIN</button>
+					</Link>
+					{/* <Login /> */}
+					{/* <User /> */}
 					{/* </div> */}
 				</nav>
 			</div>

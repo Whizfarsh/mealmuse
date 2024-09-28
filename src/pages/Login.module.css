@@ -1,0 +1,120 @@
+body {
+	background-color: var(--light-0);
+}
+.login {
+	display: flex;
+	/* justify-content: space-between; */
+}
+.logoInfo {
+	background: linear-gradient(rgba(127, 206, 145, 0.9), rgba(85, 185, 108, 0.9)),
+		url("../assets/bg1.jpg");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 50%;
+
+	display: flex;
+	flex-direction: column;
+	padding: 1.4rem;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+.logoInfo p {
+	/* color: var(--light-0); */
+	font-size: 1.8rem;
+	padding: 0.4rem 9.4rem;
+	line-height: 1.2;
+}
+.loginMain {
+	width: 25%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+	/* padding: 0 6.4rem; */
+	/* align-items: center; */
+}
+.loginMain h4 {
+	font-size: 3.2rem;
+	margin-bottom: 0.8rem;
+}
+.loginMain p {
+	font-size: 1.8rem;
+	margin-bottom: 1rem;
+}
+.googleSign {
+	/* border: none; */
+	background: transparent;
+	padding: 0.5rem 1rem;
+	border-radius: 0.9rem;
+	border: 1px solid var(--dark-2);
+	cursor: pointer;
+}
+.loginMain strong {
+	text-align: center;
+	margin: 1rem 0;
+}
+.loginMain a {
+	text-decoration: none;
+}
+.formLogin {
+	display: flex;
+	flex-direction: column;
+	/* justify-content: center; */
+	/* align-items: center; */
+	/* gap: 1rem; */
+}
+.formLogin label {
+	margin-bottom: 0.4rem;
+}
+.formLogin input {
+	height: 3.2rem;
+	margin-bottom: 1.2rem;
+	background: transparent;
+	padding: 0.5rem 1rem;
+	border-radius: 0.9rem;
+	border: 1px solid var(--dark-2);
+}
+.formLogin input:focus {
+	outline: none;
+}
+.logOptions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.6rem;
+	/* color: inherit; */
+}
+
+.logOptions a {
+	color: inherit;
+}
+
+.logOptions p {
+	font-size: 1rem;
+	margin: 0;
+}
+.remember {
+	display: flex;
+	align-items: center;
+	column-gap: 0.7rem;
+}
+.remember label {
+	margin: 0;
+}
+.remember input[type="checkbox"] {
+	margin: 0;
+	width: 1.6rem;
+	height: 1.6rem;
+}
+.btnLogin {
+	height: 3.6rem;
+	background-color: var(--dark-2);
+	color: var(--light-0);
+	border: none;
+	padding: 0.7rem 1.4rem;
+	border-radius: 0.7rem;
+	cursor: pointer;
+}
