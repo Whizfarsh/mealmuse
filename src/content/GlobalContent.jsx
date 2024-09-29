@@ -21,7 +21,7 @@ const FK_USER = {
 	name: "Farsh",
 	email: "farsh@example.com",
 	password: "beaking",
-	avatar: "https://i.pravatar.cc/100?u=zz",
+	avatar: "https://i.pravatar.cc/107?u=dscZ",
 };
 function GlobalProvider({ children }) {
 	// const API_Key = "ae0fc98731a34ef1a9dd2aff9448752b";
