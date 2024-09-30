@@ -7,7 +7,7 @@ import RecipeNavs from "../components/RecipeNavs";
 function Favorites() {
 	const favoritesL = localStorage.getItem("favorites");
 
-	console.log(JSON.parse(favoritesL));
+	// console.log(JSON.parse(favoritesL));
 	if (!favoritesL) return;
 	return (
 		<div className={styles.favorites}>

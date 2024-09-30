@@ -127,3 +127,14 @@ a {
 	font-size: 3.4rem;
 	color: red;
 }
+
+.btnDelete {
+	border: none;
+	background-color: var(--dark-2);
+	color: var(--light-0);
+	padding: 0.4rem 0.8rem;
+	border-radius: 0.3rem;
+	cursor: pointer;
+	/* align-self: flex-end; */
+	margin-bottom: 1rem;
+}

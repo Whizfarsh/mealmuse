@@ -1,16 +1,30 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import styles from "./Meals.module.css";
+import { usePage } from "../content/Pagecontext";
+import { useState } from "react";
 
 function Meals({ title, recipes, className }) {
 	// console.log(recipes);
+
+	const [theRecipes, setTheRecipes] = useState(recipes);
+
+	function handleFavoriteDelete(id) {
+		// e.preventDefault();
+		const newRecipes = theRecipes.filter((recipe) => recipe.id !== id);
+		setTheRecipes(newRecipes);
+	}
 	return (
 		<div className={className}>
 			<h2>{title}</h2>
 
 			<div className={`${styles.meals} ${styles.grid4}`}>
-				{recipes.map((recipe) => (
-					<MealsLists recipe={recipe} key={recipe.id} />
+				{theRecipes.map((recipe) => (
+					<MealsLists
+						recipe={recipe}
+						onDelete={handleFavoriteDelete}
+						key={recipe.id}
+					/>
 				))}
 			</div>
 		</div>
@@ -19,8 +33,13 @@ function Meals({ title, recipes, className }) {
 
 export default Meals;
 
-function MealsLists({ recipe }) {
-	// console.log(recipe);
+function MealsLists({ recipe, onDelete }) {
+	const { curPage } = usePage();
+
+	function onDeleteItem(e) {
+		e.preventDefault();
+		onDelete(recipe.id);
+	}
 	return (
 		<Link to={`/recipes/${recipe.id}`}>
 			<div className={styles.meal}>
@@ -45,6 +64,13 @@ function MealsLists({ recipe }) {
 							<span>{recipe.servings} Servings</span>
 						</p>
 					</div>
+				) : (
+					""
+				)}
+				{curPage === "/favorites" ? (
+					<button className={styles.btnDelete} onClick={onDeleteItem}>
+						Delete
+					</button>
 				) : (
 					""
 				)}

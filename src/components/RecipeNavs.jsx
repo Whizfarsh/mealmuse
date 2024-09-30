@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import styles from "./RecipeNavs.module.css";
 import Logo from "./Logo";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGlobal } from "../content/GlobalContent";
+import { usePage } from "../content/Pagecontext";
 
 function RecipeNavs() {
+	const { curPage } = usePage();
 	const navigate = useNavigate();
 	const { user, isAuthenticated, logout } = useGlobal();
-	const curPage = useLocation().pathname;
 
 	function handleLogout() {
 		logout();
