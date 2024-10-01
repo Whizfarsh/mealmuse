@@ -4,6 +4,7 @@ import styles from "./Favorites.module.css";
 import Meals from "../components/Meals";
 import RecipeNavs from "../components/RecipeNavs";
 import { useEffect, useState } from "react";
+import SearchRecipe from "../components/SearchRecipe";
 
 function Favorites() {
 	const [favoritesLocal, setFavoritesLocal] = useState(() => {
@@ -29,6 +30,7 @@ function Favorites() {
 				<RecipeNavs />
 			</div>
 			<div className={styles.favRecipes}>
+				<SearchRecipe />
 				<Meals recipes={favoritesLocal} onDelete={handleFavoriteDelete} />
 			</div>
 		</div>

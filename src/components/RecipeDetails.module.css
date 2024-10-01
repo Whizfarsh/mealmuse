@@ -101,6 +101,15 @@
 	margin-bottom: 0.5rem;
 	font-size: 2.4rem;
 }
+.submitReviews {
+	margin-bottom: 3.2rem;
+}
+.formReview {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 25rem;
+}
 .winePair {
 	margin: 1.8rem 0;
 	width: 20rem;

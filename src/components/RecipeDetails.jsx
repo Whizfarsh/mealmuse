@@ -1,16 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import styles from "./RecipeDetails.module.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Meals from "./Meals";
 import parse from "html-react-parser";
-// import Searchform from "./Searchform";
-// import Loading from "./Loading";
-
-// GLOBAL FUNCTIONS AND VARIABLES
-// function removeHtmlTags(str) {
-// 	return str.replace(/<\/?[^>]+(>|$)/g, "");
-// }
+import SearchRecipe from "./SearchRecipe.jsx";
 
 function Error({ message }) {
 	return <div className={styles.errorMessage}>{message}</div>;
@@ -83,14 +77,13 @@ function RecipeDetails({ API_Key, setFavorites, favorites }) {
 		setFavorites((favs) => [...favs, newItem]);
 		localStorage.setItem("favorites", JSON.stringify(favorites));
 
-		console.log(favorites);
+		// console.log(favorites);
 	}
 	return (
 		<>
-			{/* <div>
-				<Searchform dispatch={dispatch} />
-				<ion-icon name="filter-circle-outline"></ion-icon>
-			</div> */}
+			<div style={{ padding: "1.4rem" }}>
+				<SearchRecipe />
+			</div>
 			<RecipeDetail
 				recipe={recipe}
 				setTabs1={setTabs1}
@@ -155,10 +148,11 @@ function RecipeDetail({
 								<p>{servings} Servings</p>
 								<p>{readyInMinutes} Minutes</p>
 								{isFavorites ? (
-									<button className={`${styles.favBtn} ${styles.favAdded}`}>
-										Go to Favorites
-										{/* <Link to="/favorites">Go to favorites</Link> */}
-									</button>
+									<Link to="/favorites">
+										<button className={`${styles.favBtn} ${styles.favAdded}`}>
+											Go to Favorites
+										</button>
+									</Link>
 								) : (
 									<button
 										className={`${styles.favBtn} ${styles.favAdd}`}
@@ -167,12 +161,6 @@ function RecipeDetail({
 										Add to favorites
 									</button>
 								)}
-								{/* <button
-									className="btn"
-									onClick={() => handleAddfavorites(recipe)}
-								>
-									Add to favorites
-								</button> */}
 							</div>
 						</div>
 						<div className={styles.firstDetailsMini}>
@@ -242,8 +230,17 @@ function RecipeDetail({
 							))}
 						</div>
 					)}
+					{/* <div className={styles.submitReviews}>
+						<p>Write a review</p>
+						<form action="" className={styles.formReview}>
+							<input type="text" name="" id="" placeholder="Name" />
+							<input type="text" name="" id="" placeholder="Your review" />
+							<button>Submit review</button>
+						</form>
+					</div> */}
 				</>
 			) : (
+				// <Loading />
 				<Error message={"No Information is available"} />
 			)}
 			<div className={styles.secondDetails}>
@@ -256,23 +253,11 @@ function RecipeDetail({
 					>
 						Similar Recipes
 					</button>
-
-					{/* {recipe?.winePairing?.productMatches.length > 0 && (
-						<button
-							className={`${styles.tabs}  ${
-								tabs2 === "winePairs" ? styles.tabsActive : ""
-							}`}
-							onClick={() => setTabs2("winePairs")}
-						>
-							Wine Pairs
-						</button>
-					)} */}
 				</div>
 
 				{tabs2 === "similarRecipes" && <Meals recipes={similar} />}
 				{tabs2 === "winePairs" && (
 					<div className={styles.winePair}>
-						{/* {wine.id} */}
 						<img src={wine.imageUrl} alt="" />
 						<p>{wine.title}</p>
 						<span>{wine.price}</span>
