@@ -25,9 +25,6 @@ function Recipes() {
 	const curPage = useLocation().pathname;
 
 	const { id } = useParams();
-	// const curPage = useLocation().pathname;
-	// console.log(id);
-	// console.log(curPage);
 
 	useEffect(
 		function () {
@@ -49,7 +46,7 @@ function Recipes() {
 					if (data.Response === "False")
 						throw new Error("Unable to fetch recipes");
 
-					console.log(data.results);
+					// console.log(data.results);
 					dispatch({ type: "dataFetched", payload: data.results });
 				} catch (err) {
 					if (!err.name === "AbortError") console.log(err);

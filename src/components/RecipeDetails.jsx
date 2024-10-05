@@ -68,6 +68,7 @@ function RecipeDetails({ API_Key, setFavorites, favorites }) {
 	//effect for updating favorites
 	useEffect(
 		function () {
+			if (!favorites) return;
 			localStorage.setItem("favorites", JSON.stringify(favorites));
 		},
 		[favorites]
