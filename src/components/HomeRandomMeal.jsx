@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import styles from "./HomeRandomMeal.module.css";
 import { useState } from "react";
 import { useGlobal } from "../content/GlobalContent";
+import { Link } from "react-router-dom";
 
 // import styles from "./HomeMain.module.css";
 
@@ -46,25 +46,27 @@ function RecipeLists({ recipe, convertMinutes }) {
 	return (
 		<>
 			{recipe.title.length < 50 && (
-				<div className={styles.recipe}>
-					<div className={styles.recipeTexts}>
-						<p className={styles.recipeName}>{recipe.title}</p>
-						<p className={styles.recipeServings}>
-							<ion-icon name="people-outline"></ion-icon>{" "}
-							<span>{recipe.servings} servings</span>
-						</p>
-						<p className={styles.recipeTime}>
-							<ion-icon name="alarm-outline"></ion-icon>{" "}
-							<span>
-								{recipe.readyInMinutes < 60
-									? recipe.readyInMinutes
-									: convertMinutes(recipe.readyInMinutes)}{" "}
-								Minutes
-							</span>
-						</p>
+				<Link to={`/recipes/${recipe.id}`}>
+					<div className={styles.recipe}>
+						<div className={styles.recipeTexts}>
+							<p className={styles.recipeName}>{recipe.title}</p>
+							<p className={styles.recipeServings}>
+								<ion-icon name="people-outline"></ion-icon>{" "}
+								<span>{recipe.servings} servings</span>
+							</p>
+							<p className={styles.recipeTime}>
+								<ion-icon name="alarm-outline"></ion-icon>{" "}
+								<span>
+									{recipe.readyInMinutes < 60
+										? recipe.readyInMinutes
+										: convertMinutes(recipe.readyInMinutes)}{" "}
+									Minutes
+								</span>
+							</p>
+						</div>
+						<img className={styles.recipeImage} src={recipe.image} alt="" />
 					</div>
-					<img className={styles.recipeImage} src={recipe.image} alt="" />
-				</div>
+				</Link>
 			)}
 		</>
 	);
