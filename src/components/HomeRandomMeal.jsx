@@ -10,23 +10,26 @@ import { Link } from "react-router-dom";
 function HomeRandomMeal() {
 	const { API_Key, convertMinutes } = useGlobal();
 	const [homeRecipe, setHomeRecipe] = useState([]);
-	useEffect(function () {
-		async function fetchData() {
-			try {
-				const res = await fetch(
-					`https://api.spoonacular.com/recipes/random?apiKey=${API_Key}&number=6`
-				);
-				const data = await res.json();
+	useEffect(
+		function () {
+			async function fetchData() {
+				try {
+					const res = await fetch(
+						`https://api.spoonacular.com/recipes/random?apiKey=${API_Key}&number=6`
+					);
+					const data = await res.json();
 
-				// console.log(data);
-				setHomeRecipe(data.recipes);
-				// console.log(homeRecipe);
-			} catch (err) {
-				console.log(err.essage);
+					// console.log(data);
+					setHomeRecipe(data.recipes);
+					// console.log(homeRecipe);
+				} catch (err) {
+					console.log(err.essage);
+				}
 			}
-		}
-		fetchData();
-	}, []);
+			fetchData();
+		},
+		[API_Key]
+	);
 	return (
 		<div className={styles.recipes}>
 			{homeRecipe.map((recipe) => (

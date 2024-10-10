@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 // import Loading from "../components/Loading";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 // import { Outlet } from "react-router-dom";
@@ -59,7 +58,7 @@ function Recipes() {
 				controller.abort();
 			};
 		},
-		[filterOptions, selectedFilter, searchQuery]
+		[filterOptions, selectedFilter, searchQuery, API_Key, dispatch]
 	);
 
 	useEffect(() => {

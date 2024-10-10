@@ -43,7 +43,7 @@ function RecipeDetails({ API_Key, setFavorites, favorites }) {
 			}
 			fetchRecipeDetails();
 		},
-		[id]
+		[id, API_Key]
 	);
 
 	useEffect(
@@ -62,7 +62,7 @@ function RecipeDetails({ API_Key, setFavorites, favorites }) {
 			}
 			fetchSimilar();
 		},
-		[id]
+		[id, API_Key]
 	);
 
 	//effect for updating favorites
