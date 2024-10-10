@@ -1,8 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import styles from "./HeaderNav.module.css";
-// import User from "./User";
 import Searchform from "./Searchform";
-// import Login from "../pages/Login";
 
 function HeaderNav() {
 	return (
@@ -10,23 +8,18 @@ function HeaderNav() {
 			<div className={styles.bgScreenMenu}>
 				<nav className={styles.nav}>
 					<ul className={styles.menuList}>
-						{/* <li>Home</li> */}
 						<li>
 							<NavLink to="recipes"> Recipes</NavLink>
 						</li>
-						{/* <li>
-							<NavLink to="recipe"> Categories</NavLink>
-						</li> */}
+						<li>
+							<NavLink to="favorites"> Favorites</NavLink>
+						</li>
 					</ul>
 
-					{/* <div className={styles.navOther}> */}
 					<Searchform />
 					<Link to="/login">
 						<button className={styles.btnLogin}>LOGIN</button>
 					</Link>
-					{/* <Login /> */}
-					{/* <User /> */}
-					{/* </div> */}
 				</nav>
 			</div>
 			<div className={styles.smallScreens}>

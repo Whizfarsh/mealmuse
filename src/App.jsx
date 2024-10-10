@@ -19,7 +19,7 @@ export default function App() {
 							<Route path="/" element={<Homepage />} />
 							<Route path="/login" element={<Login />} />
 							<Route path="/recipes" element={<Recipes />}>
-								<Route path="recipes/:id" element={<RecipeDetails />} />
+								<Route path="/recipes/:id" element={<RecipeDetails />} />
 							</Route>
 							{/* <Route path="recipes/:id" element={<Recipes />} /> */}
 							<Route path="/favorites" element={<Favorites />} />

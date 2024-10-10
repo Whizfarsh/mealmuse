@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import styles from "./RecipeNavs.module.css";
 import Logo from "./Logo";
 import { Link, useNavigate } from "react-router-dom";

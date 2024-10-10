@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import styles from "./Favorites.module.css";
 
 import Meals from "../components/Meals";
