@@ -7,8 +7,8 @@ import styles from "./Recipes.module.css";
 import RecipeDetails from "../components/RecipeDetails";
 import { useEffect } from "react";
 import Favorites from "./Favorites";
-import { useRecipes } from "../content/RecipesContext";
-import { useGlobal } from "../content/GlobalContent";
+import { useRecipes } from "../context/RecipesContext";
+import { useGlobal } from "../context/GlobalContext";
 
 function Recipes() {
 	const { API_Key, setFavorites, favorites } = useGlobal();
@@ -24,6 +24,8 @@ function Recipes() {
 	const curPage = useLocation().pathname;
 
 	const { id } = useParams();
+
+	document.title = "MealMuse | Recipes";
 
 	useEffect(
 		function () {

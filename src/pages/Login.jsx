@@ -1,7 +1,7 @@
 // import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Logo from "../components/Logo";
-import { useGlobal } from "../content/GlobalContent";
+import { useGlobal } from "../context/GlobalContext";
 import styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 function Login() {

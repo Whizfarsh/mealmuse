@@ -5,7 +5,7 @@ import styles from "./RecipesContent.module.css";
 import Meals from "./Meals";
 import Loading from "./Loading";
 // import FilterOptions from "./FilterOptions";
-import { useRecipes } from "../content/RecipesContext";
+import { useRecipes } from "../context/RecipesContext";
 import SearchRecipe from "./SearchRecipe";
 // import { useLocation } from "react-router-dom";
 

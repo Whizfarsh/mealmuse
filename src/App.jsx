@@ -2,10 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Recipes from "./pages/Recipes";
 import Favorites from "./pages/Favorites";
-import { GlobalProvider } from "./content/GlobalContent";
-import { RecipesProvider } from "./content/RecipesContext";
+import { GlobalProvider } from "./context/GlobalContext";
+import { RecipesProvider } from "./context/RecipesContext";
 import Login from "./pages/Login";
-import { PageProvider } from "./content/Pagecontext";
+import { PageProvider } from "./context/Pagecontext";
 import RecipeDetails from "./components/RecipeDetails";
 // import RecipeNavs from "./components/RecipeNavs";
 
@@ -21,7 +21,6 @@ export default function App() {
 							<Route path="/recipes" element={<Recipes />}>
 								<Route path="/recipes/:id" element={<RecipeDetails />} />
 							</Route>
-							{/* <Route path="recipes/:id" element={<Recipes />} /> */}
 							<Route path="/favorites" element={<Favorites />} />
 						</Routes>
 					</PageProvider>

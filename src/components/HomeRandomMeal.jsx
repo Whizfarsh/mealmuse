@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import styles from "./HomeRandomMeal.module.css";
 import { useState } from "react";
-import { useGlobal } from "../content/GlobalContent";
+import { useGlobal } from "../context/GlobalContext";
 import { Link } from "react-router-dom";
 
 // import styles from "./HomeMain.module.css";

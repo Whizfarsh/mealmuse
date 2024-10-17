@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Searchform.module.css";
-import { useRecipes } from "../content/RecipesContext";
+import { useRecipes } from "../context/RecipesContext";
 
 function Searchform() {
 	const { dispatch, searchQuery } = useRecipes();

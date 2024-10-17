@@ -1,4 +1,4 @@
-import { useRecipes } from "../content/RecipesContext";
+import { useRecipes } from "../context/RecipesContext";
 import FilterOptions from "./FilterOptions";
 import Searchform from "./Searchform";
 import styles from "./SearchRecipe.module.css";

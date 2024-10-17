@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Meals from "./Meals";
 import styles from "./Meals.module.css";
-import { useGlobal } from "../content/GlobalContent";
+import { useGlobal } from "../context/GlobalContext";
 
 function HomePageMeals() {
 	const { API_Key } = useGlobal();

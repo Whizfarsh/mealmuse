@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import styles from "./Meals.module.css";
-import { usePage } from "../content/Pagecontext";
+import { usePage } from "../context/Pagecontext";
 
 function Meals({ title, recipes, onDelete, className }) {
 	return (

@@ -1,8 +1,8 @@
 import styles from "./RecipeNavs.module.css";
 import Logo from "./Logo";
 import { Link, useNavigate } from "react-router-dom";
-import { useGlobal } from "../content/GlobalContent";
-import { usePage } from "../content/Pagecontext";
+import { useGlobal } from "../context/GlobalContext";
+import { usePage } from "../context/Pagecontext";
 
 function RecipeNavs() {
 	const { curPage } = usePage();
