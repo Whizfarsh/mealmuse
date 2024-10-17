@@ -5,6 +5,7 @@ import { useGlobal } from "../context/GlobalContext";
 import styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 function Login() {
+	document.title = "Login";
 	const navigate = useNavigate();
 	const { login, isAuthenticated } = useGlobal();
 

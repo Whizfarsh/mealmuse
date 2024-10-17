@@ -130,6 +130,13 @@ function RecipeDetail({
 	} = recipe || {};
 
 	const isFavorites = favorites?.some((favorite) => favorite.id === id);
+
+	useEffect(
+		function () {
+			document.title = `${title} | MealMuse`;
+		},
+		[title]
+	);
 	return (
 		<div className={styles.recipeDetails}>
 			{recipe !== null ? (

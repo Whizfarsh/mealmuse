@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import SearchRecipe from "../components/SearchRecipe";
 
 function Favorites() {
+	document.title = `MealMuse | Favorites`;
+
 	const [favoritesLocal, setFavoritesLocal] = useState(() => {
 		const savedFavorites = localStorage.getItem("favorites");
 		return savedFavorites ? JSON.parse(savedFavorites) : [];
