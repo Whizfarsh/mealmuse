@@ -27,27 +27,27 @@ function RecipeNavs() {
 				)}
 				<div className={isAuthenticated ? "" : styles.navOptions}>
 					<ul className={`${styles.recipeNavLists} `}>
-						<li
-							className={`${styles.recipeNavList} ${
-								curPage.includes("recipes") ? styles.active : ""
-							}`}
-						>
-							{" "}
-							<ion-icon name="fast-food-outline"></ion-icon>
-							<span>
-								<Link to="/recipes">Recipes</Link>
-							</span>
-						</li>
-						<li
-							className={`${styles.recipeNavList} ${
-								curPage === "/favorites" ? styles.active : ""
-							}`}
-						>
-							<ion-icon name="heart-outline"></ion-icon>{" "}
-							<span>
-								<Link to="/favorites">Favorites</Link>
-							</span>
-						</li>
+						<Link to="/recipes">
+							<li
+								className={`${styles.recipeNavList} ${
+									curPage.includes("recipes") ? styles.active : ""
+								}`}
+							>
+								{" "}
+								<ion-icon name="fast-food-outline"></ion-icon>
+								<span>Recipes</span>
+							</li>
+						</Link>
+						<Link to="/favorites">
+							<li
+								className={`${styles.recipeNavList} ${
+									curPage === "/favorites" ? styles.active : ""
+								}`}
+							>
+								<ion-icon name="heart-outline"></ion-icon>{" "}
+								<span>Favorites</span>
+							</li>
+						</Link>
 						<li></li>
 					</ul>
 				</div>

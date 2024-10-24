@@ -54,6 +54,10 @@
 	gap: 0.9rem;
 }
 
+.recipeNavLists a {
+	color: var(--light-0);
+}
+
 .active {
 	transition: all 200ms ease-in;
 	background-color: var(--dark-3);
