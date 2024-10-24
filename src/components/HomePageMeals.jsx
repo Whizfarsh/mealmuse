@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Meals from "./Meals";
 import styles from "./Meals.module.css";
@@ -10,46 +9,52 @@ function HomePageMeals() {
 	const [mostPopular, setMostPopular] = useState([]);
 
 	// effects for day meal
-	useEffect(function () {
-		async function fetchData() {
-			try {
-				const res = await fetch(
-					`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_Key}&maxReadyTime=5&type=drink&number=4`
-				);
-				const data = await res.json();
+	useEffect(
+		function () {
+			async function fetchData() {
+				try {
+					const res = await fetch(
+						`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_Key}&maxReadyTime=5&type=drink&number=4`
+					);
+					const data = await res.json();
 
-				// console.log(data);
-				setFiveMinutesMeal(data.results);
-				// console.log(dayMeal);
-			} catch (err) {
-				console.log(err.essage);
+					// console.log(data);
+					setFiveMinutesMeal(data.results);
+					// console.log(dayMeal);
+				} catch (err) {
+					console.log(err.essage);
+				}
 			}
-		}
-		fetchData();
-	}, []);
+			fetchData();
+		},
+		[API_Key]
+	);
 
 	//effect for most popular
-	useEffect(function () {
-		async function fetchData() {
-			try {
-				const res = await fetch(
-					`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_Key}&diet=Whole30&addRecipeInformation=true&number=4`
-				);
-				const data = await res.json();
+	useEffect(
+		function () {
+			async function fetchData() {
+				try {
+					const res = await fetch(
+						`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_Key}&diet=Whole30&addRecipeInformation=true&number=4`
+					);
+					const data = await res.json();
 
-				// console.log(data.results);
-				setMostPopular(data.results);
-				// console.log(dayMeal);
-			} catch (err) {
-				console.log(err.essage);
+					// console.log(data.results);
+					setMostPopular(data.results);
+					// console.log(dayMeal);
+				} catch (err) {
+					console.log(err.essage);
+				}
 			}
-		}
-		fetchData();
+			fetchData();
 
-		// return function () {
-		// 	setMostPopular([]);
-		// };
-	}, []);
+			// return function () {
+			// 	setMostPopular([]);
+			// };
+		},
+		[API_Key]
+	);
 	return (
 		<div>
 			{/* <Meals title="Today's Meal" recipes={dayMeal} /> */}

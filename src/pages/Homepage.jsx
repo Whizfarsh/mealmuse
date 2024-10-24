@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 // import Newletter from "./Newletter";
 
 import "../index.css";
