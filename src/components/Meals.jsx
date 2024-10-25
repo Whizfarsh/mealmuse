@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import styles from "./Meals.module.css";
 import { usePage } from "../context/Pagecontext";
+import { useGlobal } from "../context/GlobalContext";
 
 function Meals({ title, recipes, onDelete, className }) {
 	return (
@@ -21,6 +22,7 @@ export default Meals;
 
 function MealsLists({ recipe, onDelete }) {
 	const { curPage } = usePage();
+	const { convertMinutes } = useGlobal();
 
 	function onDeleteItem(e) {
 		e.preventDefault();
@@ -42,7 +44,13 @@ function MealsLists({ recipe, onDelete }) {
 					<div className={styles.info}>
 						<p className={styles.duration}>
 							<ion-icon name="alarm-outline"></ion-icon>
-							<span>{recipe.readyInMinutes} Minutes</span>
+							<span>
+								{recipe.readyInMinutes < 60
+									? recipe.readyInMinutes
+									: convertMinutes(recipe.readyInMinutes)}{" "}
+								Minutes
+							</span>
+							{/* <span>{recipe.readyInMinutes} Minutes</span> */}
 						</p>
 						|
 						<p className={styles.servings}>
