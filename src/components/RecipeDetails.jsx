@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import Meals from "./Meals";
 import parse from "html-react-parser";
 import SearchRecipe from "./SearchRecipe.jsx";
+import { useGlobal } from "../context/GlobalContext.jsx";
 
 function Error({ message }) {
 	return <div className={styles.errorMessage}>{message}</div>;
@@ -114,6 +115,8 @@ function RecipeDetail({
 	favorites,
 	handleAddfavorites,
 }) {
+	const { convertMinutes } = useGlobal();
+
 	const wine = recipe?.winePairing?.productMatches[0];
 	const ingredients = recipe?.nutrition?.ingredients;
 	const nutrients = recipe?.nutrition?.nutrients;
@@ -154,7 +157,12 @@ function RecipeDetail({
 							/>
 							<div className={styles.miniInfo}>
 								<p>{servings} Servings</p>
-								<p>{readyInMinutes} Minutes</p>
+								<p>
+									{readyInMinutes > 60
+										? convertMinutes(readyInMinutes)
+										: readyInMinutes}{" "}
+									Minutes
+								</p>
 								{isFavorites ? (
 									<Link to="/favorites">
 										<button className={`${styles.favBtn} ${styles.favAdded}`}>
