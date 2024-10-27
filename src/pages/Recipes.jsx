@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import Favorites from "./Favorites";
 import { useRecipes } from "../context/RecipesContext";
 import { useGlobal } from "../context/GlobalContext";
+import MobileMenus from "../components/mobileMenus";
 
 function Recipes() {
 	const { API_Key, setFavorites, favorites } = useGlobal();
@@ -74,6 +75,7 @@ function Recipes() {
 			<div className={styles.recipeMenus}>
 				<RecipeNavs />
 			</div>
+			<MobileMenus />
 			{curPage.includes("recipes") && (
 				<div className={styles.recipesLists}>
 					{id ? (

@@ -10,3 +10,10 @@
 .recipesLists {
 	padding-right: 1.4rem;
 }
+
+@media (max-width: 900px) {
+	.recipes {
+		display: flex;
+		flex-direction: column;
+	}
+}

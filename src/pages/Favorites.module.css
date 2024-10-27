@@ -1,14 +1,17 @@
 .favorites {
-	/* position: fixed; */
-	/* display: flex; */
 	display: grid;
 	grid-template-columns: 15% auto;
-	/* gap: 2.4rem; */
-	/* justify-content: space-around; */
-	/* background-color: red; */
-	/* justify-content: space-between; */
+	/* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
+	max-width: 100%;
+	overflow-x: hidden;
 }
 .favRecipes {
 	padding: 0.8rem 2.8rem;
 	/* width: calc(100%-15%); */
+}
+@media (max-width: 900px) {
+	.favorites {
+		display: flex;
+		flex-direction: column;
+	}
 }
