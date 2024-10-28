@@ -5,6 +5,7 @@ import RecipeNavs from "../components/RecipeNavs";
 import { useEffect, useState } from "react";
 import SearchRecipe from "../components/SearchRecipe";
 import MobileMenus from "../components/mobileMenus";
+import Footer from "../components/Footer";
 
 function Favorites() {
 	document.title = `MealMuse | Favorites`;
@@ -35,6 +36,9 @@ function Favorites() {
 			<div className={styles.favRecipes}>
 				<SearchRecipe />
 				<Meals recipes={favoritesLocal} onDelete={handleFavoriteDelete} />
+			</div>
+			<div className="favFooter">
+				<Footer />
 			</div>
 		</div>
 	);

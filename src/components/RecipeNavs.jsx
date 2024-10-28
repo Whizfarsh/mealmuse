@@ -34,7 +34,7 @@ function RecipeNavs() {
 								}`}
 							>
 								{" "}
-								<ion-icon name="fast-food-outline"></ion-icon>
+								{/* <ion-icon name="fast-food-outline"></ion-icon> */}
 								<span>Recipes</span>
 							</li>
 						</Link>
@@ -44,14 +44,34 @@ function RecipeNavs() {
 									curPage === "/favorites" ? styles.active : ""
 								}`}
 							>
-								<ion-icon name="heart-outline"></ion-icon>{" "}
+								{/* <ion-icon name="heart-outline"></ion-icon>{" "} */}
 								<span>Favorites</span>
 							</li>
 						</Link>
 						<li></li>
 					</ul>
 				</div>
-				{isAuthenticated ? (
+				<div className={styles.menu}>
+					<div className={styles.footerMenu}>
+						<div>
+							<ul>
+								<li>About us</li>
+								<li>Contact us</li>
+								<li>Terms of service</li>
+							</ul>
+						</div>
+					</div>
+					{isAuthenticated ? (
+						<button className={styles.btnLogout} onClick={handleLogout}>
+							logout
+						</button>
+					) : (
+						<Link to="/login" className={styles.login}>
+							Login
+						</Link>
+					)}
+				</div>
+				{/* {isAuthenticated ? (
 					<button className={styles.btnLogout} onClick={handleLogout}>
 						logout
 					</button>
@@ -59,7 +79,7 @@ function RecipeNavs() {
 					<Link to="/login" className={styles.login}>
 						Login
 					</Link>
-				)}
+				)} */}
 			</div>
 		</div>
 	);

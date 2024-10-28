@@ -10,6 +10,7 @@ import Favorites from "./Favorites";
 import { useRecipes } from "../context/RecipesContext";
 import { useGlobal } from "../context/GlobalContext";
 import MobileMenus from "../components/mobileMenus";
+import Footer from "../components/Footer";
 
 function Recipes() {
 	const { API_Key, setFavorites, favorites } = useGlobal();
@@ -95,9 +96,15 @@ function Recipes() {
 						/>
 						// <Outlet />
 					)}
+					<div className={styles.favFooter}>
+						<Footer />
+					</div>
 				</div>
 			)}
 			{curPage.includes("favorites") && <Favorites />}
+			{/* <div className="favFooter">
+				<Footer />
+			</div> */}
 		</div>
 	);
 }

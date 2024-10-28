@@ -1,7 +1,7 @@
 .footer {
 	margin-top: 4.2rem;
 	padding: 2.4rem 4.2rem;
-	background-color: var(--color-default-0);
+	background-color: var(--dark-2);
 }
 .footerItems {
 	display: flex;
@@ -27,8 +27,9 @@
 }
 .footerMenu {
 	display: flex;
-	justify-content: space-between;
-	gap: 6.4rem;
+	justify-content: space-evenly;
+	gap: 4.4rem;
+	color: var(--light-1);
 }
 
 h6 {
@@ -42,4 +43,22 @@ ul {
 li {
 	margin-bottom: 0.5rem;
 	text-transform: capitalize;
+}
+
+@media (max-width: 600px) {
+	.footer {
+		padding: 1.3rem 2.4rem;
+	}
+	.footerMenu {
+		justify-content: space-evenly;
+		gap: 2.4rem;
+	}
+}
+@media (max-width: 500px) {
+	.footerItems {
+		flex-direction: column;
+	}
+	.footer p {
+		text-align: center;
+	}
 }

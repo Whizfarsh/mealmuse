@@ -18,6 +18,7 @@
 
 .firstDetails {
 	display: flex;
+	/* flex-wrap: wrap; */
 	column-gap: 2.4rem;
 	/* padding: 2.4rem; */
 	margin-bottom: 1rem;
@@ -141,4 +142,17 @@
 .favAdded {
 	background-color: var(--dark-3);
 	color: var(--light-0);
+}
+
+@media (max-width: 900px) {
+	.basicDetails {
+		flex: 0 0 100%;
+	}
+	.miniInfo {
+		justify-content: center;
+		align-items: center;
+	}
+	.firstDetails {
+		flex-direction: column;
+	}
 }

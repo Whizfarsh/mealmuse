@@ -82,4 +82,5 @@ function useGlobal() {
 	return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { GlobalProvider, useGlobal };
