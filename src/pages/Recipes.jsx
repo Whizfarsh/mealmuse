@@ -9,8 +9,8 @@ import { useEffect } from "react";
 import Favorites from "./Favorites";
 import { useRecipes } from "../context/RecipesContext";
 import { useGlobal } from "../context/GlobalContext";
-import MobileMenus from "../components/mobileMenus";
 import Footer from "../components/Footer";
+import MobileMenus from "../components/mobileMenus";
 
 function Recipes() {
 	const { API_Key, setFavorites, favorites } = useGlobal();
