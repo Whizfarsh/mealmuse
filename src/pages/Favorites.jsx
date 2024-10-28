@@ -4,7 +4,7 @@ import Meals from "../components/Meals";
 import RecipeNavs from "../components/RecipeNavs";
 import { useEffect, useState } from "react";
 import SearchRecipe from "../components/SearchRecipe";
-import MobileMenus from "../components/mobileMenus";
+import MobileMenus from "../components/MobileMenus";
 import Footer from "../components/Footer";
 
 function Favorites() {

@@ -10,7 +10,7 @@ import Favorites from "./Favorites";
 import { useRecipes } from "../context/RecipesContext";
 import { useGlobal } from "../context/GlobalContext";
 import Footer from "../components/Footer";
-import MobileMenus from "../components/mobileMenus";
+import MobileMenus from "../components/MobileMenus";
 
 function Recipes() {
 	const { API_Key, setFavorites, favorites } = useGlobal();
