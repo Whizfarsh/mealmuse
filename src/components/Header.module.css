@@ -4,7 +4,7 @@
 			rgba(199, 199, 196, 0.8),
 			rgba(223, 215, 200, 0.2)
 		),
-		url("./src/assets/bg1.jpg");
+		url("/src/assets/bg1.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
