@@ -9,7 +9,7 @@ import HomeRandomMeal from "../components/HomeRandomMeal";
 
 function Homepage() {
 	return (
-		<div>
+		<div style={{ overflow: "hidden" }}>
 			<Header />
 			<HomeMain>
 				<HomeRandomMeal />

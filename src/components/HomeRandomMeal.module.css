@@ -3,21 +3,23 @@ ion-icon {
 	font-size: 2rem;
 }
 .recipes {
-	/* width: 100%; */
+	max-width: 100%;
 	margin-top: -8rem;
+	/* margin-right: 5rem; */
 	display: grid;
-	grid-template-columns: repeat(3, 25%);
-	row-gap: 2.4rem;
-	/* column-gap: 10rem; */
-	justify-content: space-around;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	column-gap: 7rem;
+	row-gap: 2rem;
+	justify-content: space-between;
 	align-items: center;
+	place-items: center;
 
-	padding: 1.4rem 6.4rem;
+	padding: 1.4rem 5rem 1.4rem 2rem;
 	color: var(--dark-0);
 }
 
 .recipe {
-	width: 100%;
+	max-width: 100%;
 	height: 18rem;
 	background-color: var(--light-1);
 	display: flex;
@@ -30,6 +32,7 @@ ion-icon {
 	box-shadow: 3px 6px 10px rgba(19, 1, 10, 0.7);
 
 	cursor: pointer;
+	/* margin-right: 30rem; */
 }
 .recipeTexts {
 	display: flex;
@@ -47,9 +50,32 @@ ion-icon {
 }
 .recipeImage {
 	padding: 0.8rem 1.2rem;
-	width: 90%;
-	height: 90%;
-	margin-right: -10rem;
+	width: 80%;
+	height: 80%;
+	margin-right: -7rem;
 	border-radius: 0 10rem 10rem 0;
 	object-fit: cover;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 39.94rem) {
+	.recipes {
+		grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+	}
+}
+@media (max-width: 31.25rem) {
+	.recipes {
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		margin-top: -13rem;
+		padding: 0.4rem 4rem;
+	}
+	.recipeImage {
+		margin-right: -5rem;
+	}
+}
+
+@media (max-width: 28.75rem) {
+	.recipes {
+		margin-top: -9rem;
+	}
 }

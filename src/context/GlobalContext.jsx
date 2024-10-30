@@ -25,9 +25,9 @@ const FK_USER = {
 };
 function GlobalProvider({ children }) {
 	// const API_Key = "ae0fc98731a34ef1a9dd2aff9448752b";
-	// const API_Key = "c6414a7b8638405386aee74a1cee23e2";
+	const API_Key = "c6414a7b8638405386aee74a1cee23e2";
 	// const API_Key = "1f390112146b438c9fff53abe569e602";
-	const API_Key = "58f1453b84d44ea5a09a1bfe25c4a436";
+	// const API_Key = "58f1453b84d44ea5a09a1bfe25c4a436";
 	// const API_Key = "";
 
 	const [{ user, isAuthenticated }, dispatch] = useReducer(

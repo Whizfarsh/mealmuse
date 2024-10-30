@@ -5,8 +5,7 @@ function HeaderContent() {
 	return (
 		<div className={styles.heroContent}>
 			<p className={styles.heroText}>
-				Your Next Favorite Meal is Just a Click Away. Explore Our Recipe{" "}
-				Collection Now!
+				Your Next Favorite Meal is Just a Click Away.
 			</p>
 			<span>Browse from the list of available recipes</span>
 

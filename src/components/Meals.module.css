@@ -5,7 +5,7 @@ a {
 
 .mealsPlan {
 	margin: 6rem 0;
-	padding: 2.4rem 7.8rem;
+	padding: 2.4rem 5.2rem;
 	background-color: var(--light-0);
 	display: flex;
 	justify-content: center;
@@ -34,7 +34,7 @@ a {
 	display: grid;
 	/* display: flex; */
 	/* grid-template-columns: repeat(4, 1fr); */
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 
 	align-items: center;
 	justify-content: space-between;
