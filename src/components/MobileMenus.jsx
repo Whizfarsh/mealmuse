@@ -10,6 +10,10 @@ function MobileMenus() {
 	const { curPage } = usePage();
 	const navigate = useNavigate();
 
+	function handleCloseMenu() {
+		setShowMbMenu(false);
+	}
+
 	return (
 		<>
 			<div className={styles.mobileMenus}>
@@ -27,13 +31,17 @@ function MobileMenus() {
 						<ion-icon
 							className={styles.closeIcon}
 							name="close-outline"
-							onClick={() => setShowMbMenu(false)}
+							onClick={handleCloseMenu}
 						></ion-icon>
 						<ul className={styles.menuLists}>
-							<Link to="/" style={{ marginBottom: "0.4rem" }}>
+							<Link
+								to="/"
+								style={{ marginBottom: "0.4rem" }}
+								onClick={handleCloseMenu}
+							>
 								Home
 							</Link>
-							<Link to="/recipes">
+							<Link to="/recipes" onClick={handleCloseMenu}>
 								<li
 									className={`${styles.recipeNavList} ${
 										curPage.includes("recipes") ? styles.active : ""
@@ -42,7 +50,7 @@ function MobileMenus() {
 									<span>Recipes</span>
 								</li>
 							</Link>
-							<Link to="/favorites">
+							<Link to="/favorites" onClick={handleCloseMenu}>
 								<li
 									className={`${styles.recipeNavList} ${
 										curPage === "/favorites" ? styles.active : ""
