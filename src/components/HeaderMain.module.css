@@ -44,7 +44,7 @@
 }
 @media (max-width: 28.75rem) {
 	.heroText {
-		/* margin-top: 7rem; */
+		margin-top: 7rem;
 		font-size: 3.6rem;
 		padding-left: 0rem;
 	}

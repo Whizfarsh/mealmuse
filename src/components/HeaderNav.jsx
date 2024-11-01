@@ -22,9 +22,9 @@ function HeaderNav() {
 					</Link>
 				</nav>
 			</div>
-			<div className={styles.smallScreens}>
+			{/* <div className={styles.smallScreens}>
 				<ion-icon name="menu-outline"></ion-icon>
-			</div>
+			</div> */}
 		</div>
 	);
 }

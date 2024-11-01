@@ -3,18 +3,17 @@ import { useGlobal } from "../context/GlobalContext";
 import Logo from "./Logo";
 import styles from "./MobileMenus.module.css";
 import { usePage } from "../context/Pagecontext";
-import { useState } from "react";
 
 function MobileMenus() {
-	const [showMbMenu, setShowMbMenu] = useState(false);
-	const { isAuthenticated, user, logout } = useGlobal();
+	const { isAuthenticated, user, logout, showMbMenu, setShowMbMenu } =
+		useGlobal();
 	const { curPage } = usePage();
 	const navigate = useNavigate();
 
 	return (
 		<>
 			<div className={styles.mobileMenus}>
-				<Logo logoAlign="left" size="1.8rem" />
+				<Logo logoAlign="left" size="2.8rem" />
 				<ion-icon
 					name="menu-outline"
 					onClick={() => setShowMbMenu(true)}
@@ -30,7 +29,10 @@ function MobileMenus() {
 							name="close-outline"
 							onClick={() => setShowMbMenu(false)}
 						></ion-icon>
-						<ul className="">
+						<ul className={styles.menuLists}>
+							<Link to="/" style={{ marginBottom: "0.4rem" }}>
+								Home
+							</Link>
 							<Link to="/recipes">
 								<li
 									className={`${styles.recipeNavList} ${
@@ -65,16 +67,6 @@ function MobileMenus() {
 									logout
 								</button>
 							) : (
-								//     <button
-								//     className={styles.login}
-								//     onClick={() => {
-								//         logout();
-								//         navigate("/login");
-								//         setShowMbMenu(false);
-								//     }}
-								// >
-								//     Login
-								// </button>
 								<Link to="/login" className={styles.login}>
 									Login
 								</Link>

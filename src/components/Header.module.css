@@ -19,11 +19,8 @@
 	color: var(--dark-0);
 }
 
-@media (max-width: 100px) {
-}
-
-@media (max-width: 500px) {
-	/* .heroContent {
-		background-size: contain;
-	} */
+@media (max-width: 900px) {
+	.header {
+		display: none;
+	}
 }

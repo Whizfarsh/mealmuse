@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import styles from "./Header.module.css";
 // import User from "./User";
 import HeaderContent from "./HeaderMain";
+import MobileMenus from "./MobileMenus";
 
 function Header() {
 	return (
@@ -12,6 +13,7 @@ function Header() {
 				<HeaderNav />
 				{/* <User /> */}
 			</header>
+			<MobileMenus />
 			<HeaderContent />
 		</div>
 	);

@@ -35,6 +35,7 @@ function GlobalProvider({ children }) {
 		initialState
 	);
 
+	const [showMbMenu, setShowMbMenu] = useState(false);
 	const convertMinutes = function (minutesGiven) {
 		const hour = Math.ceil(minutesGiven / 60);
 		const minutes = minutesGiven % 60;
@@ -67,6 +68,8 @@ function GlobalProvider({ children }) {
 				isAuthenticated,
 				login,
 				logout,
+				showMbMenu,
+				setShowMbMenu,
 			}}
 		>
 			{children}
