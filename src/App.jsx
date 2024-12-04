@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Recipes from "./pages/Recipes";
 import Favorites from "./pages/Favorites";
@@ -6,8 +6,9 @@ import { GlobalProvider } from "./context/GlobalContext";
 import { RecipesProvider } from "./context/RecipesContext";
 import Login from "./pages/Login";
 import { PageProvider } from "./context/Pagecontext";
-import RecipeDetails from "./components/RecipeDetails";
-// import RecipeNavs from "./components/RecipeNavs";
+import RecipeDetails from "./features/recipes/RecipeDetails";
+import RecipesMenus from "./features/recipes/RecipesMenus";
+import AppLayout from "./ui/AppLayout";
 
 export default function App() {
 	return (
@@ -16,12 +17,17 @@ export default function App() {
 				<BrowserRouter>
 					<PageProvider>
 						<Routes>
+							{/* <Route index element={<Navigate replace to="dashboard" />} /> */}
 							<Route path="/" element={<Homepage />} />
 							<Route path="/login" element={<Login />} />
-							<Route path="/recipes" element={<Recipes />}>
-								<Route path="/recipes/:id" element={<RecipeDetails />} />
+							<Route element={<AppLayout />}>
+								<Route index element={<Navigate replace to="recipes" />} />
+								<Route path="recipes" element={<Recipes />}>
+									<Route index element={<RecipesMenus />} />
+									<Route path=":id" element={<RecipeDetails />} />
+								</Route>
+								<Route path="/favorites" element={<Favorites />} />
 							</Route>
-							<Route path="/favorites" element={<Favorites />} />
 						</Routes>
 					</PageProvider>
 				</BrowserRouter>

@@ -1,11 +1,17 @@
-import styles from "./Favorites.module.css";
-
-import Meals from "../components/Meals";
-import RecipeNavs from "../components/RecipeNavs";
+import Meals from "../ui/Meals";
 import { useEffect, useState } from "react";
-import SearchRecipe from "../components/SearchRecipe";
-import MobileMenus from "../components/MobileMenus";
-import Footer from "../components/Footer";
+import styled from "styled-components";
+
+const StyledFavorites = styled.div`
+	margin: 1.2rem 1.8rem;
+	max-width: 100%;
+	overflow-x: hidden;
+
+	@media (max-width: 900px) {
+		display: flex;
+		flex-direction: column;
+	}
+`;
 
 function Favorites() {
 	document.title = `MealMuse | Favorites`;
@@ -28,19 +34,14 @@ function Favorites() {
 	);
 	if (!favoritesLocal) return;
 	return (
-		<div className={styles.favorites}>
+		<StyledFavorites>
 			<div>
-				<RecipeNavs />
-			</div>
-			<MobileMenus />
-			<div className={styles.favRecipes}>
-				<SearchRecipe />
 				<Meals recipes={favoritesLocal} onDelete={handleFavoriteDelete} />
 			</div>
-			<div className="favFooter">
+			{/* <div className="favFooter">
 				<Footer />
-			</div>
-		</div>
+			</div> */}
+		</StyledFavorites>
 	);
 }
 

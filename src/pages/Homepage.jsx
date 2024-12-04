@@ -1,20 +1,21 @@
 // import Newletter from "./Newletter";
 
 import "../index.css";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import HomeMain from "../components/HomeMain";
-import HomePageMeals from "../components/HomePageMeals";
-import HomeRandomMeal from "../components/HomeRandomMeal";
+import Footer from "../ui/Footer";
+import Header from "../ui/Header";
+import HomePageMeals from "../ui/HomePageMeals";
+import HomeRandomMeal from "../ui/HomeRandomMeal";
+import Newletter from "../ui/Newletter";
 
 function Homepage() {
 	return (
 		<div style={{ overflow: "hidden" }}>
 			<Header />
-			<HomeMain>
+			<main>
 				<HomeRandomMeal />
 				<HomePageMeals />
-			</HomeMain>
+				<Newletter />
+			</main>
 			<Footer />
 		</div>
 	);

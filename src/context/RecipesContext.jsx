@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const RecipeContext = createContext();
 
@@ -33,6 +33,11 @@ function reducer(state, action) {
 }
 
 function RecipesProvider({ children }) {
+	const [recipe, setRecipe] = useState(null);
+	const [tabs1, setTabs1] = useState("summary");
+	const [tabs2, setTabs2] = useState("similarRecipes");
+	const [similar, setSimilar] = useState([]);
+	const [error, setError] = useState("");
 	const [
 		{
 			filterOptions,
@@ -56,6 +61,17 @@ function RecipesProvider({ children }) {
 				intoleranceText,
 				excludeText,
 				dispatch,
+
+				recipe,
+				setRecipe,
+				error,
+				setError,
+				tabs1,
+				setTabs1,
+				tabs2,
+				setTabs2,
+				similar,
+				setSimilar,
 			}}
 		>
 			{children}

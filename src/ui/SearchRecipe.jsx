@@ -2,7 +2,52 @@ import { useState } from "react";
 import { useRecipes } from "../context/RecipesContext";
 import FilterOptions from "./FilterOptions";
 import Searchform from "./Searchform";
-import styles from "./SearchRecipe.module.css";
+import styled from "styled-components";
+
+const StyledSearch = styled.div`
+	margin: 1.4rem 1.2rem 0 1.2rem;
+`;
+
+const RecipesHeader = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	ion-icon {
+		font-size: 2.4rem;
+		color: var(--dark-2);
+		cursor: pointer;
+	}
+`;
+
+const RecipesDiets = styled.div`
+	margin: 1.4rem 0;
+	display: flex;
+	gap: 1.4rem;
+
+	select,
+	input {
+		padding: 0.6rem 1.2rem;
+		height: 3.4rem;
+		width: 30rem;
+		border-radius: 0.6rem;
+		background-color: var(--light-0);
+		border: 1px solid var(--light-1);
+
+		&:focus,
+		&:active {
+			outline: none;
+		}
+	}
+`;
+
+// const FilterIcon =
+// 	styled.ion -
+// 	icon`
+//   font-size: 2.4rem;
+//   color: var(--dark-2);
+//   cursor: pointer;
+// `;
 
 const filterObj = [
 	{
@@ -73,9 +118,11 @@ const filterObj = [
 		],
 	},
 ];
+
 function SearchRecipe() {
 	const { dispatch, filterOptions } = useRecipes();
 	const [filterClicked, setFilterClicked] = useState(false);
+
 	const selectedMain = filterObj.find(
 		(select) => select.Name === filterOptions
 	);
@@ -83,16 +130,14 @@ function SearchRecipe() {
 	function handleFilterClick() {
 		setFilterClicked((filterClicked) => !filterClicked);
 	}
+
 	return (
-		<>
-			<div className={styles.recipesHeader}>
+		<StyledSearch>
+			<RecipesHeader>
 				<Searchform dispatch={dispatch} />
-				<ion-icon
-					name="filter-circle-outline"
-					onClick={handleFilterClick}
-				></ion-icon>
-			</div>
-			<div className={styles.recipesDiets}>
+				<ion-icon name="filter-circle-outline" onClick={handleFilterClick} />
+			</RecipesHeader>
+			<RecipesDiets>
 				{filterClicked && (
 					<FilterOptions
 						optionsArrays={[
@@ -108,8 +153,8 @@ function SearchRecipe() {
 						filterOptions={filterOptions}
 					/>
 				)}
-			</div>
-		</>
+			</RecipesDiets>
+		</StyledSearch>
 	);
 }
 

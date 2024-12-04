@@ -1,121 +1,35 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./RecipeDetails.module.css";
-import { Link, useParams } from "react-router-dom";
-import Meals from "./Meals";
+import { useNavigate, useParams } from "react-router-dom";
+import Meals from "../../ui/Meals.jsx";
 import parse from "html-react-parser";
-import SearchRecipe from "./SearchRecipe.jsx";
-import { useGlobal } from "../context/GlobalContext.jsx";
+import { API_Key, useGlobal } from "../../context/GlobalContext.jsx";
+import { useRecipes } from "../../context/RecipesContext.jsx";
 
 function Error({ message }) {
 	return <div className={styles.errorMessage}>{message}</div>;
 }
 
-function RecipeDetails({ API_Key, setFavorites, favorites }) {
-	const [recipe, setRecipe] = useState(null);
-	const [tabs1, setTabs1] = useState("summary");
-	const [tabs2, setTabs2] = useState("similarRecipes");
-	const [similar, setSimilar] = useState([]);
-	const [error, setError] = useState("");
-	const { id } = useParams();
+function RecipeDetails() {
+	const { setFavorites, favorites, convertMinutes } = useGlobal();
+	const {
+		recipe,
+		setRecipe,
+		error,
+		setError,
+		tabs1,
+		setTabs1,
+		tabs2,
+		setTabs2,
+		similar,
+		setSimilar,
+	} = useRecipes();
 
-	useEffect(
-		function () {
-			async function fetchRecipeDetails() {
-				try {
-					const res = await fetch(
-						`https://api.spoonacular.com/recipes/${Number(
-							id
-						)}/information?apiKey=${API_Key}&includeNutrition=true&addWinePairing=true`
-					);
-					if (!res.ok) throw new Error("Can not find recipe at this moment");
+	const { id: pageId } = useParams();
 
-					const data = await res.json();
-					if (!data || undefined)
-						throw new Error(
-							"Details for the required recipe is not available right now"
-						);
-					setRecipe(data);
-					// console.log(data.winePairing.productMatches);
-				} catch (err) {
-					setError(err.message);
-					// console.log(err.message);
-				}
-			}
-			fetchRecipeDetails();
-		},
-		[id, API_Key]
-	);
-
-	useEffect(
-		function () {
-			async function fetchSimilar() {
-				try {
-					const res = await fetch(
-						`https://api.spoonacular.com/recipes/${id}/similar?apiKey=${API_Key}&number=4`
-					);
-					const data = await res.json();
-					setSimilar(data);
-					// console.log(data);
-				} catch (err) {
-					console.log(err.message);
-				}
-			}
-			fetchSimilar();
-		},
-		[id, API_Key]
-	);
-
-	//effect for updating favorites
-	useEffect(
-		function () {
-			if (!favorites) return;
-			localStorage.setItem("favorites", JSON.stringify(favorites));
-		},
-		[favorites]
-	);
-
-	function handleAddfavorites(newItem) {
-		setFavorites((favs) => [...favs, newItem]);
-		localStorage.setItem("favorites", JSON.stringify(favorites));
-
-		// console.log(favorites);
-	}
-	return (
-		<>
-			<div style={{ padding: "1.4rem" }}>
-				<SearchRecipe />
-			</div>
-			<RecipeDetail
-				recipe={recipe}
-				setTabs1={setTabs1}
-				setTabs2={setTabs2}
-				tabs1={tabs1}
-				tabs2={tabs2}
-				similar={similar}
-				error={error}
-				setError={setError}
-				favorites={favorites}
-				setFavorites={setFavorites}
-				handleAddfavorites={handleAddfavorites}
-			/>
-		</>
-	);
-}
-
-export default RecipeDetails;
-
-function RecipeDetail({
-	recipe,
-	tabs1,
-	tabs2,
-	setTabs1,
-	setTabs2,
-	similar,
-	favorites,
-	handleAddfavorites,
-}) {
-	const { convertMinutes } = useGlobal();
+	const naviagte = useNavigate();
+	// const { convertMinutes } = useGlobal();
 
 	const wine = recipe?.winePairing?.productMatches[0];
 	const ingredients = recipe?.nutrition?.ingredients;
@@ -140,6 +54,72 @@ function RecipeDetail({
 		},
 		[title]
 	);
+
+	useEffect(
+		function () {
+			async function fetchRecipeDetails() {
+				try {
+					const res = await fetch(
+						`https://api.spoonacular.com/recipes/${Number(
+							pageId
+						)}/information?apiKey=${API_Key}&includeNutrition=true&addWinePairing=true`
+					);
+					if (!res.ok) throw new Error("Can not find recipe at this moment");
+
+					const data = await res.json();
+					if (!data || undefined)
+						throw new Error(
+							"Details for the required recipe is not available right now"
+						);
+					setRecipe(data);
+					// console.log(data.winePairing.productMatches);
+				} catch (err) {
+					setError(err.message);
+					// console.log(err.message);
+				}
+			}
+			fetchRecipeDetails();
+		},
+		[pageId, setError, setRecipe]
+	);
+
+	useEffect(
+		function () {
+			async function fetchSimilar() {
+				try {
+					const res = await fetch(
+						`https://api.spoonacular.com/recipes/${pageId}/similar?apiKey=${API_Key}&number=4`
+					);
+					const data = await res.json();
+					setSimilar(data);
+					// console.log(data);
+				} catch (err) {
+					console.log(err.message);
+				}
+			}
+			fetchSimilar();
+		},
+		[pageId, setSimilar]
+	);
+
+	//effect for updating favorites
+	useEffect(
+		function () {
+			if (!favorites) return;
+			localStorage.setItem("favorites", JSON.stringify(favorites));
+		},
+		[favorites]
+	);
+
+	function handleAddfavorites(newItem) {
+		setFavorites((favs) => [...favs, newItem]);
+		localStorage.setItem("favorites", JSON.stringify(favorites));
+
+		// console.log(favorites);
+	}
+
+	if (error) throw new Error("Something went wrong");
+
 	return (
 		<div className={styles.recipeDetails}>
 			{recipe !== null ? (
@@ -164,12 +144,17 @@ function RecipeDetail({
 									Minutes
 								</p>
 								{isFavorites ? (
-									<Link to="/favorites">
-										<button className={`${styles.favBtn} ${styles.favAdded}`}>
-											Go to Favorites
-										</button>
-									</Link>
+									// <Link to="/favorites">
+									<button
+										className={`${styles.favBtn} ${styles.favAdded}`}
+										onClick={() => {
+											naviagte("/favorites");
+										}}
+									>
+										Go to Favorites
+									</button>
 								) : (
+									// </Link>
 									<button
 										className={`${styles.favBtn} ${styles.favAdd}`}
 										onClick={() => handleAddfavorites(recipe)}
@@ -246,14 +231,6 @@ function RecipeDetail({
 							))}
 						</div>
 					)}
-					{/* <div className={styles.submitReviews}>
-						<p>Write a review</p>
-						<form action="" className={styles.formReview}>
-							<input type="text" name="" id="" placeholder="Name" />
-							<input type="text" name="" id="" placeholder="Your review" />
-							<button>Submit review</button>
-						</form>
-					</div> */}
 				</>
 			) : (
 				// <Loading />
@@ -286,6 +263,8 @@ function RecipeDetail({
 		</div>
 	);
 }
+
+export default RecipeDetails;
 
 function CookingInstructions({ step }) {
 	return (

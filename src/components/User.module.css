@@ -1,9 +1,0 @@
-.navUser {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-.navUser ion-icon {
-	font-size: 2.4rem;
-	color: black;
-}
