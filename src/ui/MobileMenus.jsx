@@ -11,9 +11,10 @@ const MobileMenuWrapper = styled.div`
 	padding: 0 1.4rem 0.7rem 1.4rem;
 	position: relative;
 
-	.ion-icon {
+	ion-icon {
 		font-size: 3.2rem;
 		cursor: pointer;
+		color: red;
 	}
 
 	@media (min-width: 901px) {
@@ -110,8 +111,9 @@ function MobileMenus() {
 
 	return (
 		<MobileMenuWrapper>
-			<Logo logoAlign="left" size="2.8rem" />
+			<Logo align="right" size="2.8rem" />
 			<ion-icon name="menu-outline" onClick={() => setShowMbMenu(true)} />
+
 			{showMbMenu && (
 				<MobileMenuNav className={showMbMenu ? "show" : ""}>
 					<ion-icon name="close-outline" onClick={handleCloseMenu} />

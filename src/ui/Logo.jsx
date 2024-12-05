@@ -7,7 +7,7 @@ const StyledLogo = styled.h2`
 	color: red;
 	margin-top: 1.2rem;
 	font-size: ${(props) => props.$size || "24px"};
-	text-align: ${(props) => props.$align || "center"};
+	text-align: ${(props) => props.$align || "right"};
 
 	a {
 		color: red;

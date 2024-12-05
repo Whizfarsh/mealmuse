@@ -70,11 +70,11 @@ const NavItem = styled.li`
 	justify-content: center;
 	align-items: center;
 	gap: 0.9rem;
-	background-color: ${({ active }) =>
-		active ? "var(--dark-3)" : "transparent"};
-	color: ${({ active }) => (active ? "var(--light-0)" : "var(--dark-1)")};
-	box-shadow: ${({ active }) =>
-		active ? "1px 1px 5px rgba(0, 0, 0, 0.5)" : "none"};
+	background-color: ${({ $active }) =>
+		$active ? "var(--dark-3)" : "transparent"};
+	color: ${({ $active }) => ($active ? "var(--light-0)" : "var(--dark-1)")};
+	box-shadow: ${({ $active }) =>
+		$active ? "1px 1px 5px rgba(0, 0, 0, 0.5)" : "none"};
 	transition: all 200ms ease-in;
 
 	a {
@@ -152,12 +152,12 @@ function RecipeNavs() {
 				<NavOptions>
 					<NavList>
 						<Link to="/recipes">
-							<NavItem active={curPage.includes("recipes")}>
+							<NavItem $active={curPage?.includes("recipes")}>
 								<span>Recipes</span>
 							</NavItem>
 						</Link>
 						<Link to="/favorites">
-							<NavItem active={curPage === "/favorites"}>
+							<NavItem $active={curPage === "/favorites"}>
 								<span>Favorites</span>
 							</NavItem>
 						</Link>

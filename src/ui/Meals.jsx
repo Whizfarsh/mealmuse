@@ -5,9 +5,9 @@ import { useGlobal } from "../context/GlobalContext";
 import styled from "styled-components";
 
 const MealsContainer = styled.div`
-	margin: 6rem 0;
-	padding: 2.4rem 5.2rem;
-	background-color: var(--light-0);
+	/* margin: 6rem 0; */
+	/* padding: 2.4rem 5.2rem; */
+	/* background-color: var(--light-0); */
 	display: flex;
 	justify-content: center;
 	align-items: center;
