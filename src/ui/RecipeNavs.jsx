@@ -3,6 +3,8 @@ import Logo from "./Logo";
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/GlobalContext";
 import { usePage } from "../context/Pagecontext";
+import { HiOutlineHeart } from "react-icons/hi2";
+import { FaUtensils } from "react-icons/fa";
 
 const RecipeNavsWrapper = styled.div`
 	position: fixed;
@@ -71,8 +73,8 @@ const NavItem = styled.li`
 	align-items: center;
 	gap: 0.9rem;
 	background-color: ${({ $active }) =>
-		$active ? "var(--dark-3)" : "transparent"};
-	color: ${({ $active }) => ($active ? "var(--light-0)" : "var(--dark-1)")};
+		$active ? "var(--dark-2)" : "transparent"};
+	color: ${({ $active }) => ($active ? "var(--light-0)" : "var(--dark-2)")};
 	box-shadow: ${({ $active }) =>
 		$active ? "1px 1px 5px rgba(0, 0, 0, 0.5)" : "none"};
 	transition: all 200ms ease-in;
@@ -80,6 +82,13 @@ const NavItem = styled.li`
 	a {
 		text-decoration: none;
 		color: inherit;
+	}
+
+	span {
+		display: flex;
+		align-items: center;
+		column-gap: 0.5rem;
+		padding: 0.4rem 0.7rem;
 	}
 `;
 
@@ -153,12 +162,18 @@ function RecipeNavs() {
 					<NavList>
 						<Link to="/recipes">
 							<NavItem $active={curPage?.includes("recipes")}>
-								<span>Recipes</span>
+								<span>
+									<FaUtensils />
+									Recipes
+								</span>
 							</NavItem>
 						</Link>
 						<Link to="/favorites">
 							<NavItem $active={curPage === "/favorites"}>
-								<span>Favorites</span>
+								<span>
+									<HiOutlineHeart />
+									Favorites
+								</span>
 							</NavItem>
 						</Link>
 					</NavList>
