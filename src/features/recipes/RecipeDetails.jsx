@@ -39,6 +39,9 @@ const FirstDetails = styled.div`
 	display: flex;
 	column-gap: 2.4rem;
 	margin-bottom: 1rem;
+	@media (max-width: 500px) {
+		flex-direction: column;
+	}
 `;
 
 const BasicDetails = styled.div`
@@ -135,8 +138,8 @@ const FavButton = styled.button`
 	}
 
 	&.added {
-		background-color: var(--light-1);
-		color: var(--dark-3);
+		background-color: var(--dark-3);
+		color: var(--light-1);
 	}
 `;
 
