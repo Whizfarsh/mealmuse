@@ -2,6 +2,7 @@ import Meals from "../ui/Meals";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { useRecipes } from "../context/RecipesContext";
+import EmptyMessage from "../ui/Empty";
 
 const StyledFavorites = styled.div`
 	margin: 1.2rem 1.8rem;
@@ -16,30 +17,27 @@ const StyledFavorites = styled.div`
 
 function Favorites() {
 	document.title = `MealMuse | Favorites`;
+	const { favorites, setFavorites } = useRecipes();
 
-	const { favoritesLocal } = useRecipes();
+	useEffect(() => {
+		const savedFavorites = localStorage.getItem("favorites");
+		if (savedFavorites) {
+			setFavorites(JSON.parse(savedFavorites));
+		}
+	}, [setFavorites]);
 
-	// const [favoritesLocal, setFavoritesLocal] = useState(() => {
-	// 	const savedFavorites = localStorage.getItem("favorites");
-	// 	return savedFavorites ? JSON.parse(savedFavorites) : [];
-	// });
-
-	// function handleFavoriteDelete(id) {
-	// 	const newRecipes = favoritesLocal.filter((recipe) => recipe.id !== id);
-	// 	setFavoritesLocal(newRecipes);
-	// }
-
-	useEffect(
-		function () {
-			localStorage.setItem("favorites", JSON.stringify(favoritesLocal));
-		},
-		[favoritesLocal]
-	);
-	if (!favoritesLocal) return;
+	if (!favorites || favorites.length === 0)
+		return (
+			<EmptyMessage
+				note="NO RECIPES HAS BEEN ADDED"
+				path="/recipes"
+				pathText="Add your recipes"
+			/>
+		);
 	return (
 		<StyledFavorites>
 			<div>
-				<Meals recipes={favoritesLocal} />
+				<Meals recipes={favorites} />
 			</div>
 			{/* <div className="favFooter">
 				<Footer />

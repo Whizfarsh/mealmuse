@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useReducer,
+	useState,
+} from "react";
 
 const RecipeContext = createContext();
 
@@ -39,14 +45,52 @@ function RecipesProvider({ children }) {
 	const [similar, setSimilar] = useState([]);
 	const [error, setError] = useState("");
 
-	const [favoritesLocal, setFavoritesLocal] = useState(() => {
-		const savedFavorites = localStorage.getItem("favorites");
-		return savedFavorites ? JSON.parse(savedFavorites) : [];
+	const [favorites, setFavorites] = useState(() => {
+		try {
+			const savedFavorites = localStorage.getItem("favorites");
+			return savedFavorites ? JSON.parse(savedFavorites) : [];
+		} catch {
+			return [];
+		}
 	});
 
+	useEffect(() => {
+		try {
+			localStorage.setItem("favorites", JSON.stringify(favorites));
+		} catch (error) {
+			console.error("Failed to save favorites to localStorage:", error);
+		}
+	}, [favorites]);
+
+	useEffect(() => {
+		function syncFavoritesFromStorage() {
+			const savedFavorites = localStorage.getItem("favorites");
+			if (savedFavorites) {
+				setFavorites(JSON.parse(savedFavorites));
+			}
+		}
+
+		// Sync on mount
+		syncFavoritesFromStorage();
+
+		// Listen for storage changes
+		window.addEventListener("storage", syncFavoritesFromStorage);
+
+		// Cleanup
+		return () =>
+			window.removeEventListener("storage", syncFavoritesFromStorage);
+	}, []);
+
+	function addFavorite(recipe) {
+		if (!favorites.some((item) => item.id === recipe.id)) {
+			const updatedFavorites = [...favorites, recipe];
+			setFavorites(updatedFavorites);
+		}
+	}
+
 	function handleFavoriteDelete(id) {
-		const newRecipes = favoritesLocal.filter((recipe) => recipe.id !== id);
-		setFavoritesLocal(newRecipes);
+		const updatedFavorites = favorites.filter((recipe) => recipe.id !== id);
+		setFavorites(updatedFavorites);
 	}
 
 	const [
@@ -61,6 +105,7 @@ function RecipesProvider({ children }) {
 		},
 		dispatch,
 	] = useReducer(reducer, initialState);
+
 	return (
 		<RecipeContext.Provider
 			value={{
@@ -84,8 +129,9 @@ function RecipesProvider({ children }) {
 				similar,
 				setSimilar,
 
-				favoritesLocal,
-				setFavoritesLocal,
+				favorites,
+				setFavorites,
+				addFavorite,
 				handleFavoriteDelete,
 			}}
 		>
@@ -96,12 +142,12 @@ function RecipesProvider({ children }) {
 
 function useRecipes() {
 	const context = useContext(RecipeContext);
-	if (context === undefined)
+	if (context === undefined) {
 		throw new Error(
 			"Recipe context is being used outside of the provider, please take a look at it"
 		);
+	}
 	return context;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export { RecipesProvider, useRecipes };

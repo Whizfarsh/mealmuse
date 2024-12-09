@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import parse from "html-react-parser";
 import Meals from "../../ui/Meals.jsx";
+import Loading from "../../ui/Loading.jsx";
 import { API_Key, useGlobal } from "../../context/GlobalContext.jsx";
 import { useRecipes } from "../../context/RecipesContext.jsx";
 
@@ -84,7 +85,7 @@ const MiniInfo = styled.div`
 const Summary = styled.p`
 	font-size: 1.6rem;
 	line-height: 1.4;
-	margin: 1rem 0rem;
+	margin: 1.8rem 0rem;
 `;
 
 const DetailsTabs = styled.div`
@@ -109,7 +110,7 @@ const Tabs = styled.button`
 `;
 
 const ListsItems = styled.ul`
-	margin: 0 1rem !important;
+	margin: 1.8rem 1rem !important;
 `;
 
 const ListItem = styled.li`
@@ -145,7 +146,8 @@ const FavButton = styled.button`
 
 // Component
 function RecipeDetails() {
-	const { setFavorites, favorites, convertMinutes } = useGlobal();
+	const { convertMinutes } = useGlobal();
+
 	const {
 		recipe,
 		setRecipe,
@@ -157,8 +159,11 @@ function RecipeDetails() {
 		setTabs2,
 		similar,
 		setSimilar,
+		favorites,
+		addFavorite,
 	} = useRecipes();
 
+	const isFavorites = favorites.some((fav) => fav.id === recipe?.id);
 	const { id: pageId } = useParams();
 	const navigate = useNavigate();
 
@@ -175,7 +180,7 @@ function RecipeDetails() {
 		summary = "",
 		analyzedInstructions = [],
 	} = recipe || {};
-	const isFavorites = favorites?.some((favorite) => favorite.id === id);
+	// const isFavorites = favorites?.some((favorite) => favorite.id === id);
 
 	useEffect(() => {
 		document.title = `${title} | MealMuse`;
@@ -219,15 +224,15 @@ function RecipeDetails() {
 		fetchSimilar();
 	}, [pageId, setSimilar]);
 
-	useEffect(() => {
-		if (!favorites) return;
-		localStorage.setItem("favorites", JSON.stringify(favorites));
-	}, [favorites]);
+	// useEffect(() => {
+	// 	if (!favorites) return;
+	// 	localStorage.setItem("favorites", JSON.stringify(favorites));
+	// }, [favorites]);
 
-	function handleAddfavorites(newItem) {
-		setFavorites((favs) => [...favs, newItem]);
-		localStorage.setItem("favorites", JSON.stringify(favorites));
-	}
+	// function handleAddfavorites(newItem) {
+	// 	setFavorites((favs) => [...favs, newItem]);
+	// 	localStorage.setItem("favorites", JSON.stringify(favorites));
+	// }
 
 	if (error) return <ErrorMessage>{error}</ErrorMessage>;
 
@@ -263,7 +268,7 @@ function RecipeDetails() {
 								) : (
 									<FavButton
 										className="add"
-										onClick={() => handleAddfavorites(recipe)}
+										onClick={() => addFavorite(recipe)}
 									>
 										Add to favorites
 									</FavButton>
@@ -328,7 +333,8 @@ function RecipeDetails() {
 					)}
 				</>
 			) : (
-				<ErrorMessage>No Information is available</ErrorMessage>
+				<Loading />
+				// <ErrorMessage>No Information is available</ErrorMessage>
 			)}
 			<DetailsTabs>
 				<Tabs
