@@ -1,6 +1,7 @@
 import Meals from "../ui/Meals";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
+import { useRecipes } from "../context/RecipesContext";
 
 const StyledFavorites = styled.div`
 	margin: 1.2rem 1.8rem;
@@ -16,15 +17,17 @@ const StyledFavorites = styled.div`
 function Favorites() {
 	document.title = `MealMuse | Favorites`;
 
-	const [favoritesLocal, setFavoritesLocal] = useState(() => {
-		const savedFavorites = localStorage.getItem("favorites");
-		return savedFavorites ? JSON.parse(savedFavorites) : [];
-	});
+	const { favoritesLocal } = useRecipes();
 
-	function handleFavoriteDelete(id) {
-		const newRecipes = favoritesLocal.filter((recipe) => recipe.id !== id);
-		setFavoritesLocal(newRecipes);
-	}
+	// const [favoritesLocal, setFavoritesLocal] = useState(() => {
+	// 	const savedFavorites = localStorage.getItem("favorites");
+	// 	return savedFavorites ? JSON.parse(savedFavorites) : [];
+	// });
+
+	// function handleFavoriteDelete(id) {
+	// 	const newRecipes = favoritesLocal.filter((recipe) => recipe.id !== id);
+	// 	setFavoritesLocal(newRecipes);
+	// }
 
 	useEffect(
 		function () {
@@ -36,7 +39,7 @@ function Favorites() {
 	return (
 		<StyledFavorites>
 			<div>
-				<Meals recipes={favoritesLocal} onDelete={handleFavoriteDelete} />
+				<Meals recipes={favoritesLocal} />
 			</div>
 			{/* <div className="favFooter">
 				<Footer />

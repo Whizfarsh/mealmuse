@@ -38,6 +38,17 @@ function RecipesProvider({ children }) {
 	const [tabs2, setTabs2] = useState("similarRecipes");
 	const [similar, setSimilar] = useState([]);
 	const [error, setError] = useState("");
+
+	const [favoritesLocal, setFavoritesLocal] = useState(() => {
+		const savedFavorites = localStorage.getItem("favorites");
+		return savedFavorites ? JSON.parse(savedFavorites) : [];
+	});
+
+	function handleFavoriteDelete(id) {
+		const newRecipes = favoritesLocal.filter((recipe) => recipe.id !== id);
+		setFavoritesLocal(newRecipes);
+	}
+
 	const [
 		{
 			filterOptions,
@@ -72,6 +83,10 @@ function RecipesProvider({ children }) {
 				setTabs2,
 				similar,
 				setSimilar,
+
+				favoritesLocal,
+				setFavoritesLocal,
+				handleFavoriteDelete,
 			}}
 		>
 			{children}

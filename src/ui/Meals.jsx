@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { usePage } from "../context/Pagecontext";
 import { useGlobal } from "../context/GlobalContext";
 import styled from "styled-components";
+import { useRecipes } from "../context/RecipesContext";
 
 const MealsContainer = styled.div`
 	/* margin: 6rem 0; */
@@ -79,26 +80,27 @@ const DeleteButton = styled.button`
 	margin-bottom: 1rem;
 `;
 
-function Meals({ title, recipes, onDelete, className }) {
+function Meals({ title, recipes, className }) {
 	return (
 		<MealsContainer className={className}>
 			<h2>{title}</h2>
 			<Grid>
 				{recipes.map((recipe) => (
-					<MealsLists recipe={recipe} onDelete={onDelete} key={recipe.id} />
+					<MealsLists recipe={recipe} key={recipe.id} />
 				))}
 			</Grid>
 		</MealsContainer>
 	);
 }
 
-function MealsLists({ recipe, onDelete }) {
+function MealsLists({ recipe }) {
 	const { curPage } = usePage();
 	const { convertMinutes } = useGlobal();
+	const { handleFavoriteDelete } = useRecipes();
 
 	function onDeleteItem(e) {
 		e.preventDefault();
-		onDelete(recipe.id);
+		handleFavoriteDelete(recipe.id);
 	}
 
 	return (
