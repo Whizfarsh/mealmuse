@@ -1,8 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/GlobalContext";
 import Logo from "./Logo";
 import { usePage } from "../context/Pagecontext";
 import styled from "styled-components";
+import { HiOutlineHeart, HiOutlineHome } from "react-icons/hi2";
+import { MdOutlineKitchen } from "react-icons/md";
 
 const MobileMenuWrapper = styled.div`
 	display: flex;
@@ -22,10 +24,6 @@ const MobileMenuWrapper = styled.div`
 	}
 `;
 
-// const MobileMenuIcon =
-// 	styled
-// `;
-
 const MobileMenuNav = styled.div`
 	position: absolute;
 	top: 0;
@@ -35,38 +33,52 @@ const MobileMenuNav = styled.div`
 	background-color: var(--light-1);
 	z-index: 999;
 	transform: translateX(100%);
-	transition: transform 0.5s ease-in;
+	transition: transform 0.5s ease-in-out;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	padding: 1rem 1.6rem;
 
+	/* margin-top: 2.4rem; */
+
 	&.show {
+		/* background-color: red; */
 		transform: translateX(0);
+	}
+
+	ion-icon {
+		font-size: 2.8rem;
+		align-self: flex-start;
+		cursor: pointer;
 	}
 `;
 
-// const CloseIcon =
-// 	styled.ion -
-// 	icon`
-//   font-size: 2.8rem;
-//   align-self: flex-start;
-//   cursor: pointer;
-// `;
+const StyledListLink = styled(NavLink)`
+	margin-bottom: 1rem;
+
+	display: flex;
+	gap: 1rem;
+	color: var(--dark-0);
+	background-color: transparent;
+	transition: background-color 1s ease;
+
+	padding: 0 1.4rem;
+	&.active {
+		padding: 0.6rem 1.4rem;
+		background-color: var(--light-0);
+		border-radius: 0.8rem;
+		font-weight: 600;
+	}
+`;
 
 const MenuList = styled.ul`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	margin-bottom: 1.4rem;
-
-	a {
-		margin-bottom: 0.4rem;
-		text-decoration: none;
-		color: var(--dark-2);
-	}
+	margin-top: 2.4rem;
 
 	li {
 		cursor: pointer;
@@ -105,53 +117,57 @@ function MobileMenus() {
 	const { curPage } = usePage();
 	const navigate = useNavigate();
 
-	function handleCloseMenu() {
-		setShowMbMenu(false);
+	function handleShowMenu() {
+		setShowMbMenu((show) => !show);
 	}
 
 	return (
 		<MobileMenuWrapper>
 			<Logo align="right" size="2.8rem" />
-			<ion-icon name="menu-outline" onClick={() => setShowMbMenu(true)} />
+			<ion-icon name="menu-outline" onClick={handleShowMenu} />
 
-			{showMbMenu && (
-				<MobileMenuNav className={showMbMenu ? "show" : ""}>
-					<ion-icon name="close-outline" onClick={handleCloseMenu} />
-					<MenuList>
-						<Link to="/" onClick={handleCloseMenu}>
+			<MobileMenuNav className={showMbMenu ? "show" : ""}>
+				<ion-icon name="close-outline" onClick={handleShowMenu} />
+				<MenuList>
+					<li>
+						<StyledListLink to="/" onClick={handleShowMenu}>
+							<HiOutlineHome size={20} />
 							Home
+						</StyledListLink>
+					</li>
+					<li className={curPage.includes("recipes") ? "active" : ""}>
+						<StyledListLink to="/recipes" onClick={handleShowMenu}>
+							<MdOutlineKitchen size={20} />
+							<span>Recipes</span>
+						</StyledListLink>
+					</li>
+					<li className={curPage === "/favorites" ? "active" : ""}>
+						<StyledListLink to="/favorites" onClick={handleShowMenu}>
+							<HiOutlineHeart size={20} />
+
+							<span>Favorites</span>
+						</StyledListLink>
+					</li>
+				</MenuList>
+				<UserSection>
+					<p>Hello {isAuthenticated ? `${user.name}` : "Guest"}</p>
+					{isAuthenticated ? (
+						<button
+							onClick={() => {
+								logout();
+								navigate("/recipes");
+								setShowMbMenu(false);
+							}}
+						>
+							Logout
+						</button>
+					) : (
+						<Link to="/login" className="login">
+							Login
 						</Link>
-						<Link to="/recipes" onClick={handleCloseMenu}>
-							<li className={curPage.includes("recipes") ? "active" : ""}>
-								<span>Recipes</span>
-							</li>
-						</Link>
-						<Link to="/favorites" onClick={handleCloseMenu}>
-							<li className={curPage === "/favorites" ? "active" : ""}>
-								<span>Favorites</span>
-							</li>
-						</Link>
-					</MenuList>
-					<UserSection>
-						<p>Hello {isAuthenticated ? `${user.name}` : "Guest"}</p>
-						{isAuthenticated ? (
-							<button
-								onClick={() => {
-									logout();
-									navigate("/recipes");
-									setShowMbMenu(false);
-								}}
-							>
-								Logout
-							</button>
-						) : (
-							<Link to="/login" className="login">
-								Login
-							</Link>
-						)}
-					</UserSection>
-				</MobileMenuNav>
-			)}
+					)}
+				</UserSection>
+			</MobileMenuNav>
 		</MobileMenuWrapper>
 	);
 }
