@@ -58,6 +58,7 @@ const StyledListLink = styled(NavLink)`
 	margin-bottom: 1rem;
 
 	display: flex;
+	align-items: center;
 	gap: 1rem;
 	color: var(--dark-0);
 	background-color: transparent;
