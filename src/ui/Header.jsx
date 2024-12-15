@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import HeaderContent from "./HeaderMain";
-import MobileMenus from "./MobileMenus";
-import Logo from "./Logo";
-import HeaderNav from "./HeaderNav";
+// import MobileMenus from "./MobileMenus";
+// import Logo from "./Logo";
+// import HeaderNav from "./HeaderNav";
+import HeaderMenu from "./HeaderMenu";
 
 const StyledHeader = styled.header`
 	background-color: var(--light-1);
@@ -18,28 +19,10 @@ const StyledHeader = styled.header`
 	height: 80vh;
 `;
 
-const HeaderMenu = styled.div`
-	justify-content: space-between;
-	display: flex;
-	align-items: center;
-	padding: 0.5rem 1.8rem;
-	color: var(--dark-0);
-
-	@media (max-width: 900px) {
-		.header {
-			display: none;
-		}
-	}
-`;
-
 function Header() {
 	return (
 		<StyledHeader>
-			<HeaderMenu>
-				<Logo />
-				<HeaderNav />
-			</HeaderMenu>
-			<MobileMenus />
+			<HeaderMenu />
 			<HeaderContent />
 		</StyledHeader>
 	);
