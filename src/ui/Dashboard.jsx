@@ -13,16 +13,20 @@ const StyledDashBoard = styled.div`
 	padding: 4.2rem;
 `;
 
+const StyledPage = styled.div`
+	overflow: hidden;
+`;
+
 function Dashboard() {
 	// const [i]
 	return (
-		<>
+		<StyledPage>
 			<HeaderMenu bgColor="var(--light-1)" />
 			<StyledDashBoard>
 				<AddIngrredients />
 			</StyledDashBoard>
 			<Footer />
-		</>
+		</StyledPage>
 	);
 }
 
