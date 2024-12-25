@@ -21,9 +21,10 @@ const MealsContainer = styled.div`
 	}
 `;
 
-const Grid = styled.div`
+const MealLists = styled.div`
 	width: 100%;
 	display: grid;
+	/* flex-wrap: wrap; */
 	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 	gap: 2.4rem;
 	padding: 2.4rem 0rem;
@@ -80,20 +81,32 @@ const DeleteButton = styled.button`
 	margin-bottom: 1rem;
 `;
 
+const StyledLink = styled(Link)`
+	color: var(--dark-2);
+	text-decoration: none;
+
+	&.active {
+		color: var(--light-4);
+	}
+`;
+
 function Meals({ title, recipes, className }) {
 	return (
 		<MealsContainer className={className}>
 			<h2>{title}</h2>
-			<Grid>
+			{/* <Grid> */}
+			<MealLists>
 				{recipes.map((recipe) => (
 					<MealsLists recipe={recipe} key={recipe.id} />
+					//key={recipe.id}
 				))}
-			</Grid>
+			</MealLists>
+			{/* </Grid> */}
 		</MealsContainer>
 	);
 }
 
-function MealsLists({ recipe }) {
+export function MealsLists({ recipe }) {
 	const { curPage } = usePage();
 	const { convertMinutes } = useGlobal();
 	const { handleFavoriteDelete } = useRecipes();
@@ -104,7 +117,8 @@ function MealsLists({ recipe }) {
 	}
 
 	return (
-		<Link to={`/recipes/${recipe.id}`}>
+		// <Link to={`/recipes/${recipe.id}`}>
+		<StyledLink to={`/recipes/${recipe.id}`}>
 			<MealCard>
 				<img
 					src={
@@ -137,7 +151,7 @@ function MealsLists({ recipe }) {
 					<DeleteButton onClick={onDeleteItem}>Delete</DeleteButton>
 				)}
 			</MealCard>
-		</Link>
+		</StyledLink>
 	);
 }
 

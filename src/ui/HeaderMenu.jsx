@@ -6,7 +6,7 @@ import MobileMenus from "./MobileMenus";
 
 const StyledHeaderMenu = styled.div`
 	background-color: ${(props) =>
-		props.bgcolor ? props.bgcolor : "transparent"};
+		props.$bgcolor ? props.$bgcolor : "transparent"};
 	justify-content: space-between;
 	display: flex;
 	align-items: center;
@@ -21,7 +21,7 @@ const StyledHeaderMenu = styled.div`
 function HeaderMenu({ bgColor }) {
 	return (
 		<>
-			<StyledHeaderMenu bgcolor={bgColor}>
+			<StyledHeaderMenu $bgcolor={bgColor}>
 				<Logo />
 				<HeaderNav />
 			</StyledHeaderMenu>

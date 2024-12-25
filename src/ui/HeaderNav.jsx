@@ -77,10 +77,10 @@ function HeaderNav() {
 				<Nav>
 					<MenuList>
 						<MenuItem>
-							<NavLink to="recipes">Recipes</NavLink>
+							<NavLink to="/recipes">Recipes</NavLink>
 						</MenuItem>
 						<MenuItem>
-							<NavLink to="favorites">Favorites</NavLink>
+							<NavLink to="/favorites">Favorites</NavLink>
 						</MenuItem>
 					</MenuList>
 					<Searchform />
