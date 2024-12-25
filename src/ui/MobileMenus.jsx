@@ -13,6 +13,8 @@ const MobileMenuWrapper = styled.div`
 	padding: 0 1.4rem 0.7rem 1.4rem;
 	position: relative;
 
+	/* height: 100vh; */
+
 	ion-icon {
 		font-size: 3.2rem;
 		cursor: pointer;
@@ -91,6 +93,7 @@ const MenuList = styled.ul`
 
 const UserSection = styled.div`
 	margin-top: auto;
+	margin-bottom: 2rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

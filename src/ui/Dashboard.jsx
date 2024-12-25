@@ -4,6 +4,7 @@ import HeaderMenu from "./HeaderMenu";
 import Footer from "./Footer";
 
 const StyledDashBoard = styled.div`
+	flex: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -15,6 +16,10 @@ const StyledDashBoard = styled.div`
 
 const StyledPage = styled.div`
 	overflow: hidden;
+
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 `;
 
 function Dashboard() {
@@ -25,6 +30,7 @@ function Dashboard() {
 			<StyledDashBoard>
 				<AddIngrredients />
 			</StyledDashBoard>
+
 			<Footer />
 		</StyledPage>
 	);
