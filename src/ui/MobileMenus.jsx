@@ -13,7 +13,7 @@ const MobileMenuWrapper = styled.div`
 	padding: 0 1.4rem 0.7rem 1.4rem;
 	position: relative;
 
-	/* height: 100vh; */
+	background-color: var(--light-2);
 
 	ion-icon {
 		font-size: 3.2rem;
@@ -32,7 +32,7 @@ const MobileMenuNav = styled.div`
 	right: 0;
 	width: 100%;
 	height: 100vh;
-	background-color: var(--light-1);
+	background-color: var(--light-2);
 	z-index: 999;
 	transform: translateX(100%);
 	transition: transform 0.5s ease-in-out;
@@ -42,10 +42,7 @@ const MobileMenuNav = styled.div`
 	align-items: center;
 	padding: 1rem 1.6rem;
 
-	/* margin-top: 2.4rem; */
-
 	&.show {
-		/* background-color: red; */
 		transform: translateX(0);
 	}
 
