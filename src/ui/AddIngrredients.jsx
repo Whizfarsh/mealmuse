@@ -131,18 +131,21 @@ function AddIngrredients() {
 						`https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=${API_Key}&query=${ingredientQuery}&number=5`
 					);
 
+					if (!res.ok) throw new Error("Couldn't fetch ingredients");
+
 					const data = await res.json();
+					if (!data) throw new Error("No matching ingredients for that query");
 
 					setIngredientsLists(data);
 					// console.log(data);
 				} catch (err) {
-					console.log(err.message);
+					console.error(err.message);
 				}
 			}
 			getIngredients();
 		},
 
-		[API_Key, ingredientQuery]
+		[API_Key, ingredientQuery, setIngredientsLists]
 	);
 
 	function handleQuery(e) {
@@ -187,7 +190,7 @@ function AddIngrredients() {
 
 			getRecipeByIngredients();
 		},
-		[API_Key, ingredients, addedIng]
+		[API_Key, ingredients, addedIng, setRecipeResults]
 	);
 
 	// const isAdded = true;
