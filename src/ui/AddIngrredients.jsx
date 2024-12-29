@@ -4,6 +4,7 @@ import Button from "./Button";
 import { useGlobal } from "../context/GlobalContext";
 import { useEffect, useState } from "react";
 import Meals, { MealsLists } from "./Meals";
+import { useIngredients } from "../context/IngredientsContext";
 
 const StyledAdd = styled.div`
 	display: flex;
@@ -17,14 +18,14 @@ const StyledAdd = styled.div`
 	p {
 		font-size: 3.2rem;
 		text-align: center;
-		margin-bottom: 0.7rem;
+		margin-bottom: 0.4rem;
 	}
 
 	@media (max-width: 900px) {
-		padding: 0 1.8rem;
+		padding: 0 1.2rem;
 		width: 100%;
 		p {
-			font-size: 2.2rem;
+			font-size: 2rem;
 		}
 	}
 `;
@@ -56,7 +57,8 @@ const Form = styled.form`
 
 	@media (max-width: 900px) {
 		input {
-			width: 36rem;
+			width: 30rem;
+			height: 3.2rem;
 		}
 		p {
 			/* font-size: 0.5rem; */
@@ -103,14 +105,19 @@ const MealsWrapper = styled.div`
 function AddIngrredients() {
 	const { API_Key } = useGlobal();
 
-	const [ingredientQuery, setIngredientQuery] = useState("");
-	const [ingredientsLists, setIngredientsLists] = useState([]);
-	const [addedIng, setAddedIng] = useState([]);
-	const [recipeResults, setRecipeResults] = useState([]);
-
-	const ingredients = addedIng
-		.map((ing, index) => (index === 0 ? ing : `+${ing}`))
-		.join(", ");
+	const {
+		ingredientQuery,
+		setIngredientQuery,
+		ingredientsLists,
+		setIngredientsLists,
+		setAddedIng,
+		recipeResults,
+		setRecipeResults,
+		ingredients,
+		addedIng,
+		showAdded,
+		setShowAdded,
+	} = useIngredients();
 
 	useEffect(
 		function () {
@@ -142,6 +149,7 @@ function AddIngrredients() {
 		e.preventDefault();
 
 		setIngredientQuery(e.target.value);
+		setShowAdded(false);
 	}
 
 	function handeleAdded(ing) {
@@ -169,7 +177,7 @@ function AddIngrredients() {
 					);
 					const data = await res.json();
 
-					console.log(data);
+					// console.log(data);
 					setRecipeResults(data);
 					// console.log(recipeResults);
 				} catch (err) {
@@ -201,18 +209,30 @@ function AddIngrredients() {
 					{ingredientsLists.length > 0 && (
 						<>
 							<IngredientsLists>
-								{ingredientsLists.map(
-									(ing) => (
-										<li
-											key={ing.name}
-											onClick={() => handeleAdded(ing.name)}
-											className={addedIng.includes(ing.name) ? "added" : ""}
-										>
-											{`${ing.name} ${addedIng.includes(ing.name) ? "-" : "+"}`}
-										</li>
-									)
-									// console.log(ing.name);
-								)}
+								{showAdded
+									? addedIng.map((ing) => (
+											<li
+												key={ing}
+												onClick={() => handeleAdded(ing)}
+												className={addedIng.includes(ing) ? "added" : ""}
+											>
+												{`${ing} ${addedIng.includes(ing) ? "-" : "+"}`}
+											</li>
+									  ))
+									: ingredientsLists.map(
+											(ing) => (
+												<li
+													key={ing.name}
+													onClick={() => handeleAdded(ing.name)}
+													className={addedIng.includes(ing.name) ? "added" : ""}
+												>
+													{`${ing.name} ${
+														addedIng.includes(ing.name) ? "-" : "+"
+													}`}
+												</li>
+											)
+											// console.log(ing.name);
+									  )}
 							</IngredientsLists>
 							{addedIng.length > 0 && (
 								<p>
@@ -222,11 +242,6 @@ function AddIngrredients() {
 							)}
 						</>
 					)}
-					{/* <Button variations="primary">Use my ingredients</Button> */}
-
-					{/* {addedIng.length > 0 && getRecipeByIngredients()} */}
-
-					{/* https://api.spoonacular.com/recipes/findByIngredients?ingredients=apples,+flour,+sugar&number=2 */}
 				</Form>
 				{recipeResults.length > 0 && (
 					<MealsWrapper>
