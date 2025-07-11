@@ -27,6 +27,7 @@ function RecipesMenus() {
 
 	useEffect(
 		function () {
+			if (!searchQuery || searchQuery.length < 3) return;
 			const controller = new AbortController();
 			async function fetchRecipes() {
 				try {
