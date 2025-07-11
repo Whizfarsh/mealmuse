@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useRecipes } from "../context/RecipesContext";
+import { useNavigate } from "react-router-dom";
 
 const HeaderForm = styled.form`
 	display: flex;
@@ -43,12 +44,14 @@ const SearchInput = styled.input`
 
 function Searchform() {
 	const { dispatch } = useRecipes();
+	const navigate = useNavigate();
 
 	function handleSearch(e) {
 		e.preventDefault();
 		if (e.target.value.trim().length <= 3) return;
 
 		dispatch({ type: "searchUpdate", payload: e.target.value });
+		navigate("/recipes");
 	}
 
 	return (
