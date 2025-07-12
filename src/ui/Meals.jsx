@@ -123,11 +123,7 @@ export function MealsLists({ recipe }) {
 		<StyledLink to={`/recipes/${recipe.id}`}>
 			<MealCard>
 				<img
-					src={
-						recipe.image ||
-						`https://img.spoonacular.com/recipes/${recipe.id}-556x370.jpg` ||
-						"../assets/noImage.jpg"
-					}
+					src={`https://img.spoonacular.com/recipes/${recipe.id}-556x370.jpg`}
 					alt={recipe.title}
 				/>
 				<h4>{recipe.title}</h4>
