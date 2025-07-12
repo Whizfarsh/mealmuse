@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import parse from "html-react-parser";
-import Meals from "../../ui/Meals.jsx";
 import Loading from "../../ui/Loading.jsx";
 import { API_Key, useGlobal } from "../../context/GlobalContext.jsx";
 import { useRecipes } from "../../context/RecipesContext.jsx";
+import SimilarRecipes from "./SimilarRecipes.jsx";
 
 // Styled Components
 const ErrorMessage = styled.div`
@@ -155,9 +155,6 @@ function RecipeDetails() {
 		setError,
 		tabs1,
 		setTabs1,
-		tabs2,
-		setTabs2,
-		similar,
 		setSimilar,
 		favorites,
 		addFavorite,
@@ -167,7 +164,6 @@ function RecipeDetails() {
 	const { id: pageId } = useParams();
 	const navigate = useNavigate();
 
-	const wine = recipe?.winePairing?.productMatches[0];
 	const ingredients = recipe?.nutrition?.ingredients;
 	const nutrients = recipe?.nutrition?.nutrients;
 
@@ -223,16 +219,6 @@ function RecipeDetails() {
 		}
 		fetchSimilar();
 	}, [pageId, setSimilar]);
-
-	// useEffect(() => {
-	// 	if (!favorites) return;
-	// 	localStorage.setItem("favorites", JSON.stringify(favorites));
-	// }, [favorites]);
-
-	// function handleAddfavorites(newItem) {
-	// 	setFavorites((favs) => [...favs, newItem]);
-	// 	localStorage.setItem("favorites", JSON.stringify(favorites));
-	// }
 
 	if (error) return <ErrorMessage>{error}</ErrorMessage>;
 
@@ -334,27 +320,8 @@ function RecipeDetails() {
 				</>
 			) : (
 				<Loading />
-				// <ErrorMessage>No Information is available</ErrorMessage>
 			)}
-			<DetailsTabs>
-				<Tabs
-					className={tabs2 === "similarRecipes" ? "active" : ""}
-					onClick={() => setTabs2("similarRecipes")}
-				>
-					Similar Recipes
-				</Tabs>
-			</DetailsTabs>
-			{tabs2 === "similarRecipes" && <Meals recipes={similar} />}
-			{tabs2 === "winePairs" && (
-				<div>
-					<img src={wine.imageUrl} alt="" />
-					<p>{wine.title}</p>
-					<span>{wine.price}</span>
-					<button>
-						<a href={wine.link}>view</a>
-					</button>
-				</div>
-			)}
+			<SimilarRecipes />
 		</RecipeDetailsContainer>
 	);
 }
