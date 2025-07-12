@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const StyledRecipe = styled.div`
 	@media (max-width: 900px) {
-		overflow: hidden;
+		/* overflow: hidden; */
 		/* .recipes {
 			display: flex;git 
 			flex-direction: column;

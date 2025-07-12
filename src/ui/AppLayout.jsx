@@ -6,9 +6,11 @@ import SearchRecipe from "./SearchRecipe";
 // import Footer from "./Footer";
 // import { StyledFooter } from "../pages/Recipes";
 
-const STyledApp = styled.div`
+const StyledAppLayout = styled.div`
 	display: grid;
 	grid-template-columns: 15% 1fr;
+	overflow: hidden;
+	position: relative;
 
 	@media (max-width: 900px) {
 		display: block;
@@ -17,7 +19,7 @@ const STyledApp = styled.div`
 
 function AppLayout() {
 	return (
-		<STyledApp>
+		<StyledAppLayout>
 			<div className="">
 				<RecipeNavs />
 			</div>
@@ -29,7 +31,7 @@ function AppLayout() {
 				{/* <Footer /> */}
 				{/* </StyledFooter> */}
 			</div>
-		</STyledApp>
+		</StyledAppLayout>
 	);
 }
 
