@@ -246,14 +246,14 @@ function AddIngrredients() {
 						</>
 					)}
 				</Form>
-				{recipeResults.length > 0 && (
-					<MealsWrapper>
-						{recipeResults.map((recipe) => (
-							<MealsLists recipe={recipe} key={recipe.id} />
-						))}
-					</MealsWrapper>
-				)}
 			</StyledAdd>
+			{recipeResults.length > 0 && (
+				<MealsWrapper>
+					{recipeResults.map((recipe) => (
+						<MealsLists recipe={recipe} key={recipe.id} />
+					))}
+				</MealsWrapper>
+			)}
 		</>
 	);
 }

@@ -31,6 +31,8 @@ const MealLists = styled.div`
 `;
 
 const MealCard = styled.div`
+	/* height: ${(props) => (props.size === "big" ? "30rem" : "20rem")}; */
+	/* height: 27rem; */
 	box-shadow: 3px 6px 10px rgba(19, 1, 10, 0.4);
 	display: flex;
 	flex-direction: column;

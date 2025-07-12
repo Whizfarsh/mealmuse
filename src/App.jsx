@@ -22,8 +22,6 @@ export default function App() {
 					<PageProvider>
 						<IngredientsProvider>
 							<Routes>
-								{/* <Route index element={<Navigate replace to="/" />} /> */}
-								{/* <Route path="/" element={<Homepage />} /> */}
 								<Route path="/" element={<Dashboard />} />
 								<Route path="/login" element={<Login />} />
 								<Route element={<AppLayout />}>

@@ -12,6 +12,7 @@ const MobileMenuWrapper = styled.div`
 	align-items: center;
 	padding: 0 1.4rem 0.7rem 1.4rem;
 	position: relative;
+	overflow: hidden;
 
 	background-color: var(--light-2);
 
