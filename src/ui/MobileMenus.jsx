@@ -28,7 +28,7 @@ const MobileMenuWrapper = styled.div`
 `;
 
 const MobileMenuNav = styled.div`
-	position: fixedgit;
+	position: fixed;
 	top: 0;
 	right: 0;
 	width: 100%;
