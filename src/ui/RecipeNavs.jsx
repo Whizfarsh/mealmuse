@@ -2,8 +2,9 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import { Link, useNavigate } from "react-router-dom";
 import { usePage } from "../context/Pagecontext";
-import { FaSave, FaUtensils } from "react-icons/fa";
+import { FaSearch, FaUser, FaUtensils } from "react-icons/fa";
 import { useUser } from "../context/UserContext";
+import { FaHeart } from "react-icons/fa6";
 
 const RecipeNavsWrapper = styled.div`
 	position: fixed;
@@ -71,6 +72,8 @@ const NavItem = styled.li`
 	justify-content: center;
 	align-items: center;
 	gap: 0.9rem;
+
+	border: 1px solid var(--dark-2);
 	background-color: ${({ $active }) =>
 		$active ? "var(--dark-2)" : "transparent"};
 	color: ${({ $active }) => ($active ? "var(--light-0)" : "var(--dark-2)")};
@@ -153,38 +156,52 @@ function RecipeNavs() {
 					<UserSection>
 						<img src={user.avatar} alt="" />
 						<p>{user.name}</p>
-						<button>Edit Profile</button>
 					</UserSection>
 				)}
 
 				<NavOptions>
 					<NavList>
-						<Link to="/recipes">
-							<NavItem $active={curPage?.includes("recipes")}>
+						<NavItem $active={curPage?.includes("search")}>
+							<Link to="/">
+								<span>
+									<FaSearch />
+									Search
+								</span>
+							</Link>
+						</NavItem>
+						<NavItem $active={curPage?.includes("recipes")}>
+							<Link to="/recipes">
 								<span>
 									<FaUtensils />
 									Recipes
 								</span>
-							</NavItem>
-						</Link>
-						<Link to="/favorites">
-							<NavItem $active={curPage === "/favorites"}>
-								<span>
-									<FaSave />
-									Favorites
-								</span>
-							</NavItem>
-						</Link>
+							</Link>
+						</NavItem>
+
+						{isAuthenticated && (
+							<>
+								<NavItem $active={curPage === "/favorites"}>
+									<Link to="/favorites">
+										<span>
+											<FaHeart />
+											Favorites
+										</span>
+									</Link>
+								</NavItem>
+								<NavItem $active={curPage === "/account"}>
+									<Link to="/account">
+										<span>
+											<FaUser />
+											Account
+										</span>
+									</Link>
+								</NavItem>
+							</>
+						)}
 					</NavList>
 				</NavOptions>
 
 				<MenuFooter>
-					<ul>
-						<li>About us</li>
-						<li>Contact us</li>
-						<li>Terms of service</li>
-					</ul>
-
 					{isAuthenticated ? (
 						<Button onClick={handleLogout}>logout</Button>
 					) : (
