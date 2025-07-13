@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import Logo from "./Logo";
 import { Link, useNavigate } from "react-router-dom";
-import { useGlobal } from "../context/GlobalContext";
 import { usePage } from "../context/Pagecontext";
-import { HiOutlineHeart } from "react-icons/hi2";
-import { FaUtensils } from "react-icons/fa";
+import { FaSave, FaUtensils } from "react-icons/fa";
+import { useUser } from "../context/UserContext";
 
 const RecipeNavsWrapper = styled.div`
 	position: fixed;
@@ -138,7 +137,7 @@ const LoginLink = styled(Link)`
 function RecipeNavs() {
 	const { curPage } = usePage();
 	const navigate = useNavigate();
-	const { user, isAuthenticated, logout } = useGlobal();
+	const { user, isAuthenticated, logout } = useUser();
 
 	function handleLogout() {
 		logout();
@@ -171,7 +170,7 @@ function RecipeNavs() {
 						<Link to="/favorites">
 							<NavItem $active={curPage === "/favorites"}>
 								<span>
-									<HiOutlineHeart />
+									<FaSave />
 									Favorites
 								</span>
 							</NavItem>
