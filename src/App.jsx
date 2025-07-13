@@ -12,6 +12,7 @@ import AppLayout from "./ui/AppLayout";
 import Dashboard from "./ui/Dashboard";
 import GlobalStyles from "./styles/GlobalStyles";
 import { IngredientsProvider } from "./context/IngredientsContext";
+import { UserProvider } from "./context/UserContext";
 
 export default function App() {
 	return (
@@ -21,17 +22,20 @@ export default function App() {
 				<BrowserRouter>
 					<PageProvider>
 						<IngredientsProvider>
-							<Routes>
-								<Route path="/" element={<Dashboard />} />
-								<Route path="/login" element={<Login />} />
-								<Route element={<AppLayout />}>
-									<Route path="/recipes" element={<Recipes />}>
-										<Route index element={<RecipesMenus />} />
-										<Route path=":id" element={<RecipeDetails />} />
+							<UserProvider>
+								<Routes>
+									<Route path="/" element={<Dashboard />} />
+									<Route path="/login" element={<Login />} />
+									<Route element={<AppLayout />}>
+										<Route path="/recipes" element={<Recipes />}>
+											<Route index element={<RecipesMenus />} />
+											<Route path=":id" element={<RecipeDetails />} />
+										</Route>
+
+										<Route path="/favorites" element={<Favorites />} />
 									</Route>
-									<Route path="/favorites" element={<Favorites />} />
-								</Route>
-							</Routes>
+								</Routes>
+							</UserProvider>
 						</IngredientsProvider>
 					</PageProvider>
 				</BrowserRouter>
