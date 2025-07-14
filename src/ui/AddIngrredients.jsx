@@ -111,13 +111,25 @@ function AddIngrredients() {
 		ingredientsLists,
 		setIngredientsLists,
 		setAddedIng,
-		recipeResults,
-		setRecipeResults,
-		ingredients,
 		addedIng,
 		showAdded,
 		setShowAdded,
 	} = useIngredients();
+
+	function handleQuery(e) {
+		e.preventDefault();
+
+		setIngredientQuery(e.target.value);
+		setShowAdded(false);
+	}
+
+	function handeleAdded(ing) {
+		setAddedIng((ings) =>
+			ings.includes(ing) ? ings.filter((item) => item !== ing) : [...ings, ing]
+		);
+
+		// console.log(addedIng);
+	}
 
 	useEffect(
 		function () {
@@ -146,51 +158,6 @@ function AddIngrredients() {
 		},
 
 		[API_Key, ingredientQuery, setIngredientsLists]
-	);
-
-	function handleQuery(e) {
-		e.preventDefault();
-
-		setIngredientQuery(e.target.value);
-		setShowAdded(false);
-	}
-
-	function handeleAdded(ing) {
-		setAddedIng((ings) =>
-			ings.includes(ing) ? ings.filter((item) => item !== ing) : [...ings, ing]
-		);
-
-		// console.log(addedIng);
-	}
-
-	useEffect(
-		function () {
-			async function getRecipeByIngredients() {
-				// if (!ingredients) return;
-				// if (addedIng.length === 0) return;
-
-				if (addedIng.length === 0) {
-					setRecipeResults([]);
-					return;
-				}
-
-				try {
-					const res = await fetch(
-						`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_Key}&ingredients=${ingredients}&number=5 `
-					);
-					const data = await res.json();
-
-					// console.log(data);
-					setRecipeResults(data);
-					// console.log(recipeResults);
-				} catch (err) {
-					console.log(err.message);
-				}
-			}
-
-			getRecipeByIngredients();
-		},
-		[API_Key, ingredients, addedIng, setRecipeResults]
 	);
 
 	// const isAdded = true;
@@ -222,38 +189,22 @@ function AddIngrredients() {
 												{`${ing} ${addedIng.includes(ing) ? "-" : "+"}`}
 											</li>
 									  ))
-									: ingredientsLists.map(
-											(ing) => (
-												<li
-													key={ing.name}
-													onClick={() => handeleAdded(ing.name)}
-													className={addedIng.includes(ing.name) ? "added" : ""}
-												>
-													{`${ing.name} ${
-														addedIng.includes(ing.name) ? "-" : "+"
-													}`}
-												</li>
-											)
-											// console.log(ing.name);
-									  )}
+									: ingredientsLists.map((ing) => (
+											<li
+												key={ing.name}
+												onClick={() => handeleAdded(ing.name)}
+												className={addedIng.includes(ing.name) ? "added" : ""}
+											>
+												{`${ing.name} ${
+													addedIng.includes(ing.name) ? "-" : "+"
+												}`}
+											</li>
+									  ))}
 							</IngredientsLists>
-							{addedIng.length > 0 && (
-								<p>
-									You have added {addedIng.length} ingredients which are{" "}
-									{ingredients}
-								</p>
-							)}
 						</>
 					)}
 				</Form>
 			</StyledAdd>
-			{recipeResults.length > 0 && (
-				<MealsWrapper>
-					{recipeResults.map((recipe) => (
-						<MealsLists recipe={recipe} key={recipe.id} />
-					))}
-				</MealsWrapper>
-			)}
 		</>
 	);
 }
