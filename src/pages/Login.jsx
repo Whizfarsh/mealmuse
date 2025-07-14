@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "../ui/Logo";
-import { useGlobal } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 // Styled Components
 const LoginWrapper = styled.div`
@@ -141,10 +141,11 @@ const SignUpText = styled.p`
 function Login() {
 	document.title = "Login";
 	const navigate = useNavigate();
-	const { login, isAuthenticated } = useGlobal();
+	const { login, isAuthenticated } = useUser();
 
+	// Redirect to recipes if user is authenticated
 	useEffect(() => {
-		if (isAuthenticated === true) navigate("/recipes");
+		if (isAuthenticated === true) navigate("/");
 	}, [isAuthenticated, navigate]);
 
 	const [email, setEmail] = useState("");
