@@ -4,8 +4,6 @@ import { createContext, useContext, useState } from "react";
 const IngredientsContexts = createContext();
 
 function IngredientsProvider({ children }) {
-	// const { API_Key } = useGlobal();
-
 	const [ingredientQuery, setIngredientQuery] = useState("");
 	const [ingredientsLists, setIngredientsLists] = useState([]);
 	const [addedIng, setAddedIng] = useState([]);

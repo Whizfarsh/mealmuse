@@ -6,6 +6,7 @@ import AddedIngredients from "../ui/AddedIngredients";
 import { useEffect, useRef, useState } from "react";
 import { useGlobal } from "../context/GlobalContext";
 import { useIngredients } from "../context/IngredientsContext";
+import { useNavigate } from "react-router-dom";
 
 const StyledDashBoard = styled.div`
 	flex: 1;
@@ -41,13 +42,12 @@ const SearchButton = styled.button`
 `;
 
 function Dashboard() {
-	const [toSearch, setToSearch] = useState(false);
-
-	const addIngRefs = useRef();
-
 	const { API_Key } = useGlobal();
 
-	const { ingredients, addedIng } = useIngredients();
+	const navigate = useNavigate();
+	const [toSearch, setToSearch] = useState(false);
+	const { ingredients, addedIng, setRecipeResults } = useIngredients();
+	const addIngRefs = useRef();
 
 	function handleScroll() {
 		if (addIngRefs.current) {
@@ -66,17 +66,12 @@ function Dashboard() {
 		function () {
 			if (!toSearch) return;
 			async function getRecipeByIngredients() {
-				// if (!ingredients) return;
-				// if (addedIng.length === 0) return;
-
-				if (addedIng.length === 0) {
-					// setRecipeResults([]);
-					return;
-				}
+				if (!ingredients) return;
+				if (addedIng.length === 0) return;
 
 				try {
 					const res = await fetch(
-						`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_Key}&ingredients=${ingredients}&number=5 `
+						`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_Key}&ingredients=${ingredients}&number=5`
 					);
 					const data = await res.json();
 
@@ -88,11 +83,8 @@ function Dashboard() {
 
 					const bulkRecipeData = await bulkRes.json();
 
-					// console.log(data);
-					console.log(allIds);
-					console.log(bulkRecipeData);
-					// setRecipeResults(data);
-					// console.log(recipeResults);
+					setRecipeResults(bulkRecipeData);
+					navigate("/recipes");
 				} catch (err) {
 					console.log(err.message);
 				}
@@ -100,7 +92,7 @@ function Dashboard() {
 
 			getRecipeByIngredients();
 		},
-		[API_Key, ingredients, addedIng, toSearch]
+		[API_Key, ingredients, addedIng, toSearch, setRecipeResults, navigate]
 	);
 
 	// const [i]

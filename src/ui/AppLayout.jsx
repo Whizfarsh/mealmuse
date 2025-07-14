@@ -2,9 +2,6 @@ import { Outlet } from "react-router-dom";
 import RecipeNavs from "./RecipeNavs";
 import MobileMenus from "./MobileMenus";
 import styled from "styled-components";
-import SearchRecipe from "./SearchRecipe";
-// import Footer from "./Footer";
-// import { StyledFooter } from "../pages/Recipes";
 
 const StyledAppLayout = styled.div`
 	display: grid;
@@ -25,11 +22,7 @@ function AppLayout() {
 			</div>
 			<MobileMenus />
 			<div>
-				<SearchRecipe />
 				<Outlet />
-				{/* <StyledFooter> */}
-				{/* <Footer /> */}
-				{/* </StyledFooter> */}
 			</div>
 		</StyledAppLayout>
 	);
