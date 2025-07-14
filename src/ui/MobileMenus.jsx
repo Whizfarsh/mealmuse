@@ -1,10 +1,10 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useGlobal } from "../context/GlobalContext";
 import Logo from "./Logo";
 import { usePage } from "../context/Pagecontext";
 import styled from "styled-components";
-import { HiOutlineHeart, HiOutlineHome } from "react-icons/hi2";
-import { MdOutlineKitchen } from "react-icons/md";
+import { FaHeart, FaSearch, FaUser, FaUtensils } from "react-icons/fa";
+import { useUser } from "../context/UserContext";
+import { useGlobal } from "../context/GlobalContext";
 
 const MobileMenuWrapper = styled.div`
 	display: flex;
@@ -114,8 +114,8 @@ const UserSection = styled.div`
 `;
 
 function MobileMenus() {
-	const { isAuthenticated, user, logout, showMbMenu, setShowMbMenu } =
-		useGlobal();
+	const { isAuthenticated, user, logout } = useUser();
+	const { showMbMenu, setShowMbMenu } = useGlobal();
 	const { curPage } = usePage();
 	const navigate = useNavigate();
 
@@ -133,23 +133,34 @@ function MobileMenus() {
 				<MenuList>
 					<li>
 						<StyledListLink to="/" onClick={handleShowMenu}>
-							<HiOutlineHome size={20} />
-							Home
+							<FaSearch />
+							Search
 						</StyledListLink>
 					</li>
 					<li className={curPage.includes("recipes") ? "active" : ""}>
 						<StyledListLink to="/recipes" onClick={handleShowMenu}>
-							<MdOutlineKitchen size={20} />
+							<FaUtensils />
 							<span>Recipes</span>
 						</StyledListLink>
 					</li>
-					<li className={curPage === "/favorites" ? "active" : ""}>
-						<StyledListLink to="/favorites" onClick={handleShowMenu}>
-							<HiOutlineHeart size={20} />
 
-							<span>Favorites</span>
-						</StyledListLink>
-					</li>
+					{isAuthenticated && (
+						<>
+							<li className={curPage === "/favorites" ? "active" : ""}>
+								<StyledListLink to="/favorites" onClick={handleShowMenu}>
+									<FaHeart />
+
+									<span>Favorites</span>
+								</StyledListLink>
+							</li>
+							<li className={curPage === "/account" ? "active" : ""}>
+								<StyledListLink to="/account" onClick={handleShowMenu}>
+									<FaUser />
+									<span>Account</span>
+								</StyledListLink>
+							</li>
+						</>
+					)}
 				</MenuList>
 				<UserSection>
 					<p>Hello {isAuthenticated ? `${user.name}` : "Guest"}</p>
