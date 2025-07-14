@@ -9,7 +9,7 @@ import { PageProvider } from "./context/Pagecontext";
 import RecipeDetails from "./features/recipes/RecipeDetails";
 import RecipesMenus from "./features/recipes/RecipesMenus";
 import AppLayout from "./ui/AppLayout";
-import Dashboard from "./ui/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import GlobalStyles from "./styles/GlobalStyles";
 import { IngredientsProvider } from "./context/IngredientsContext";
 import { UserProvider } from "./context/UserContext";
