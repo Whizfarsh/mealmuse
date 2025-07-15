@@ -1,6 +1,7 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Searchform from "./Searchform";
+import { useUser } from "../context/UserContext";
+import Button from "./Button";
 
 // Styled Components
 const MenusWrapper = styled.div`
@@ -46,16 +47,6 @@ const MenuItem = styled.li`
 	}
 `;
 
-const LoginButton = styled.button`
-	background-color: var(--dark-3);
-	color: var(--light-0);
-	border: none;
-	padding: 0.7rem 1.4rem;
-	border-radius: 0.7rem;
-	font-weight: 600;
-	cursor: pointer;
-`;
-
 const SmallScreensMenu = styled.div`
 	display: none;
 
@@ -71,6 +62,9 @@ const SmallScreensMenu = styled.div`
 
 // HeaderNav Component
 function HeaderNav() {
+	const { user, isAuthenticated, logout } = useUser();
+
+	const navigate = useNavigate();
 	return (
 		<MenusWrapper>
 			<BgScreenMenu>
@@ -79,14 +73,34 @@ function HeaderNav() {
 						<MenuItem>
 							<NavLink to="/recipes">Recipes</NavLink>
 						</MenuItem>
-						<MenuItem>
-							<NavLink to="/favorites">Favorites</NavLink>
-						</MenuItem>
+						{isAuthenticated && (
+							<>
+								<MenuItem>
+									<NavLink to="/favorites">Favorites</NavLink>
+								</MenuItem>
+								<MenuItem>
+									<NavLink to="/account">Account</NavLink>
+								</MenuItem>
+							</>
+						)}
 					</MenuList>
-					<Searchform />
-					<Link to="/login">
-						<LoginButton>LOGIN</LoginButton>
-					</Link>
+					{user?.name && <span>Hello, {user?.name}</span>}
+
+					{isAuthenticated ? (
+						<Button
+							variations="loginout"
+							onClick={() => {
+								logout();
+								navigate("/");
+							}}
+						>
+							Logout
+						</Button>
+					) : (
+						<Link to="/login">
+							<Button variations="loginout">LOGIN</Button>
+						</Link>
+					)}
 				</Nav>
 			</BgScreenMenu>
 
