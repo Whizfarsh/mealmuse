@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import Meals from "../../ui/Meals";
 
 import styled from "styled-components";
