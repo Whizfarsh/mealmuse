@@ -1,9 +1,27 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const IngredientsContexts = createContext();
 
+const initialState = {
+	selectedFilter: "",
+	selectedCuisine: "",
+	selectedDiet: "",
+	selectedType: "",
+};
+
+function reducer(state, action) {
+	switch (action.type) {
+		default:
+			throw new Error(`Unknown action`);
+	}
+}
+
 function IngredientsProvider({ children }) {
+	const [
+		{ selectedFilter, selectedCuisine, selectedDiet, selectedType },
+		dispatch,
+	] = useReducer(reducer, initialState);
 	const [ingredientQuery, setIngredientQuery] = useState("");
 	const [ingredientsLists, setIngredientsLists] = useState([]);
 	const [addedIng, setAddedIng] = useState([]);
@@ -36,6 +54,12 @@ function IngredientsProvider({ children }) {
 				showAdded,
 				setShowAdded,
 				handleShowAdded,
+
+				dispatch,
+				selectedFilter,
+				selectedCuisine,
+				selectedDiet,
+				selectedType,
 			}}
 		>
 			{children}
