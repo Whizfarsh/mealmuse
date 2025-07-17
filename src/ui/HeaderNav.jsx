@@ -88,7 +88,7 @@ function HeaderNav() {
 
 					{isAuthenticated ? (
 						<Button
-							variations="loginout"
+							$variations="loginout"
 							onClick={() => {
 								logout();
 								navigate("/");
@@ -98,7 +98,7 @@ function HeaderNav() {
 						</Button>
 					) : (
 						<Link to="/login">
-							<Button variations="loginout">LOGIN</Button>
+							<Button $variations="loginout">LOGIN</Button>
 						</Link>
 					)}
 				</Nav>
