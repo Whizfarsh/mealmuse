@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useGlobal } from "../context/GlobalContext";
 import { useIngredients } from "../context/IngredientsContext";
 import { useNavigate } from "react-router-dom";
+import Button from "../ui/Button";
 
 const StyledDashBoard = styled.div`
 	flex: 1;
@@ -17,6 +18,11 @@ const StyledDashBoard = styled.div`
 
 	margin-top: 2.4rem;
 	padding: 3.2rem;
+
+	div {
+		display: flex;
+		gap: 1.4rem;
+	}
 `;
 
 const StyledPage = styled.div`
@@ -27,18 +33,6 @@ const StyledPage = styled.div`
 	min-height: 100vh;
 
 	position: relative;
-`;
-
-const SearchButton = styled.button`
-	margin-top: 2.4rem;
-	padding: 1.2rem 2.4rem;
-	cursor: pointer;
-	border: none;
-	border-radius: 0.8rem;
-
-	display: " block";
-	background-color: var(--dark-2);
-	color: var(--light-0);
 `;
 
 function Dashboard() {
@@ -56,10 +50,6 @@ function Dashboard() {
 				block: "start",
 			});
 		}
-	}
-
-	function handleSearch() {
-		setToSearch(true);
 	}
 
 	useEffect(
@@ -84,7 +74,7 @@ function Dashboard() {
 					const bulkRecipeData = await bulkRes.json();
 
 					setRecipeResults(bulkRecipeData);
-					navigate("/recipes");
+					navigate("/searchByIngredients");
 				} catch (err) {
 					console.log(err.message);
 				}
@@ -101,7 +91,15 @@ function Dashboard() {
 			<HeaderMenu bgColor="var(--light-1)" />
 			<StyledDashBoard ref={addIngRefs}>
 				<AddIngrredients />
-				<SearchButton onClick={handleSearch}>Search</SearchButton>
+
+				<div>
+					<Button $variation="mainUse" onClick={() => setToSearch(true)}>
+						Search Ingredients
+					</Button>
+					<Button $variation="mainUse" onClick={() => navigate("/recipes")}>
+						See All Recipes
+					</Button>
+				</div>
 			</StyledDashBoard>
 			<AddedIngredients handleClick={handleScroll} />
 			<Footer />
