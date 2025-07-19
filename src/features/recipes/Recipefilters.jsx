@@ -4,9 +4,16 @@ import styled from "styled-components";
 import { cuisine, dietsList, recipeTypesList } from "./apiRecipe";
 import { FaSortAlphaDown } from "react-icons/fa";
 import { BsCursor } from "react-icons/bs";
+import { useIngredients } from "../../context/IngredientsContext";
 
 const StyledRecipefilters = styled.div`
-	padding: 2rem 10rem;
+	padding: 0.6rem 5rem;
+	margin-top: 1.4rem;
+
+	@media (max-width: 900px) {
+		margin-top: 2rem;
+		padding: 0.1rem 1.8rem;
+	}
 `;
 
 const StyledOptions = styled.div`
@@ -14,6 +21,12 @@ const StyledOptions = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	gap: 2rem;
+
+	div {
+		@media (max-width: 900px) {
+			flex-wrap: wrap;
+		}
+	}
 
 	button {
 		/* background-color: var(--dark-0); */
@@ -36,6 +49,10 @@ const StyledOptions = styled.div`
 			background-color: var(--dark-1);
 			color: var(--light-1);
 		}
+
+		@media (max-width: 500px) {
+			padding: 0.3rem 0.8rem;
+		}
 	}
 `;
 
@@ -43,7 +60,6 @@ const StyledRecipeFilterOptionsLists = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: center;
 	gap: 1rem;
 	padding: 2rem 3rem;
 	font-size: 1.4rem;
@@ -56,19 +72,58 @@ const OptionList = styled.span`
 		&.active {
 			background-color: var(--dark-1);
 			color: var(--light-1);
+			padding: 0.5rem 1rem;
 		}
 	}
 `;
 
 function Recipefilters() {
+	const {
+		selectedFilter,
+		selectedCuisine,
+		selectedDiet,
+		selectedType,
+		handleFilterChange,
+		handleCuisineChange,
+		handleDietChange,
+		handleTypeChange,
+	} = useIngredients();
+
+	console.log(selectedFilter, selectedCuisine, selectedDiet, selectedType);
 	return (
 		<StyledRecipefilters>
 			<StyledOptions>
 				<div>
-					<button className="active">Cuisine</button>
-					<button>Diets</button>
-					<button>Meals types</button>
-					<button>Cooking durartion</button>
+					<button
+						className={selectedFilter === "all" ? "active" : ""}
+						onClick={() => handleFilterChange("all")}
+					>
+						All
+					</button>
+					<button
+						className={selectedFilter === "cuisine" ? "active" : ""}
+						onClick={() => handleFilterChange("cuisine")}
+					>
+						Cuisine
+					</button>
+					<button
+						className={selectedFilter === "diets" ? "active" : ""}
+						onClick={() => handleFilterChange("diets")}
+					>
+						Diets
+					</button>
+					<button
+						className={selectedFilter === "mealtype" ? "active" : ""}
+						onClick={() => handleFilterChange("mealtype")}
+					>
+						Meals types
+					</button>
+					<button
+						className={selectedFilter === "duration" ? "active" : ""}
+						onClick={() => handleFilterChange("duration")}
+					>
+						Cooking durartion
+					</button>
 				</div>
 
 				<div>
@@ -77,9 +132,27 @@ function Recipefilters() {
 			</StyledOptions>
 
 			<StyledRecipeFilterOptionsLists>
-				<RecipeFilterOptionsLists arr={cuisine} />
-				<RecipeFilterOptionsLists arr={dietsList} />
-				<RecipeFilterOptionsLists arr={recipeTypesList} />
+				{selectedFilter === "cuisine" && (
+					<RecipeFilterOptionsLists
+						arr={cuisine}
+						onClick={handleCuisineChange}
+						selected={selectedCuisine}
+					/>
+				)}
+				{selectedFilter === "diets" && (
+					<RecipeFilterOptionsLists
+						arr={dietsList}
+						onClick={handleDietChange}
+						selected={selectedDiet}
+					/>
+				)}
+				{selectedFilter === "mealtype" && (
+					<RecipeFilterOptionsLists
+						arr={recipeTypesList}
+						onClick={handleTypeChange}
+						selected={selectedType}
+					/>
+				)}
 			</StyledRecipeFilterOptionsLists>
 		</StyledRecipefilters>
 	);
@@ -87,6 +160,24 @@ function Recipefilters() {
 
 export default Recipefilters;
 
-function RecipeFilterOptionsLists({ arr }) {
-	return arr.map((item) => <OptionList key={item}>{item} </OptionList>);
+function RecipeFilterOptionsLists({ arr, onClick, selected }) {
+	return (
+		<>
+			<OptionList
+				className={selected === "all" ? "active" : ""}
+				onClick={() => onClick("all")}
+			>
+				All
+			</OptionList>
+			{arr.map((item) => (
+				<OptionList
+					className={selected === item ? "active" : ""}
+					key={item}
+					onClick={() => onClick(item)}
+				>
+					{item}{" "}
+				</OptionList>
+			))}
+		</>
+	);
 }
