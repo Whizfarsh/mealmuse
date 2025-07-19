@@ -4,14 +4,16 @@ import { createContext, useContext, useReducer, useState } from "react";
 const IngredientsContexts = createContext();
 
 const initialState = {
-	selectedFilter: "",
-	selectedCuisine: "",
-	selectedDiet: "",
-	selectedType: "",
+	selectedFilter: "all",
+	selectedCuisine: "all",
+	selectedDiet: "all",
+	selectedType: "all",
 };
 
 function reducer(state, action) {
 	switch (action.type) {
+		case "updateSelectedFilter":
+			return { ...state, selectedFilter: action.payload };
 		default:
 			throw new Error(`Unknown action`);
 	}
@@ -39,6 +41,23 @@ function IngredientsProvider({ children }) {
 		console.log(showAdded);
 	}
 
+	// functions for filters
+	function handleFilterChange(filter) {
+		dispatch({ type: "updateSelectedFilter", payload: filter });
+	}
+
+	function handleCuisineChange(cuisine) {
+		dispatch({ type: "updateSelectedCuisine", payload: cuisine });
+	}
+
+	function handleDietChange(diet) {
+		dispatch({ type: "updateSelectedDiet", payload: diet });
+	}
+
+	function handleTypeChange(type) {
+		dispatch({ type: "updateSelectedType", payload: type });
+	}
+
 	return (
 		<IngredientsContexts.Provider
 			value={{
@@ -55,11 +74,15 @@ function IngredientsProvider({ children }) {
 				setShowAdded,
 				handleShowAdded,
 
-				dispatch,
+				// dispatch,
 				selectedFilter,
 				selectedCuisine,
 				selectedDiet,
 				selectedType,
+				handleFilterChange,
+				handleCuisineChange,
+				handleDietChange,
+				handleTypeChange,
 			}}
 		>
 			{children}
@@ -78,4 +101,5 @@ function useIngredients() {
 	return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { IngredientsProvider, useIngredients };
