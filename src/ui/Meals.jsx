@@ -27,7 +27,7 @@ const MealLists = styled.div`
 	/* flex-wrap: wrap; */
 	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 	gap: 2.4rem;
-	padding: 2.4rem 0rem;
+	padding: 0.2rem 0rem;
 `;
 
 const MealCard = styled.div`
