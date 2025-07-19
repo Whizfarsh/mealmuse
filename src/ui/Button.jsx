@@ -29,7 +29,7 @@ const variations = {
 
 const Button = styled.button`
 	cursor: pointer;
-	${(props) => variations[props.variations]}
+	${(props) => variations[props.$variation]}
 `;
 
 export default Button;
