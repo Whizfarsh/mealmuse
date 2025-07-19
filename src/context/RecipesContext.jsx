@@ -6,6 +6,7 @@ import {
 	useReducer,
 	useState,
 } from "react";
+import { useGlobal } from "./GlobalContext";
 
 const RecipeContext = createContext();
 
@@ -39,6 +40,8 @@ function reducer(state, action) {
 }
 
 function RecipesProvider({ children }) {
+	const { API_Key } = useGlobal();
+
 	const [recipe, setRecipe] = useState(null);
 	const [tabs1, setTabs1] = useState("summary");
 	const [tabs2, setTabs2] = useState("similarRecipes");
@@ -53,7 +56,31 @@ function RecipesProvider({ children }) {
 			return [];
 		}
 	});
+	const [localRecipes, setLocalRecipes] = useState(() => {
+		try {
+			const savedRecipes = localStorage.getItem("recipes");
+			return savedRecipes ? JSON.parse(savedRecipes) : [];
+		} catch {
+			return [];
+		}
+	});
 
+	// effect for recipes
+	useEffect(() => {
+		if (!localRecipes || localRecipes.length === 0) {
+			fetch(
+				`https://api.spoonacular.com/recipes/complexSearch?number=50&addRecipeInformation=true&apiKey=${API_Key}`
+			)
+				.then((res) => res.json())
+				.then((data) => setLocalRecipes(data.results));
+		}
+	}, [API_Key, localRecipes]);
+
+	useEffect(() => {
+		localStorage.setItem("localRecipes", JSON.stringify(localRecipes));
+	}, [localRecipes]);
+
+	// effect for favorites
 	useEffect(() => {
 		try {
 			localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -133,6 +160,8 @@ function RecipesProvider({ children }) {
 				setFavorites,
 				addFavorite,
 				handleFavoriteDelete,
+
+				localRecipes,
 			}}
 		>
 			{children}
@@ -150,4 +179,5 @@ function useRecipes() {
 	return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { RecipesProvider, useRecipes };
