@@ -14,6 +14,12 @@ function reducer(state, action) {
 	switch (action.type) {
 		case "updateSelectedFilter":
 			return { ...state, selectedFilter: action.payload };
+		case "updateSelectedCuisine":
+			return { ...state, selectedCuisine: action.payload };
+		case "updateSelectedDiet":
+			return { ...state, selectedDiet: action.payload };
+		case "updateSelectedType":
+			return { ...state, selectedType: action.payload };
 		default:
 			throw new Error(`Unknown action`);
 	}
