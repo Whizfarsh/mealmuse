@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useUser } from "../context/UserContext";
 import Button from "./Button";
@@ -64,7 +64,7 @@ const SmallScreensMenu = styled.div`
 function HeaderNav() {
 	const { user, isAuthenticated, logout } = useUser();
 
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	return (
 		<MenusWrapper>
 			<BgScreenMenu>
@@ -87,18 +87,19 @@ function HeaderNav() {
 					{user?.name && <span>Hello, {user?.name}</span>}
 
 					{isAuthenticated ? (
-						<Button
-							$variations="loginout"
-							onClick={() => {
-								logout();
-								navigate("/");
-							}}
-						>
-							Logout
-						</Button>
+						<Link to="/">
+							<Button
+								$variation="loginout"
+								onClick={() => {
+									logout();
+								}}
+							>
+								Logout
+							</Button>
+						</Link>
 					) : (
 						<Link to="/login">
-							<Button $variations="loginout">LOGIN</Button>
+							<Button $variation="loginout">LOGIN</Button>
 						</Link>
 					)}
 				</Nav>
