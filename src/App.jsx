@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import GlobalStyles from "./styles/GlobalStyles";
 import { IngredientsProvider } from "./context/IngredientsContext";
 import { UserProvider } from "./context/UserContext";
+import IngredientsSearch from "./pages/IngredientsSearch";
 
 export default function App() {
 	return (
@@ -27,6 +28,10 @@ export default function App() {
 									<Route path="/" element={<Dashboard />} />
 									<Route path="/login" element={<Login />} />
 									<Route element={<AppLayout />}>
+										<Route
+											path="/searchByIngredients"
+											element={<IngredientsSearch />}
+										/>
 										<Route path="/recipes" element={<Recipes />}>
 											<Route index element={<RecipesMenus />} />
 											<Route path=":id" element={<RecipeDetails />} />
