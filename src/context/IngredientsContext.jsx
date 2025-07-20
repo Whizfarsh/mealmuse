@@ -8,6 +8,7 @@ const initialState = {
 	selectedCuisine: "all",
 	selectedDiet: "all",
 	selectedType: "all",
+	duration: "all",
 };
 
 function reducer(state, action) {
@@ -20,6 +21,7 @@ function reducer(state, action) {
 						selectedCuisine: "all",
 						selectedDiet: "all",
 						selectedType: "all",
+						duration: "all",
 				  }
 				: {
 						...state,
@@ -31,6 +33,8 @@ function reducer(state, action) {
 			return { ...state, selectedDiet: action.payload };
 		case "updateSelectedType":
 			return { ...state, selectedType: action.payload };
+		case "updateDuration":
+			return { ...state, duration: action.payload };
 		default:
 			throw new Error(`Unknown action`);
 	}
@@ -38,7 +42,7 @@ function reducer(state, action) {
 
 function IngredientsProvider({ children }) {
 	const [
-		{ selectedFilter, selectedCuisine, selectedDiet, selectedType },
+		{ selectedFilter, selectedCuisine, selectedDiet, selectedType, duration },
 		dispatch,
 	] = useReducer(reducer, initialState);
 	const [ingredientQuery, setIngredientQuery] = useState("");
@@ -75,6 +79,9 @@ function IngredientsProvider({ children }) {
 		dispatch({ type: "updateSelectedType", payload: type });
 	}
 
+	function handleDurationChange(duration) {
+		dispatch({ type: "updateDuration", payload: duration });
+	}
 	return (
 		<IngredientsContexts.Provider
 			value={{
@@ -100,6 +107,8 @@ function IngredientsProvider({ children }) {
 				handleCuisineChange,
 				handleDietChange,
 				handleTypeChange,
+				duration,
+				handleDurationChange,
 			}}
 		>
 			{children}
