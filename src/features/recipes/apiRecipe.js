@@ -35,6 +35,7 @@ const cuisine = [
 	"Vietnamese",
 ];
 const dietsList = [
+	"Dairy free",
 	"Gluten Free",
 	"Ketogenic",
 	"Lacto-Vegetarian",
@@ -42,6 +43,9 @@ const dietsList = [
 	"Pescetarian",
 	"Vegan",
 	"Vegetarian",
+	"Lacto ovo vegetarian",
+	"Primal",
+	"Paleolithic",
 ];
 const recipeTypesList = [
 	"Main Course",
@@ -54,6 +58,9 @@ const recipeTypesList = [
 	"Brunch",
 	"Sauce",
 	"Snack",
+	"lunch",
+	"soup",
+	"dinner",
 ];
 
 export { cuisine, dietsList, recipeTypesList };
