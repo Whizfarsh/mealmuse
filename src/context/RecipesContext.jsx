@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import {
 	createContext,
@@ -74,7 +75,7 @@ function RecipesProvider({ children }) {
 				.then((res) => res.json())
 				.then((data) => setLocalRecipes(data.results));
 		}
-	}, [API_Key, localRecipes]);
+	}, [API_Key]);
 
 	useEffect(() => {
 		localStorage.setItem("localRecipes", JSON.stringify(localRecipes));
