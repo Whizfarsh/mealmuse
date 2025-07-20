@@ -13,7 +13,18 @@ const initialState = {
 function reducer(state, action) {
 	switch (action.type) {
 		case "updateSelectedFilter":
-			return { ...state, selectedFilter: action.payload };
+			return action.payload === "all"
+				? {
+						...state,
+						selectedFilter: "all",
+						selectedCuisine: "all",
+						selectedDiet: "all",
+						selectedType: "all",
+				  }
+				: {
+						...state,
+						selectedFilter: action.payload,
+				  };
 		case "updateSelectedCuisine":
 			return { ...state, selectedCuisine: action.payload };
 		case "updateSelectedDiet":
