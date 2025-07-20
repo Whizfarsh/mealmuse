@@ -5,6 +5,7 @@ import { cuisine, dietsList, recipeTypesList } from "./apiRecipe";
 import { FaSortAlphaDown } from "react-icons/fa";
 import { BsCursor } from "react-icons/bs";
 import { useIngredients } from "../../context/IngredientsContext";
+import { useState } from "react";
 
 const StyledRecipefilters = styled.div`
 	padding: 0.6rem 5rem;
@@ -29,7 +30,6 @@ const StyledOptions = styled.div`
 	}
 
 	button {
-		/* background-color: var(--dark-0); */
 		color: var(--dark-1);
 		border: none;
 		padding: 0.8rem 1.6rem;
@@ -61,7 +61,7 @@ const StyledRecipeFilterOptionsLists = styled.div`
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 1rem;
-	padding: 2rem 3rem;
+	padding: 2rem 1rem;
 	font-size: 1.4rem;
 `;
 
@@ -77,19 +77,43 @@ const OptionList = styled.span`
 	}
 `;
 
-function Recipefilters() {
+const StyledSelected = styled.select`
+	width: 30rem;
+	height: 3rem;
+	border-radius: 1rem;
+	background-color: var(--light-1);
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--dark-1);
+	appearance: none; /* For most browsers */
+	-webkit-appearance: none; /* Safari/Chrome */
+	-moz-appearance: none; /* Firefox */
+
+	@media (max-width: 900px) {
+		width: 48rem;
+	}
+
+	option {
+		margin: 0.5rem;
+		background-color: var(--light-0);
+		color: var(--dark-1);
+	}
+`;
+
+function Recipefilters({ sortBy, handleSortBy }) {
+	const [showSort, setShowSort] = useState(false);
 	const {
 		selectedFilter,
 		selectedCuisine,
 		selectedDiet,
 		selectedType,
+		duration,
 		handleFilterChange,
 		handleCuisineChange,
 		handleDietChange,
 		handleTypeChange,
+		handleDurationChange,
 	} = useIngredients();
 
-	console.log(selectedFilter, selectedCuisine, selectedDiet, selectedType);
 	return (
 		<StyledRecipefilters>
 			<StyledOptions>
@@ -127,7 +151,7 @@ function Recipefilters() {
 				</div>
 
 				<div>
-					<FaSortAlphaDown size={25} />
+					<FaSortAlphaDown size={25} onClick={() => setShowSort((s) => !s)} />
 				</div>
 			</StyledOptions>
 
@@ -152,6 +176,26 @@ function Recipefilters() {
 						onClick={handleTypeChange}
 						selected={selectedType}
 					/>
+				)}
+				{selectedFilter === "duration" && (
+					<StyledSelected
+						value={duration}
+						onChange={(e) => handleDurationChange(e.target.value)}
+					>
+						<option value="all">All</option>
+						<option value="quick"> 0-15 min</option>
+						<option value="short">15-30 min</option>
+						<option value="medium">30-60 min</option>
+						<option value="long"> 60+ min</option>
+					</StyledSelected>
+				)}
+				{showSort && (
+					<StyledSelected value={sortBy} onChange={handleSortBy}>
+						<option value="none">Sort by</option>
+						<option value="name">Sort by Name</option>
+						<option value="duration">Sort by Duration</option>
+						<option value="servings">Sort by Servings</option>
+					</StyledSelected>
 				)}
 			</StyledRecipeFilterOptionsLists>
 		</StyledRecipefilters>
