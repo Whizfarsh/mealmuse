@@ -1,50 +1,9 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const IngredientsContexts = createContext();
 
-const initialState = {
-	selectedFilter: "all",
-	selectedCuisine: "all",
-	selectedDiet: "all",
-	selectedType: "all",
-	duration: "all",
-};
-
-function reducer(state, action) {
-	switch (action.type) {
-		case "updateSelectedFilter":
-			return action.payload === "all"
-				? {
-						...state,
-						selectedFilter: "all",
-						selectedCuisine: "all",
-						selectedDiet: "all",
-						selectedType: "all",
-						duration: "all",
-				  }
-				: {
-						...state,
-						selectedFilter: action.payload,
-				  };
-		case "updateSelectedCuisine":
-			return { ...state, selectedCuisine: action.payload };
-		case "updateSelectedDiet":
-			return { ...state, selectedDiet: action.payload };
-		case "updateSelectedType":
-			return { ...state, selectedType: action.payload };
-		case "updateDuration":
-			return { ...state, duration: action.payload };
-		default:
-			throw new Error(`Unknown action`);
-	}
-}
-
 function IngredientsProvider({ children }) {
-	const [
-		{ selectedFilter, selectedCuisine, selectedDiet, selectedType, duration },
-		dispatch,
-	] = useReducer(reducer, initialState);
 	const [ingredientQuery, setIngredientQuery] = useState("");
 	const [ingredientsLists, setIngredientsLists] = useState([]);
 	const [addedIng, setAddedIng] = useState([]);
@@ -58,30 +17,8 @@ function IngredientsProvider({ children }) {
 
 	function handleShowAdded() {
 		setShowAdded((show) => !show);
-
-		console.log(showAdded);
 	}
 
-	// functions for filters
-	function handleFilterChange(filter) {
-		dispatch({ type: "updateSelectedFilter", payload: filter });
-	}
-
-	function handleCuisineChange(cuisine) {
-		dispatch({ type: "updateSelectedCuisine", payload: cuisine });
-	}
-
-	function handleDietChange(diet) {
-		dispatch({ type: "updateSelectedDiet", payload: diet });
-	}
-
-	function handleTypeChange(type) {
-		dispatch({ type: "updateSelectedType", payload: type });
-	}
-
-	function handleDurationChange(duration) {
-		dispatch({ type: "updateDuration", payload: duration });
-	}
 	return (
 		<IngredientsContexts.Provider
 			value={{
@@ -97,18 +34,6 @@ function IngredientsProvider({ children }) {
 				showAdded,
 				setShowAdded,
 				handleShowAdded,
-
-				// dispatch,
-				selectedFilter,
-				selectedCuisine,
-				selectedDiet,
-				selectedType,
-				handleFilterChange,
-				handleCuisineChange,
-				handleDietChange,
-				handleTypeChange,
-				duration,
-				handleDurationChange,
 			}}
 		>
 			{children}
