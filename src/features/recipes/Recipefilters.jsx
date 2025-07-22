@@ -3,9 +3,8 @@
 import styled from "styled-components";
 import { cuisine, dietsList, recipeTypesList } from "./apiRecipe";
 import { FaSortAlphaDown } from "react-icons/fa";
-import { BsCursor } from "react-icons/bs";
-import { useIngredients } from "../../context/IngredientsContext";
 import { useState } from "react";
+import { useFilter } from "../../context/FilterContext";
 
 const StyledRecipefilters = styled.div`
 	padding: 0.6rem 5rem;
@@ -112,7 +111,7 @@ function Recipefilters({ sortBy, handleSortBy }) {
 		handleDietChange,
 		handleTypeChange,
 		handleDurationChange,
-	} = useIngredients();
+	} = useFilter();
 
 	return (
 		<StyledRecipefilters>

@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Recipefilters from "./Recipefilters";
 import { useRecipes } from "../../context/RecipesContext";
-import { useIngredients } from "../../context/IngredientsContext";
 import { useState } from "react";
+import { useFilter } from "../../context/FilterContext";
 
 const RecipeMenus = styled.div`
 	margin: -1em 1.8rem 0rem;
@@ -33,8 +33,7 @@ function RecipesMenus() {
 	document.title = "MealMuse | Recipes";
 
 	const [sortBy, setSortBy] = useState("none");
-	const { selectedCuisine, selectedDiet, selectedType, duration } =
-		useIngredients();
+	const { selectedCuisine, selectedDiet, selectedType, duration } = useFilter();
 
 	const { localRecipes } = useRecipes();
 
