@@ -1,10 +1,18 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import { cuisine, dietsList, recipeTypesList } from "./apiRecipe";
 import { FaSortAlphaDown } from "react-icons/fa";
 import { useState } from "react";
 import { useFilter } from "../../context/FilterContext";
+
+const filterOptions = [
+	"All",
+	"Cuisine",
+	"Diets",
+	"Meals types",
+	"Duration",
+	"Cooking duration",
+];
 
 const StyledRecipefilters = styled.div`
 	padding: 0.6rem 5rem;
@@ -68,11 +76,9 @@ const OptionList = styled.span`
 	cursor: pointer;
 
 	&.active {
-		&.active {
-			background-color: var(--dark-1);
-			color: var(--light-1);
-			padding: 0.5rem 1rem;
-		}
+		background-color: var(--dark-1);
+		color: var(--light-1);
+		padding: 0.5rem 1rem;
 	}
 `;
 
@@ -117,36 +123,15 @@ function Recipefilters({ sortBy, handleSortBy }) {
 		<StyledRecipefilters>
 			<StyledOptions>
 				<div>
-					<button
-						className={selectedFilter === "all" ? "active" : ""}
-						onClick={() => handleFilterChange("all")}
-					>
-						All
-					</button>
-					<button
-						className={selectedFilter === "cuisine" ? "active" : ""}
-						onClick={() => handleFilterChange("cuisine")}
-					>
-						Cuisine
-					</button>
-					<button
-						className={selectedFilter === "diets" ? "active" : ""}
-						onClick={() => handleFilterChange("diets")}
-					>
-						Diets
-					</button>
-					<button
-						className={selectedFilter === "mealtype" ? "active" : ""}
-						onClick={() => handleFilterChange("mealtype")}
-					>
-						Meals types
-					</button>
-					<button
-						className={selectedFilter === "duration" ? "active" : ""}
-						onClick={() => handleFilterChange("duration")}
-					>
-						Cooking durartion
-					</button>
+					{filterOptions.map((option) => (
+						<button
+							className={selectedFilter === "duration" ? "active" : ""}
+							onClick={() => handleFilterChange("duration")}
+							key={option}
+						>
+							{option}
+						</button>
+					))}
 				</div>
 
 				<div>
