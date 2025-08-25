@@ -25,6 +25,7 @@ const recipeSchema = mongoose.Schema(
 			type: [String],
 			required: [true, "You need to add the ingredients"],
 		},
+		nutrients: Array,
 		diets: {
 			type: [mongoose.Schema.ObjectId],
 			ref: "Diets",
@@ -92,6 +93,26 @@ const recipeSchema = mongoose.Schema(
 		},
 	}
 );
+
+//
+recipeSchema.post(/^findOne/, async function (doc) {
+	if (!doc || !doc.ingredients || doc.nutrients.length > 0) return;
+	const res = await fetch(
+		`https://api.spoonacular.com/recipes/parseIngredients?apiKey=${process.env.SPOONACULAR_API_KEY}&includeNutrition=true&servings=${doc.totalServings}`,
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+			},
+			body: `ingredientList=${encodeURIComponent(doc.ingredients.join("\n"))}`,
+		}
+	);
+	const data = await res.json();
+
+	data.forEach(async (ing) => await doc.nutrients.push(ing));
+
+	await doc.save();
+});
 
 //
 recipeSchema.set("toJSON", {
