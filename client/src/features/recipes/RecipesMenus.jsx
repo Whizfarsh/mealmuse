@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Recipefilters from "./Recipefilters";
 import { useRecipes } from "../../context/RecipesContext";
 import { useState } from "react";
-import { useFilter } from "../../context/FilterContext";
+// import { useFilter } from "../../context/FilterContext";
 
 const RecipeMenus = styled.div`
 	margin: -1em 1.8rem 0rem;
@@ -33,60 +33,63 @@ function RecipesMenus() {
 	document.title = "MealMuse | Recipes";
 
 	const [sortBy, setSortBy] = useState("none");
-	const { selectedCuisine, selectedDiet, selectedType, duration } = useFilter();
+	// const { selectedCuisine, selectedDiet, selectedType, duration } = useFilter();
 
-	const { localRecipes } = useRecipes();
+	// const { localRecipes } = useRecipes();
+	const { recipes } = useRecipes();
 
-	const recipesToDisplay = localRecipes.filter((recipe) => {
-		const selectedCuisineLower = selectedCuisine?.toLowerCase();
-		const selectedDietLower = selectedDiet?.toLowerCase();
-		const selectedTypeLower = selectedType?.toLowerCase();
+	console.log(recipes);
 
-		const cuisines = recipe.cuisines?.map((c) => c.toLowerCase()) || [];
-		const diets = recipe.diets?.map((d) => d.toLowerCase()) || [];
-		const types = recipe.dishTypes?.map((t) => t.toLowerCase()) || [];
+	// const recipesToDisplay = localRecipes.filter((recipe) => {
+	// 	const selectedCuisineLower = selectedCuisine?.toLowerCase();
+	// 	const selectedDietLower = selectedDiet?.toLowerCase();
+	// 	const selectedTypeLower = selectedType?.toLowerCase();
 
-		const matchesCuisine =
-			!selectedCuisine ||
-			selectedCuisineLower === "all" ||
-			cuisines.includes(selectedCuisineLower);
+	// 	const cuisines = recipe.cuisines?.map((c) => c.toLowerCase()) || [];
+	// 	const diets = recipe.diets?.map((d) => d.toLowerCase()) || [];
+	// 	const types = recipe.dishTypes?.map((t) => t.toLowerCase()) || [];
 
-		const matchesDiet =
-			!selectedDiet ||
-			selectedDietLower === "all" ||
-			diets.includes(selectedDietLower);
+	// 	const matchesCuisine =
+	// 		!selectedCuisine ||
+	// 		selectedCuisineLower === "all" ||
+	// 		cuisines.includes(selectedCuisineLower);
 
-		const matchesType =
-			!selectedType ||
-			selectedTypeLower === "all" ||
-			types.includes(selectedTypeLower);
+	// 	const matchesDiet =
+	// 		!selectedDiet ||
+	// 		selectedDietLower === "all" ||
+	// 		diets.includes(selectedDietLower);
 
-		const matchesDuration =
-			!duration ||
-			duration === "all" ||
-			(recipe.readyInMinutes <= 15 && duration === "quick") ||
-			(recipe.readyInMinutes > 15 &&
-				recipe.readyInMinutes <= 30 &&
-				duration === "short") ||
-			(recipe.readyInMinutes > 30 &&
-				recipe.readyInMinutes <= 60 &&
-				duration === "medium") ||
-			(recipe.readyInMinutes > 60 && duration === "long");
+	// 	const matchesType =
+	// 		!selectedType ||
+	// 		selectedTypeLower === "all" ||
+	// 		types.includes(selectedTypeLower);
 
-		return matchesCuisine && matchesDiet && matchesType && matchesDuration;
-	});
+	// 	const matchesDuration =
+	// 		!duration ||
+	// 		duration === "all" ||
+	// 		(recipe.readyInMinutes <= 15 && duration === "quick") ||
+	// 		(recipe.readyInMinutes > 15 &&
+	// 			recipe.readyInMinutes <= 30 &&
+	// 			duration === "short") ||
+	// 		(recipe.readyInMinutes > 30 &&
+	// 			recipe.readyInMinutes <= 60 &&
+	// 			duration === "medium") ||
+	// 		(recipe.readyInMinutes > 60 && duration === "long");
 
-	const sortedRecipes = [...recipesToDisplay].sort((a, b) => {
-		if (sortBy === "name") {
-			return a.title.localeCompare(b.title);
-		} else if (sortBy === "duration") {
-			return a.readyInMinutes - b.readyInMinutes;
-		} else if (sortBy === "servings") {
-			return a.servings - b.servings;
-		} else {
-			return recipesToDisplay;
-		}
-	});
+	// 	return matchesCuisine && matchesDiet && matchesType && matchesDuration;
+	// });
+
+	// const sortedRecipes = [...recipesToDisplay].sort((a, b) => {
+	// 	if (sortBy === "name") {
+	// 		return a.title.localeCompare(b.title);
+	// 	} else if (sortBy === "duration") {
+	// 		return a.readyInMinutes - b.readyInMinutes;
+	// 	} else if (sortBy === "servings") {
+	// 		return a.servings - b.servings;
+	// 	} else {
+	// 		return recipesToDisplay;
+	// 	}
+	// });
 
 	return (
 		<>
@@ -95,8 +98,8 @@ function RecipesMenus() {
 				handleSortBy={(e) => setSortBy(e.target.value)}
 			/>
 			<RecipeMenus>
-				{sortedRecipes.length > 0 ? (
-					<Meals title="" recipes={sortedRecipes} />
+				{recipes.length > 0 ? (
+					<Meals title="" recipes={recipes} />
 				) : (
 					<NoRecipe className="no-recipes">
 						<p>
