@@ -24,7 +24,7 @@ const initialState = {
 function reducer(state, action) {
 	switch (action.type) {
 		case "data/loaded":
-			return { ...state, recipe: action.payload };
+			return { ...state, recipes: action.payload };
 		case "searchUpdate":
 			return { ...state, searchQuery: action.payload };
 		case "filterOptionUpdate":
@@ -69,12 +69,13 @@ function RecipesProvider({ children }) {
 	// });
 
 	// effect for recipes
-	useEffect(() => {
-		fetch(`/api/v1/recipes`)
-			.then((res) => res.json())
-			// .then((data) => setLocalRecipes(data.results));
-			.then((data) => dispatch({ type: "data/loaded", payload: data }));
-	}, []);
+	// useEffect(() => {
+	// 	fetch(`/api/v1/recipes`)
+	// 		.then((res) => res.json())
+	// 		// .then((data) => setLocalRecipes(data.results));
+	// 		// .then((data) => console.log(data));
+	// 		.then((data) => dispatch({ type: "data/loaded", payload: data }));
+	// }, []);
 	// useEffect(() => {
 	// 	if (!localRecipes || localRecipes.length === 0) {
 	// 		// fetch(
@@ -143,6 +144,17 @@ function RecipesProvider({ children }) {
 		},
 		dispatch,
 	] = useReducer(reducer, initialState);
+
+	// effect for recipes
+	useEffect(() => {
+		async function fetchData() {
+			const res = await fetch(`/api/v1/recipes`);
+			const data = await res.json();
+
+			dispatch({ type: "data/loaded", payload: data.data.data });
+		}
+		fetchData();
+	}, []);
 
 	return (
 		<RecipeContext.Provider
