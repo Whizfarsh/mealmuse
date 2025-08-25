@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
 import Loading from "../../ui/Loading.jsx";
-import { API_Key, useGlobal } from "../../context/GlobalContext.jsx";
+import { useGlobal } from "../../context/GlobalContext.jsx";
 import { useRecipes } from "../../context/RecipesContext.jsx";
-import SimilarRecipes from "./SimilarRecipes.jsx";
+// import SimilarRecipes from "./SimilarRecipes.jsx";
 
 // Styled Components
 const ErrorMessage = styled.div`
@@ -155,49 +155,49 @@ function RecipeDetails() {
 		setError,
 		tabs1,
 		setTabs1,
-		setSimilar,
+		// setSimilar,
 		favorites,
 		addFavorite,
 	} = useRecipes();
 
-	const isFavorites = favorites.some((fav) => fav.id === recipe?.id);
+	// const isFavorites = favorites.some((fav) => fav.id === recipe?.id);
 	const { id: pageId } = useParams();
 	const navigate = useNavigate();
 
-	const ingredients = recipe?.nutrition?.ingredients;
-	const nutrients = recipe?.nutrition?.nutrients;
+	// const ingredients = recipe?.nutrition?.ingredients;
+	// const nutrients = recipe?.nutrients;
 
 	const {
-		id = "",
-		title = "",
-		image = "",
-		servings = "",
-		readyInMinutes = "",
+		_id = "",
+		name = "",
+		// image = "",
+		totalServings = "",
+		cookingDuration = "",
 		summary = "",
-		analyzedInstructions = [],
+		instruction = [],
+		ingredients = [],
+		nutrients = [],
 	} = recipe || {};
-	// const isFavorites = favorites?.some((favorite) => favorite.id === id);
+
+	// console.log(recipe);
+
+	const isFavorites = favorites?.some((favorite) => favorite.id === _id);
 
 	useEffect(() => {
-		document.title = `${title} | MealMuse`;
-	}, [title]);
+		document.title = `${name} | MealMuse`;
+	}, [name]);
 
 	useEffect(() => {
 		async function fetchRecipeDetails() {
 			try {
-				const res = await fetch(
-					`https://api.spoonacular.com/recipes/${Number(
-						pageId
-					)}/information?apiKey=${API_Key}&includeNutrition=true&addWinePairing=true`
-				);
-				if (!res.ok) throw new Error("Can not find recipe at this moment");
+				const res = await fetch(`/api/v1/recipes/${pageId}`);
 
 				const data = await res.json();
 				if (!data)
 					throw new Error(
 						"Details for the required recipe is not available right now"
 					);
-				setRecipe(data);
+				setRecipe(data.data.data);
 			} catch (err) {
 				setError(err.message);
 			}
@@ -205,20 +205,20 @@ function RecipeDetails() {
 		fetchRecipeDetails();
 	}, [pageId, setError, setRecipe]);
 
-	useEffect(() => {
-		async function fetchSimilar() {
-			try {
-				const res = await fetch(
-					`https://api.spoonacular.com/recipes/${pageId}/similar?apiKey=${API_Key}&number=4`
-				);
-				const data = await res.json();
-				setSimilar(data);
-			} catch (err) {
-				console.log(err.message);
-			}
-		}
-		fetchSimilar();
-	}, [pageId, setSimilar]);
+	// useEffect(() => {
+	// 	async function fetchSimilar() {
+	// 		try {
+	// 			const res = await fetch(
+	// 				`https://api.spoonacular.com/recipes/${pageId}/similar?apiKey=${API_Key}&number=4`
+	// 			);
+	// 			const data = await res.json();
+	// 			setSimilar(data);
+	// 		} catch (err) {
+	// 			console.log(err.message);
+	// 		}
+	// 	}
+	// 	fetchSimilar();
+	// }, [pageId, setSimilar]);
 
 	if (error) return <ErrorMessage>{error}</ErrorMessage>;
 
@@ -228,20 +228,14 @@ function RecipeDetails() {
 				<>
 					<FirstDetails>
 						<BasicDetails>
-							<h2>{title}</h2>
-							<img
-								src={
-									image ||
-									`https://img.spoonacular.com/recipes/${id}-556x370.jpg`
-								}
-								alt=""
-							/>
+							<h2>{name}</h2>
+							<img src="../src/assets/img.jpg" alt={name} />
 							<MiniInfo>
-								<p>{servings} Servings</p>
+								<p>{totalServings} Servings</p>
 								<p>
-									{readyInMinutes > 60
-										? convertMinutes(readyInMinutes)
-										: readyInMinutes}{" "}
+									{cookingDuration > 60
+										? convertMinutes(cookingDuration)
+										: cookingDuration}{" "}
 									Minutes
 								</p>
 								{isFavorites ? (
@@ -282,24 +276,20 @@ function RecipeDetails() {
 									Cooking Instructions
 								</Tabs>
 							</DetailsTabs>
-							{tabs1 === "summary" && (
-								<Summary>{parse(String(summary))}</Summary>
-							)}
+							{tabs1 === "summary" && <Summary>{summary}</Summary>}
 							{tabs1 === "cookingInstructions" && (
 								<ListsItems>
-									{analyzedInstructions[0]?.steps.map((step) => (
-										<ListItem key={step.number}>
-											{`${step.number}. ${step.step}`}
-										</ListItem>
+									{instruction.map((step, i) => (
+										<ListItem key={step}>{`${i + 1}: ${step}`}</ListItem>
 									))}
 								</ListsItems>
 							)}
 							{tabs1 === "ingredients" && (
 								<ListsItems>
-									{ingredients.map((ingredient) => (
-										<ListItem
-											key={ingredient.id}
-										>{`${ingredient.amount} ${ingredient.unit} of ${ingredient.name}`}</ListItem>
+									{ingredients.map((ingredient, i) => (
+										<ListItem key={ingredient}>{`${
+											i + 1
+										}: ${ingredient}`}</ListItem>
 									))}
 								</ListsItems>
 							)}
@@ -308,7 +298,7 @@ function RecipeDetails() {
 					{nutrients && (
 						<Nutrients>
 							<h5>Nutrients</h5>
-							{nutrients.map((nutrient, index) => (
+							{nutrients.nutrion.nutrients.map((nutrient, index) => (
 								<span key={index}>
 									{`${nutrient.amount}${nutrient.unit} of ${nutrient.name}${
 										nutrients.length - 1 === index ? "" : ", "
@@ -321,7 +311,7 @@ function RecipeDetails() {
 			) : (
 				<Loading />
 			)}
-			<SimilarRecipes />
+			{/* <SimilarRecipes /> */}
 		</RecipeDetailsContainer>
 	);
 }
