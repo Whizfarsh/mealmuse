@@ -1,0 +1,736 @@
+[
+  {
+    "name": "Nigerian Egusi Soup",
+    "slug": "nigerian-egusi-soup",
+    "summary": "A rich and hearty Nigerian soup made with ground melon seeds, spices, and vegetables. A staple in West African cuisine.",
+    "instruction": [
+      "Toast the ground egusi seeds until nutty.",
+      "Heat palm oil in a pot and sauté onions and peppers.",
+      "Add stockfish, crayfish, and seasoning cubes.",
+      "Stir in egusi paste and cook until thickened.",
+      "Add spinach and simmer for 10 minutes."
+    ],
+    "ingredients": [
+      "2 cups ground egusi (melon seeds)",
+      "1/2 cup palm oil",
+      "1 large onion, chopped",
+      "2 cups spinach leaves",
+      "1/2 cup ground crayfish",
+      "200g stockfish, soaked",
+      "2 seasoning cubes",
+      "2 cups water",
+      "Salt and pepper to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026a"],
+    "cuisines": ["64a7d00e09deafef35fdc7e0", "64a7d450f23edfe1f7fe02aa"],
+    "preparationTime": 15,
+    "cookingDuration": 30,
+    "ratingsQuantity": 2,
+    "ratingsAverage": 4.5,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/egusi-soup.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Jollof Rice",
+    "slug": "jollof-rice",
+    "summary": "A beloved West African one-pot rice dish cooked with tomatoes, peppers, and spices.",
+    "instruction": [
+      "Blend tomatoes, bell peppers, onions, and scotch bonnet.",
+      "Heat oil and fry the tomato-pepper mixture until reduced.",
+      "Add spices and stock, then stir in rice.",
+      "Cover and steam until rice is cooked.",
+      "Serve with fried plantain or chicken."
+    ],
+    "ingredients": [
+      "3 cups long-grain parboiled rice",
+      "5 large tomatoes",
+      "2 red bell peppers",
+      "2 scotch bonnets",
+      "2 medium onions",
+      "1/2 cup vegetable oil",
+      "1 tsp thyme",
+      "1 tsp curry powder",
+      "4 cups chicken stock",
+      "Salt to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026b"],
+    "cuisines": ["64a7d00e09deafef35fdc7e0", "64a7d450f23edfe1f7fe02aa"],
+    "preparationTime": 20,
+    "cookingDuration": 40,
+    "ratingsQuantity": 5,
+    "ratingsAverage": 4.7,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/jollof-rice.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Suya (Nigerian Spicy Beef Skewers)",
+    "slug": "suya-nigerian-spicy-beef-skewers",
+    "summary": "A popular Nigerian street food made with spicy peanut-coated grilled beef skewers.",
+    "instruction": [
+      "Mix ground peanuts with suya spice mix, salt, and chili powder.",
+      "Rub beef strips with oil and coat with spice mixture.",
+      "Thread beef onto skewers.",
+      "Grill over hot coals until well cooked.",
+      "Serve with sliced onions and tomatoes."
+    ],
+    "ingredients": [
+      "500g beef sirloin, thinly sliced",
+      "1/2 cup ground peanuts",
+      "2 tbsp suya spice mix",
+      "1 tsp cayenne pepper",
+      "1 tsp salt",
+      "2 tbsp vegetable oil",
+      "1 onion, sliced",
+      "2 tomatoes, sliced"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026c"],
+    "cuisines": ["64a7d450f23edfe1f7fe02aa"],
+    "preparationTime": 15,
+    "cookingDuration": 20,
+    "ratingsQuantity": 3,
+    "ratingsAverage": 4.8,
+    "totalServings": 4,
+    "image": "https://yourcdn.com/images/suya.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Efo Riro (Nigerian Spinach Stew)",
+    "slug": "efo-riro-nigerian-spinach-stew",
+    "summary": "A savory spinach stew made with palm oil, peppers, and assorted meats. A Yoruba classic.",
+    "instruction": [
+      "Blend tomatoes, peppers, and onions.",
+      "Heat palm oil, fry the blend until reduced.",
+      "Add meat and fish, cook until tender.",
+      "Stir in spinach and season to taste.",
+      "Simmer for 5 minutes before serving."
+    ],
+    "ingredients": [
+      "4 cups spinach leaves",
+      "3 medium tomatoes",
+      "2 red bell peppers",
+      "1 scotch bonnet",
+      "1 onion",
+      "1/4 cup palm oil",
+      "500g assorted meats",
+      "Salt and seasoning cubes to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026a"],
+    "cuisines": ["64a7d00e09deafef35fdc7e0"],
+    "preparationTime": 15,
+    "cookingDuration": 35,
+    "ratingsQuantity": 4,
+    "ratingsAverage": 4.6,
+    "totalServings": 5,
+    "image": "https://yourcdn.com/images/efo-riro.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Pounded Yam and Egusi",
+    "slug": "pounded-yam-and-egusi",
+    "summary": "A Nigerian staple meal made with smooth pounded yam served alongside rich egusi soup.",
+    "instruction": [
+      "Boil yam until soft.",
+      "Pound yam until smooth and stretchy.",
+      "Prepare egusi soup following traditional method.",
+      "Serve hot pounded yam with egusi."
+    ],
+    "ingredients": [
+      "5 medium yams",
+      "2 cups ground egusi",
+      "1/2 cup palm oil",
+      "1 onion",
+      "2 cups spinach",
+      "Salt and spices to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026d"],
+    "cuisines": ["64a7d00e09deafef35fdc7e0", "64a7d450f23edfe1f7fe02aa"],
+    "preparationTime": 20,
+    "cookingDuration": 40,
+    "ratingsQuantity": 5,
+    "ratingsAverage": 4.9,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/pounded-yam-egusi.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Moi Moi (Steamed Bean Cake)",
+    "slug": "moi-moi-steamed-bean-cake",
+    "summary": "A Nigerian delicacy made from blended beans, peppers, and spices, steamed in leaves or foil.",
+    "instruction": [
+      "Soak and peel beans, then blend with peppers and onions.",
+      "Add oil, seasoning, and fish or egg if desired.",
+      "Scoop into leaves or foil wraps.",
+      "Steam until firm and cooked through."
+    ],
+    "ingredients": [
+      "2 cups peeled beans",
+      "2 red bell peppers",
+      "1 onion",
+      "1/4 cup vegetable oil",
+      "1 tsp ground crayfish",
+      "Salt and seasoning cubes to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026e"],
+    "cuisines": ["64a7d00e09deafef35fdc7e0"],
+    "preparationTime": 25,
+    "cookingDuration": 50,
+    "ratingsQuantity": 4,
+    "ratingsAverage": 4.7,
+    "totalServings": 5,
+    "image": "https://yourcdn.com/images/moi-moi.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Afang Soup",
+    "slug": "afang-soup",
+    "summary": "A nutritious Cross River Nigerian soup made with afang leaves, waterleaf, and assorted meats.",
+    "instruction": [
+      "Boil meats with seasoning until tender.",
+      "Add palm oil, crayfish, and pepper.",
+      "Stir in afang and waterleaf leaves.",
+      "Cook until vegetables soften and flavors combine."
+    ],
+    "ingredients": [
+      "2 cups afang leaves, chopped",
+      "2 cups waterleaf",
+      "500g assorted meats",
+      "1/2 cup palm oil",
+      "2 tbsp ground crayfish",
+      "Salt and pepper to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026a"],
+    "cuisines": ["64a7d450f23edfe1f7fe02aa"],
+    "preparationTime": 20,
+    "cookingDuration": 40,
+    "ratingsQuantity": 3,
+    "ratingsAverage": 4.5,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/afang-soup.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Fried Plantain (Dodo)",
+    "slug": "fried-plantain-dodo",
+    "summary": "A simple Nigerian side dish of sweet ripe plantains fried until golden brown.",
+    "instruction": [
+      "Peel ripe plantains and slice diagonally.",
+      "Heat oil in a frying pan.",
+      "Fry plantains in batches until golden brown.",
+      "Drain on paper towels and serve."
+    ],
+    "ingredients": [
+      "4 ripe plantains",
+      "1/2 cup vegetable oil",
+      "Pinch of salt (optional)"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026a"],
+    "cuisines": ["64a7d00e09deafef35fdc7e0"],
+    "preparationTime": 5,
+    "cookingDuration": 10,
+    "ratingsQuantity": 6,
+    "ratingsAverage": 4.9,
+    "totalServings": 4,
+    "image": "https://yourcdn.com/images/fried-plantain.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Pepper Soup",
+    "slug": "pepper-soup",
+    "summary": "A light and spicy Nigerian soup flavored with local spices, often made with goat meat or fish.",
+    "instruction": [
+      "Boil meat or fish with onions and seasoning.",
+      "Add pepper soup spice blend and chilies.",
+      "Simmer until meat is tender and broth is flavorful.",
+      "Serve hot."
+    ],
+    "ingredients": [
+      "500g goat meat or fish",
+      "1 onion",
+      "2 tbsp pepper soup spice blend",
+      "2 scotch bonnets",
+      "4 cups water",
+      "Salt to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026c"],
+    "cuisines": ["64a7d450f23edfe1f7fe02aa"],
+    "preparationTime": 10,
+    "cookingDuration": 35,
+    "ratingsQuantity": 5,
+    "ratingsAverage": 4.8,
+    "totalServings": 5,
+    "image": "https://yourcdn.com/images/pepper-soup.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Akara (Bean Fritters)",
+    "slug": "akara-bean-fritters",
+    "summary": "A crunchy Nigerian street food snack made with blended beans and spices, deep-fried until golden.",
+    "instruction": [
+      "Soak and peel beans, then blend with onions and peppers.",
+      "Whisk mixture until fluffy.",
+      "Heat oil and drop spoonfuls of batter.",
+      "Fry until golden brown and crisp."
+    ],
+    "ingredients": [
+      "2 cups peeled beans",
+      "1 onion",
+      "2 scotch bonnets",
+      "1/4 cup water",
+      "1/2 cup vegetable oil",
+      "Salt to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026a"],
+    "cuisines": ["64a7d00e09deafef35fdc7e0"],
+    "preparationTime": 15,
+    "cookingDuration": 20,
+    "ratingsQuantity": 4,
+    "ratingsAverage": 4.7,
+    "totalServings": 4,
+    "image": "https://yourcdn.com/images/akara.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-22T10:18:11.200Z"
+  },
+  {
+    "name": "Ghanaian Waakye",
+    "slug": "ghanaian-waakye",
+    "summary": "A traditional Ghanaian dish made with rice, beans, and a flavorful sauce. Served with protein and garnishes.",
+    "instruction": [
+      "Soak and cook beans until tender.",
+      "Cook rice with sorghum leaves (waakye leaves) to give color.",
+      "Prepare sauce with tomatoes, onions, and spices.",
+      "Serve rice and beans with sauce, fried fish, and boiled eggs."
+    ],
+    "ingredients": [
+      "2 cups rice",
+      "1 cup beans",
+      "2 waakye leaves",
+      "1 onion",
+      "3 tomatoes",
+      "2 tbsp vegetable oil",
+      "Salt and pepper to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026b"],
+    "cuisines": ["64a7d450f23edfe1f7fe02aa"],
+    "preparationTime": 20,
+    "cookingDuration": 50,
+    "ratingsQuantity": 6,
+    "ratingsAverage": 4.8,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/waakye.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:00:00.000Z"
+  },
+  {
+    "name": "Kenyan Ugali with Sukuma Wiki",
+    "slug": "kenyan-ugali-sukuma-wiki",
+    "summary": "Ugali, a staple Kenyan cornmeal dish, served with sautéed collard greens known as Sukuma Wiki.",
+    "instruction": [
+      "Boil water and gradually add maize flour, stirring continuously to make thick porridge.",
+      "Heat oil in a pan and sauté onions, tomatoes, and sukuma wiki.",
+      "Serve ugali with the sautéed greens."
+    ],
+    "ingredients": [
+      "2 cups maize flour",
+      "4 cups water",
+      "2 cups collard greens",
+      "1 onion, chopped",
+      "2 tomatoes, chopped",
+      "2 tbsp vegetable oil",
+      "Salt to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026a"],
+    "cuisines": ["64a7d450f23edfe1f7fe02ab"],
+    "preparationTime": 10,
+    "cookingDuration": 20,
+    "ratingsQuantity": 4,
+    "ratingsAverage": 4.7,
+    "totalServings": 4,
+    "image": "https://yourcdn.com/images/ugali-sukuma.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:05:00.000Z"
+  },
+  {
+    "name": "Moroccan Tagine with Lamb",
+    "slug": "moroccan-tagine-lamb",
+    "summary": "A slow-cooked Moroccan dish with lamb, vegetables, and aromatic spices cooked in a traditional tagine.",
+    "instruction": [
+      "Brown lamb chunks in oil.",
+      "Add onions, garlic, and Moroccan spice blend.",
+      "Add vegetables and simmer with stock until meat is tender.",
+      "Serve with couscous."
+    ],
+    "ingredients": [
+      "500g lamb shoulder, cubed",
+      "1 onion, chopped",
+      "2 carrots, chopped",
+      "1 zucchini, chopped",
+      "2 tbsp olive oil",
+      "2 tsp Moroccan spice mix",
+      "1 cup vegetable stock",
+      "Salt to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026c"],
+    "cuisines": ["64a7d450f23edfe1f7fe02ac"],
+    "preparationTime": 15,
+    "cookingDuration": 120,
+    "ratingsQuantity": 7,
+    "ratingsAverage": 4.9,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/tagine-lamb.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:10:00.000Z"
+  },
+  {
+    "name": "Ethiopian Doro Wat",
+    "slug": "ethiopian-doro-wat",
+    "summary": "A spicy Ethiopian chicken stew cooked with berbere spice, onions, and niter kibbeh, served with injera.",
+    "instruction": [
+      "Cook chopped onions slowly until caramelized.",
+      "Add niter kibbeh, garlic, and berbere spice.",
+      "Add chicken pieces and simmer with stock until tender.",
+      "Serve hot with injera."
+    ],
+    "ingredients": [
+      "1 kg chicken, cut into pieces",
+      "3 large onions, chopped",
+      "3 tbsp niter kibbeh",
+      "2 tbsp berbere spice",
+      "2 cloves garlic, minced",
+      "1 cup chicken stock",
+      "Salt to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026d"],
+    "cuisines": ["64a7d450f23edfe1f7fe02ad"],
+    "preparationTime": 30,
+    "cookingDuration": 90,
+    "ratingsQuantity": 5,
+    "ratingsAverage": 4.9,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/doro-wat.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:15:00.000Z"
+  },
+    {
+    "name": "South African Bobotie",
+    "slug": "south-african-bobotie",
+    "summary": "A classic South African baked dish made with spiced minced meat and a savory egg custard topping.",
+    "instruction": [
+      "Sauté minced meat with onions, garlic, curry powder, and dried fruit.",
+      "Transfer to a baking dish, pour over egg and milk mixture.",
+      "Bake until golden and firm.",
+      "Serve with yellow rice."
+    ],
+    "ingredients": [
+      "500g minced beef",
+      "1 onion, chopped",
+      "2 cloves garlic, minced",
+      "2 tsp curry powder",
+      "1/4 cup raisins",
+      "2 eggs",
+      "1/2 cup milk",
+      "Salt and pepper to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026c"],
+    "cuisines": ["64a7d450f23edfe1f7fe02ae"],
+    "preparationTime": 15,
+    "cookingDuration": 50,
+    "ratingsQuantity": 6,
+    "ratingsAverage": 4.6,
+    "totalServings": 5,
+    "image": "https://yourcdn.com/images/bobotie.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:20:00.000Z"
+  },
+  {
+    "name": "Tunisian Brik",
+    "slug": "tunisian-brik",
+    "summary": "A popular North African snack of thin pastry filled with egg, tuna, and spices, deep-fried to crisp perfection.",
+    "instruction": [
+      "Place a thin sheet of brik pastry on a flat surface.",
+      "Add egg, tuna, and parsley mixture.",
+      "Fold pastry into a triangle and seal edges.",
+      "Deep-fry until golden and crispy.",
+      "Serve immediately."
+    ],
+    "ingredients": [
+      "6 brik pastry sheets",
+      "3 eggs",
+      "1 can tuna, drained",
+      "2 tbsp parsley, chopped",
+      "Oil for deep frying",
+      "Salt and pepper to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026e"],
+    "cuisines": ["64a7d450f23edfe1f7fe02af"],
+    "preparationTime": 10,
+    "cookingDuration": 10,
+    "ratingsQuantity": 5,
+    "ratingsAverage": 4.7,
+    "totalServings": 3,
+    "image": "https://yourcdn.com/images/brik.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:25:00.000Z"
+  },
+  {
+    "name": "Algerian Couscous with Vegetables",
+    "slug": "algerian-couscous-vegetables",
+    "summary": "A classic Algerian dish made with steamed couscous, vegetables, and aromatic spices.",
+    "instruction": [
+      "Steam couscous until fluffy.",
+      "Sauté vegetables with olive oil and spices.",
+      "Mix couscous with vegetables and simmer briefly.",
+      "Serve hot."
+    ],
+    "ingredients": [
+      "2 cups couscous",
+      "1 zucchini, chopped",
+      "1 carrot, chopped",
+      "1 bell pepper, chopped",
+      "2 tbsp olive oil",
+      "1 tsp paprika",
+      "Salt to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026c"],
+    "cuisines": ["64a7d450f23edfe1f7fe02b0"],
+    "preparationTime": 10,
+    "cookingDuration": 20,
+    "ratingsQuantity": 3,
+    "ratingsAverage": 4.5,
+    "totalServings": 4,
+    "image": "https://yourcdn.com/images/algerian-couscous.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:30:00.000Z"
+  },
+  {
+    "name": "Egyptian Koshari",
+    "slug": "egyptian-koshari",
+    "summary": "A popular Egyptian street food made with rice, lentils, pasta, tomato sauce, and crispy onions.",
+    "instruction": [
+      "Cook rice, lentils, and pasta separately.",
+      "Prepare tomato sauce with garlic, cumin, and chili.",
+      "Layer rice, lentils, and pasta, pour sauce on top.",
+      "Top with fried onions and serve."
+    ],
+    "ingredients": [
+      "1 cup rice",
+      "1 cup lentils",
+      "1 cup macaroni",
+      "1 onion, sliced",
+      "2 cups tomato sauce",
+      "2 cloves garlic, minced",
+      "2 tbsp vegetable oil",
+      "Salt and spices to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026d"],
+    "cuisines": ["64a7d450f23edfe1f7fe02b1"],
+    "preparationTime": 15,
+    "cookingDuration": 40,
+    "ratingsQuantity": 5,
+    "ratingsAverage": 4.8,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/koshari.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:35:00.000Z"
+  },
+  {
+    "name": "Libyan Bazeen",
+    "slug": "libyan-bazeen",
+    "summary": "A traditional Libyan dish made from barley dough, served with meat and sauce.",
+    "instruction": [
+      "Mix barley flour with water and salt to form a dough.",
+      "Cook the dough in boiling water while stirring.",
+      "Prepare meat stew with onions, tomato paste, and spices.",
+      "Serve dough with stew and garnish with boiled eggs."
+    ],
+    "ingredients": [
+      "2 cups barley flour",
+      "4 cups water",
+      "500g lamb",
+      "1 onion, chopped",
+      "2 tbsp tomato paste",
+      "2 boiled eggs",
+      "Salt and spices to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026e"],
+    "cuisines": ["64a7d450f23edfe1f7fe02b2"],
+    "preparationTime": 20,
+    "cookingDuration": 60,
+    "ratingsQuantity": 4,
+    "ratingsAverage": 4.6,
+    "totalServings": 5,
+    "image": "https://yourcdn.com/images/bazeen.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:40:00.000Z"
+  },
+  {
+    "name": "Tunisian Couscous with Fish",
+    "slug": "tunisian-couscous-fish",
+    "summary": "A flavorful Tunisian dish combining couscous with fresh fish, vegetables, and aromatic spices.",
+    "instruction": [
+      "Steam couscous until fluffy.",
+      "Cook fish with onion, tomato, and spices in a pan.",
+      "Mix cooked fish and vegetables with couscous.",
+      "Serve hot."
+    ],
+    "ingredients": [
+      "2 cups couscous",
+      "500g white fish fillet",
+      "1 onion, chopped",
+      "2 tomatoes, chopped",
+      "2 tbsp olive oil",
+      "1 tsp paprika",
+      "Salt and pepper to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026c"],
+    "cuisines": ["64a7d450f23edfe1f7fe02af"],
+    "preparationTime": 15,
+    "cookingDuration": 30,
+    "ratingsQuantity": 4,
+    "ratingsAverage": 4.7,
+    "totalServings": 4,
+    "image": "https://yourcdn.com/images/tunisian-couscous.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T10:45:00.000Z"
+  },
+  {
+    "name": "Egyptian Fattah",
+    "slug": "egyptian-fattah",
+    "summary": "A celebratory dish made of rice, crispy bread, and slow-cooked meat, topped with garlic tomato sauce.",
+    "instruction": [
+      "Fry pieces of pita bread until crispy.",
+      "Cook rice and set aside.",
+      "Slow-cook beef or lamb with spices until tender.",
+      "Prepare garlic tomato sauce and pour over rice and bread.",
+      "Top with meat and serve hot."
+    ],
+    "ingredients": [
+      "500g beef or lamb, cubed",
+      "2 cups rice, cooked",
+      "4 pieces pita bread, toasted",
+      "2 cups tomato sauce",
+      "4 cloves garlic, minced",
+      "1 tsp ground cumin",
+      "1 tsp ground coriander",
+      "2 tbsp olive oil",
+      "Salt and pepper to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026e"],
+    "cuisines": ["64a7d450f23edfe1f7fe02b2"],
+    "preparationTime": 20,
+    "cookingDuration": 90,
+    "ratingsQuantity": 5,
+    "ratingsAverage": 4.8,
+    "totalServings": 6,
+    "image": "https://yourcdn.com/images/egyptian-fattah.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T11:30:00.000Z"
+  },
+  {
+    "name": "Moroccan Couscous with Vegetables",
+    "slug": "moroccan-couscous-vegetables",
+    "summary": "A flavorful vegetarian dish with steamed couscous, seasonal vegetables, and a light spiced broth.",
+    "instruction": [
+      "Steam couscous until fluffy.",
+      "Cook vegetables in a spiced broth until tender.",
+      "Mix couscous with vegetables and serve hot."
+    ],
+    "ingredients": [
+      "2 cups couscous",
+      "1 zucchini, chopped",
+      "1 carrot, chopped",
+      "1 bell pepper, chopped",
+      "1 onion, chopped",
+      "2 cups vegetable broth",
+      "1 tsp ground cumin",
+      "1 tsp paprika",
+      "2 tbsp olive oil",
+      "Salt and pepper to taste"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026c"],
+    "cuisines": ["64a7d450f23edfe1f7fe02b0"],
+    "preparationTime": 15,
+    "cookingDuration": 25,
+    "ratingsQuantity": 4,
+    "ratingsAverage": 4.6,
+    "totalServings": 4,
+    "image": "https://yourcdn.com/images/moroccan-couscous-vegetables.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T11:35:00.000Z"
+  },
+  {
+    "name": "Tunisian Shakshuka",
+    "slug": "tunisian-shakshuka",
+    "summary": "Eggs poached in a spicy tomato and bell pepper sauce, served with crusty bread.",
+    "instruction": [
+      "Sauté onions and bell peppers in olive oil.",
+      "Add tomatoes and spices, cook until thickened.",
+      "Make small wells and crack eggs into them.",
+      "Cover and cook until eggs are set.",
+      "Serve with bread."
+    ],
+    "ingredients": [
+      "4 large eggs",
+      "2 tomatoes, chopped",
+      "1 onion, chopped",
+      "1 red bell pepper, chopped",
+      "2 cloves garlic, minced",
+      "1 tsp paprika",
+      "1/2 tsp cayenne pepper",
+      "2 tbsp olive oil",
+      "Salt and pepper to taste",
+      "Bread for serving"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026d"],
+    "cuisines": ["64a7d450f23edfe1f7fe02af"],
+    "preparationTime": 10,
+    "cookingDuration": 15,
+    "ratingsQuantity": 5,
+    "ratingsAverage": 4.9,
+    "totalServings": 2,
+    "image": "https://yourcdn.com/images/tunisian-shakshuka.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T11:40:00.000Z"
+  },
+  {
+    "name": "Libyan Harissa Chicken",
+    "slug": "libyan-harissa-chicken",
+    "summary": "Spicy chicken marinated in harissa paste and roasted to perfection, served with couscous.",
+    "instruction": [
+      "Mix harissa paste with olive oil, garlic, and lemon juice.",
+      "Marinate chicken pieces for at least 1 hour.",
+      "Roast chicken in the oven until cooked through.",
+      "Serve with steamed couscous and vegetables."
+    ],
+    "ingredients": [
+      "1 whole chicken, cut into pieces",
+      "3 tbsp harissa paste",
+      "2 tbsp olive oil",
+      "3 cloves garlic, minced",
+      "1 tbsp lemon juice",
+      "Salt and pepper to taste",
+      "2 cups couscous",
+      "Steamed vegetables for serving"
+    ],
+    "diets": ["64a7d0f3789b7ed46a51026e"],
+    "cuisines": ["64a7d450f23edfe1f7fe02b2"],
+    "preparationTime": 15,
+    "cookingDuration": 50,
+    "ratingsQuantity": 4,
+    "ratingsAverage": 4.7,
+    "totalServings": 4,
+    "image": "https://yourcdn.com/images/libyan-harissa-chicken.jpg",
+    "createdBy": "64b8456acc2fb457327e0746",
+    "createdAt": "2025-08-23T11:45:00.000Z"
+  }
+]

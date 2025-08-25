@@ -1,8 +1,8 @@
 const fs = require("fs");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
-const Recipe = require("./models/recipesSchema");
+dotenv.config({ path: "../config.env" });
+const Recipe = require("../server/models/recipesModel");
 
 const DB = process.env.DATABASE.replace(
 	"<PASSWORD>",
@@ -16,12 +16,12 @@ mongoose
 	})
 	.then(() => console.log("DB connection successful!"));
 
-const recipeData = fs.readFileSync(`${__dirname}/data-ex.json`, "utf-8");
+const recipeData = fs.readFileSync(`${__dirname}/recipe-data.json`, "utf-8");
 const recipes = JSON.parse(recipeData);
 
 const importData = async () => {
 	try {
-		await Recipe.create(recipes);
+		await Recipe.create(recipes, { validateBeforeSave: false });
 		console.log("Data successfully loaded!");
 	} catch (err) {
 		console.log(err);

@@ -79,14 +79,14 @@ exports.getAll = (Model) =>
 			.sorting()
 			.limiting()
 			.paginating();
-		const doc = await features.query;
+		const data = await features.query;
 
 		// SEND RESPONSE
 		res.status(200).json({
 			status: "success",
-			results: doc.length,
+			results: data.length,
 			data: {
-				data: doc,
+				data,
 			},
 		});
 	});

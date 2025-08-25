@@ -99,7 +99,7 @@ function Meals({ title, recipes, className }) {
 			{/* <Grid> */}
 			<MealLists>
 				{recipes.map((recipe) => (
-					<MealsLists recipe={recipe} key={recipe.id} />
+					<MealsLists recipe={recipe} key={recipe._id} />
 					//key={recipe.id}
 				))}
 			</MealLists>
@@ -120,28 +120,25 @@ export function MealsLists({ recipe }) {
 
 	return (
 		// <Link to={`/recipes/${recipe.id}`}>
-		<StyledLink to={`/recipes/${recipe.id}`}>
+		<StyledLink to={`/recipes/${recipe._id}`}>
 			<MealCard>
-				<img
-					src={`https://img.spoonacular.com/recipes/${recipe.id}-556x370.jpg`}
-					alt={recipe.title}
-				/>
-				<h4>{recipe.title}</h4>
-				{recipe.servings || recipe.readyInMinutes ? (
+				<img src="../src/assets/img.jpg" alt={recipe.name} />
+				<h4>{recipe.name}</h4>
+				{recipe.totalServings || recipe.cookingDuration ? (
 					<Info>
 						<p>
 							<ion-icon name="alarm-outline"></ion-icon>
 							<span>
-								{recipe.readyInMinutes < 60
-									? recipe.readyInMinutes
-									: convertMinutes(recipe.readyInMinutes)}{" "}
+								{recipe.cookingDuration < 60
+									? recipe.cookingDuration
+									: convertMinutes(recipe.cookingDuration)}{" "}
 								Minutes
 							</span>
 						</p>
 						|
 						<p>
 							<ion-icon name="people-outline"></ion-icon>
-							<span>{recipe.servings} Servings</span>
+							<span>{recipe.totalServings} Servings</span>
 						</p>
 					</Info>
 				) : null}
