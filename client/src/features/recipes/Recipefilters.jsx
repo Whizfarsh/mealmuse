@@ -5,14 +5,7 @@ import { FaSortAlphaDown } from "react-icons/fa";
 import { useState } from "react";
 import { useFilter } from "../../context/FilterContext";
 
-const filterOptions = [
-	"All",
-	"Cuisine",
-	"Diets",
-	"Meals types",
-	"Duration",
-	"Cooking duration",
-];
+const filterOptions = ["All", "Cuisine", "Diets", "MealsTypes", "Duration"];
 
 const StyledRecipefilters = styled.div`
 	padding: 0.6rem 5rem;
@@ -125,8 +118,8 @@ function Recipefilters({ sortBy, handleSortBy }) {
 				<div>
 					{filterOptions.map((option) => (
 						<button
-							className={selectedFilter === "duration" ? "active" : ""}
-							onClick={() => handleFilterChange("duration")}
+							className={selectedFilter === option ? "active" : ""}
+							onClick={() => handleFilterChange(option)}
 							key={option}
 						>
 							{option}
@@ -140,28 +133,28 @@ function Recipefilters({ sortBy, handleSortBy }) {
 			</StyledOptions>
 
 			<StyledRecipeFilterOptionsLists>
-				{selectedFilter === "cuisine" && (
+				{selectedFilter === "Cuisine" && (
 					<RecipeFilterOptionsLists
 						arr={cuisine}
 						onClick={handleCuisineChange}
 						selected={selectedCuisine}
 					/>
 				)}
-				{selectedFilter === "diets" && (
+				{selectedFilter === "Diets" && (
 					<RecipeFilterOptionsLists
 						arr={dietsList}
 						onClick={handleDietChange}
 						selected={selectedDiet}
 					/>
 				)}
-				{selectedFilter === "mealtype" && (
+				{selectedFilter === "MealsTypes" && (
 					<RecipeFilterOptionsLists
 						arr={recipeTypesList}
 						onClick={handleTypeChange}
 						selected={selectedType}
 					/>
 				)}
-				{selectedFilter === "duration" && (
+				{selectedFilter === "Duration" && (
 					<StyledSelected
 						value={duration}
 						onChange={(e) => handleDurationChange(e.target.value)}

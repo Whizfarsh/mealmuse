@@ -9,6 +9,9 @@ lerna-debug.log*
 
 src\services\apiIngredients.jsx
 node_modules
+frontend\node_modules
+backend\node_modules
+config.env
 dist
 dist-ssr
 *.local
