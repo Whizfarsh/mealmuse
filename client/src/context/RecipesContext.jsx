@@ -45,8 +45,9 @@ function RecipesProvider({ children }) {
 	// const { API_Key } = useGlobal();
 
 	const [recipe, setRecipe] = useState(null);
-	const [tabs1, setTabs1] = useState("summary");
-	const [tabs2, setTabs2] = useState("similarRecipes");
+	const [tabs, setTabs] = useState("summary");
+	const [tabs2, setTabs2] = useState(null);
+	const [tabsIndex, setTabsIndex] = useState(0);
 	const [similar, setSimilar] = useState([]);
 	const [error, setError] = useState("");
 
@@ -171,10 +172,12 @@ function RecipesProvider({ children }) {
 				setRecipe,
 				error,
 				setError,
-				tabs1,
-				setTabs1,
+				tabs,
+				setTabs,
 				tabs2,
 				setTabs2,
+				tabsIndex,
+				setTabsIndex,
 				similar,
 				setSimilar,
 
