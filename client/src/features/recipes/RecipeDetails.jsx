@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../ui/Loading.jsx";
 import { useGlobal } from "../../context/GlobalContext.jsx";
 import { useRecipes } from "../../context/RecipesContext.jsx";
+import { MainTabs, TabsOptions } from "../../ui/Tabs.jsx";
+import BreakDownLists from "../../ui/BreakDownLists";
 // import SimilarRecipes from "./SimilarRecipes.jsx";
 
 // Styled Components
@@ -93,22 +95,6 @@ const DetailsTabs = styled.div`
 	gap: 1.2rem;
 `;
 
-const Tabs = styled.button`
-	background-color: var(--light-1);
-	border: none;
-	cursor: pointer;
-	border-radius: 0.5rem;
-	padding: 0.7rem 1rem;
-
-	&.active,
-	&:hover {
-		font-weight: 600;
-		background-color: var(--dark-2);
-		color: var(--light-0);
-		transition: background-color 500ms ease-in;
-	}
-`;
-
 const ListsItems = styled.ul`
 	margin: 1.8rem 1rem !important;
 `;
@@ -119,6 +105,9 @@ const ListItem = styled.li`
 
 const Nutrients = styled.div`
 	margin-bottom: 2.8rem;
+	display: flex;
+	flex-direction: column;
+	row-gap: 1.8rem;
 
 	h5 {
 		margin-bottom: 0.5rem;
@@ -144,6 +133,12 @@ const FavButton = styled.button`
 	}
 `;
 
+const IngredientsNutrients = styled.div`
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+`;
+
 // Component
 function RecipeDetails() {
 	const { convertMinutes } = useGlobal();
@@ -153,19 +148,14 @@ function RecipeDetails() {
 		setRecipe,
 		error,
 		setError,
-		tabs1,
-		setTabs1,
-		// setSimilar,
+		tabs,
+		tabsIndex,
 		favorites,
 		addFavorite,
 	} = useRecipes();
 
-	// const isFavorites = favorites.some((fav) => fav.id === recipe?.id);
 	const { id: pageId } = useParams();
 	const navigate = useNavigate();
-
-	// const ingredients = recipe?.nutrition?.ingredients;
-	// const nutrients = recipe?.nutrients;
 
 	const {
 		_id = "",
@@ -178,8 +168,6 @@ function RecipeDetails() {
 		ingredients = [],
 		nutrients = [],
 	} = recipe || {};
-
-	// console.log(recipe);
 
 	const isFavorites = favorites?.some((favorite) => favorite.id === _id);
 
@@ -204,21 +192,6 @@ function RecipeDetails() {
 		}
 		fetchRecipeDetails();
 	}, [pageId, setError, setRecipe]);
-
-	// useEffect(() => {
-	// 	async function fetchSimilar() {
-	// 		try {
-	// 			const res = await fetch(
-	// 				`https://api.spoonacular.com/recipes/${pageId}/similar?apiKey=${API_Key}&number=4`
-	// 			);
-	// 			const data = await res.json();
-	// 			setSimilar(data);
-	// 		} catch (err) {
-	// 			console.log(err.message);
-	// 		}
-	// 	}
-	// 	fetchSimilar();
-	// }, [pageId, setSimilar]);
 
 	if (error) return <ErrorMessage>{error}</ErrorMessage>;
 
@@ -257,38 +230,25 @@ function RecipeDetails() {
 						</BasicDetails>
 						<FirstDetailsMini>
 							<DetailsTabs>
-								<Tabs
-									className={tabs1 === "summary" ? "active" : ""}
-									onClick={() => setTabs1("summary")}
-								>
-									Summary
-								</Tabs>
-								<Tabs
-									className={tabs1 === "ingredients" ? "active" : ""}
-									onClick={() => setTabs1("ingredients")}
-								>
-									Ingredients
-								</Tabs>
-								<Tabs
-									className={tabs1 === "cookingInstructions" ? "active" : ""}
-									onClick={() => setTabs1("cookingInstructions")}
-								>
+								<MainTabs name={"summary"}>Summary</MainTabs>
+								<MainTabs name={"ingredients"}>Ingredients</MainTabs>
+								<MainTabs name={"cookingInstructions"}>
 									Cooking Instructions
-								</Tabs>
+								</MainTabs>
 							</DetailsTabs>
-							{tabs1 === "summary" && <Summary>{summary}</Summary>}
-							{tabs1 === "cookingInstructions" && (
+							{tabs === "summary" && <Summary>{summary}</Summary>}
+							{tabs === "cookingInstructions" && (
 								<ListsItems>
 									{instruction.map((step, i) => (
 										<ListItem key={step}>{`${i + 1}: ${step}`}</ListItem>
 									))}
 								</ListsItems>
 							)}
-							{tabs1 === "ingredients" && (
+							{tabs === "ingredients" && (
 								<ListsItems>
-									{ingredients.map((ingredient, i) => (
+									{ingredients.map((ingredient, ind) => (
 										<ListItem key={ingredient}>{`${
-											i + 1
+											ind + 1
 										}: ${ingredient}`}</ListItem>
 									))}
 								</ListsItems>
@@ -297,14 +257,36 @@ function RecipeDetails() {
 					</FirstDetails>
 					{nutrients && (
 						<Nutrients>
-							<h5>Nutrients</h5>
-							{nutrients.nutrion.nutrients.map((nutrient, index) => (
-								<span key={index}>
-									{`${nutrient.amount}${nutrient.unit} of ${nutrient.name}${
-										nutrients.length - 1 === index ? "" : ", "
-									}`}
-								</span>
-							))}
+							<h5>Ingredients nutrients</h5>
+							<div className="nutTabs">
+								{nutrients.map((nutrient, index) => (
+									// <span key={index}>
+
+									<TabsOptions index={index} key={`${index}${nutrient.name}`}>
+										<span>{nutrient.name}</span>
+									</TabsOptions>
+								))}
+							</div>
+							<IngredientsNutrients>
+								{tabsIndex !== null && (
+									<>
+										<p>
+											{nutrients[tabsIndex].nutrition.nutrients.map((nut) =>
+												nut.amount > 0
+													? `${nut.amount}${nut.unit} of ${nut.name}
+											, `
+													: ""
+											)}
+										</p>
+										<BreakDownLists
+											name={"Caloric Break Down"}
+											objItems={nutrients[tabsIndex].nutrition.caloricBreakdown}
+											symbolUnit={" %"}
+											wps={nutrients[tabsIndex].nutrition.weightPerServing}
+										/>
+									</>
+								)}
+							</IngredientsNutrients>
 						</Nutrients>
 					)}
 				</>
