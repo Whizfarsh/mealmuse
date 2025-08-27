@@ -5,7 +5,6 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const sendEmail = require("../utils/email");
 const crypto = require("crypto");
-// const { error } = require("console");
 
 const token = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -25,7 +24,7 @@ const createToken = (user, statusCode, res) => {
 
 	res.status(statusCode).json({
 		status: "success",
-		newtoken,
+		user,
 	});
 };
 
@@ -66,10 +65,6 @@ exports.login = catchAsync(async (req, res, next) => {
 	}
 
 	createToken(user, 200, res);
-	// res.status(200).json({
-	// 	status: "suceess",
-	// 	token: token(user._id),
-	// });
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -95,7 +90,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 		return next(new AppError("The user no longer exist, please login!", 401));
 	}
 
-	// console.log(decodedToken.iat);
 	if (currentUser.changedPasswordAfter(decodedToken.iat)) {
 		return next(new AppError("Sorry, you have to login again", 401));
 	}
@@ -117,7 +111,6 @@ exports.restrictTo = (...roles) => {
 };
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
-	// console.log(register.body.email);
 	const user = await User.findOne({ email: req.body.email });
 
 	if (!user) {
@@ -176,14 +169,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 	user.passwordResetExpires = undefined;
 	await user.save();
 
-	// user
-
-	//
 	createToken(user, 201, res);
-	// res.status(201).json({
-	// 	status: "success",
-	// 	token: token(user._id),
-	// });
 });
 
 exports.updateMyPassword = catchAsync(async (req, res, next) => {
@@ -193,14 +179,9 @@ exports.updateMyPassword = catchAsync(async (req, res, next) => {
 		return next(new AppError("Please login", 401));
 	}
 
-	// await user.correctPassword(req.body.passwordCurrent, user.password);
 	user.password = req.body.password;
 	user.passwordConfirm = req.body.passwordConfirm;
 	await user.save();
 
 	createToken(user, 200, res);
-	// res.status(200).json({
-	// 	status: "suceess",
-	// 	token: token(user._id),
-	// });
 });
