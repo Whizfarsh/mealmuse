@@ -142,6 +142,8 @@ function RecipeNavs() {
 	const navigate = useNavigate();
 	const { user, isAuthenticated, logout } = useUser();
 
+	const { name } = user.user || {};
+
 	function handleLogout() {
 		logout();
 		navigate("/recipes");
@@ -154,8 +156,8 @@ function RecipeNavs() {
 
 				{isAuthenticated && (
 					<UserSection>
-						<img src={user.avatar} alt="" />
-						<p>{user.name}</p>
+						<img src={"avatar"} alt="" />
+						<p>{name}</p>
 					</UserSection>
 				)}
 
