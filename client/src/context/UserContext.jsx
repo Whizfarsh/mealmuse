@@ -3,47 +3,42 @@ import { createContext, useContext, useReducer } from "react";
 
 const userContext = createContext();
 
-// Initial state function to check localStorage for user data
-const intitialState = () => {
-	const loggedUser = localStorage.getItem("user");
-	return loggedUser
-		? { user: JSON.parse(loggedUser), isAuthenticated: true }
-		: { user: null, isAuthenticated: false };
+const initialState = {
+	user: "",
+	isAuthenticated: false,
 };
 
 // user reducer function
 function reducer(state, action) {
 	switch (action.type) {
-		case "login":
-			localStorage.setItem("user", JSON.stringify(action.payload));
+		case "user/logged":
 			return { ...state, user: action.payload, isAuthenticated: true };
 		case "logout":
-			localStorage.removeItem("user");
 			return { ...state, user: null, isAuthenticated: false };
 		default:
 			throw new Error("Unknown action dispatched");
 	}
 }
 
-// user details
-const FK_USER = {
-	name: "Farsh",
-	email: "farsh@example.com",
-	password: "beaKing",
-	avatar: "https://i.pravatar.cc/107?u=dscZ",
-};
 function UserProvider({ children }) {
 	const [{ user, isAuthenticated }, dispatch] = useReducer(
 		reducer,
-		undefined, // initial state is undefined
-		intitialState
+		initialState
 	);
 
-	function login(email, password) {
-		if (email === FK_USER.email && password === FK_USER.password) {
-			dispatch({ type: "login", payload: FK_USER });
-			// localStorage.setItem("user", JSON.stringify(user));
-		}
+	async function login(email, password) {
+		const res = await fetch("/api/v1/users/login", {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify({ email: email, password: password }),
+		});
+		if (!res.ok) throw new Error("Login failed");
+
+		const data = await res.json();
+
+		dispatch({ type: "user/logged", payload: data });
 	}
 
 	function logout() {
