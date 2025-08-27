@@ -3,58 +3,70 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
-const userSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		Required: [true, "You need to input a name"],
-		minLength: [5, "Your name must be more than 5 characters"],
-	},
-	email: {
-		type: String,
-		required: [true, "An email is required"],
-		validate: [validator.isEmail, "Please insert correct email"],
-		unique: true,
-	},
-	password: {
-		type: String,
-		required: [true, "You have to set your password"],
-		minLength: [8, "password ca not be less than 8 characters"],
-		select: false,
-	},
-	passwordConfirm: {
-		type: String,
-		required: [true, "This have to match with the password"],
-		validate: {
-			validator: function (el) {
-				return el === this.password;
-			},
-			message: "Password does not match",
+const userSchema = new mongoose.Schema(
+	{
+		name: {
+			type: String,
+			Required: [true, "You need to input a name"],
+			minLength: [5, "Your name must be more than 5 characters"],
 		},
+		email: {
+			type: String,
+			required: [true, "An email is required"],
+			validate: [validator.isEmail, "Please insert correct email"],
+			unique: true,
+		},
+		password: {
+			type: String,
+			required: [true, "You have to set your password"],
+			minLength: [8, "password ca not be less than 8 characters"],
+			select: false,
+		},
+		passwordConfirm: {
+			type: String,
+			required: [true, "This have to match with the password"],
+			validate: {
+				validator: function (el) {
+					return el === this.password;
+				},
+				message: "Password does not match",
+			},
+		},
+		photo: String,
+		userRole: {
+			type: String,
+			enum: ["user", "admin", "chef", "moderator"],
+			default: "user",
+		},
+		savedRecipe: {
+			type: [mongoose.Schema.ObjectId],
+			ref: "Recipe",
+			default: undefined,
+		},
+		createdRecipes: {
+			type: [mongoose.Schema.ObjectId],
+			ref: "Recipe",
+			default: undefined,
+		},
+		isActive: {
+			type: Boolean,
+			default: true,
+		},
+		passwordChangedAt: Date,
+		passwordResetToken: String,
+		passwordResetExpires: Date,
 	},
-	photo: String,
-	userRole: {
-		type: String,
-		enum: ["user", "admin", "chef", "moderator"],
-		default: "user",
-	},
-	savedRecipe: {
-		type: [mongoose.Schema.ObjectId],
-		ref: "Recipe",
-		default: undefined,
-	},
-	createdRecipes: {
-		type: [mongoose.Schema.ObjectId],
-		ref: "Recipe",
-		default: undefined,
-	},
-	isActive: {
-		type: Boolean,
-		default: true,
-	},
-	passwordChangedAt: Date,
-	passwordResetToken: String,
-	passwordResetExpires: Date,
-});
+	{
+		toJSON: {
+			transform: function (doc, ret) {
+				delete ret.password;
+				delete ret.isActive;
+				delete ret.__v;
+				return ret;
+			},
+		},
+	}
+);
 
 //MIDDLEWARE TO DECRYPT PASSWORD ON CREATE
 userSchema.pre("save", async function (next) {
