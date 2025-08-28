@@ -10,6 +10,8 @@ router.post("/login", authController.login);
 router.post("/forgotPassword", authController.forgotPassword);
 router.patch("/resetPassword/:token", authController.resetPassword);
 
+router.route("/me").get(authController.protect, userController.getMe);
+
 router.patch(
 	"/updateMyPassword",
 	authController.protect,
@@ -30,6 +32,10 @@ router
 	.route("/")
 	.get(userController.getAllUsers)
 	.post(userController.createUser);
+
+router
+	.route("/savedRecipes")
+	.get(authController.protect, userController.userSavedRecipes);
 
 router
 	.route("/:id")
