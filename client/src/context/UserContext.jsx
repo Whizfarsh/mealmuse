@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useEffect } from "react";
 import { createContext, useContext, useReducer } from "react";
 
 const userContext = createContext();
@@ -13,6 +14,8 @@ function reducer(state, action) {
 	switch (action.type) {
 		case "user/logged":
 			return { ...state, user: action.payload, isAuthenticated: true };
+		case "user/loaded":
+			return { ...state, user: action.payload, isAuthenticated: true };
 		case "logout":
 			return { ...state, user: null, isAuthenticated: false };
 		default:
@@ -26,12 +29,26 @@ function UserProvider({ children }) {
 		initialState
 	);
 
+	useEffect(() => {
+		async function fetchUser() {
+			const res = await fetch("/api/v1/users/me");
+
+			if (!res.ok) throw new Error("User not logged in");
+
+			const data = await res.json();
+
+			dispatch({ type: "user/loaded", payload: data.user });
+		}
+		fetchUser();
+	}, []);
+
 	async function login(email, password) {
 		const res = await fetch("/api/v1/users/login", {
 			method: "POST",
 			headers: {
 				"content-type": "application/json",
 			},
+			credentials: "include",
 			body: JSON.stringify({ email: email, password: password }),
 		});
 		if (!res.ok) throw new Error("Login failed");
