@@ -148,8 +148,8 @@ function Login() {
 		if (isAuthenticated === true) navigate("/");
 	}, [isAuthenticated, navigate]);
 
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("testinguser@gmail.com");
+	const [password, setPassword] = useState("qwerty098");
 
 	function handleLogin(e) {
 		e.preventDefault();
@@ -172,10 +172,15 @@ function Login() {
 				<strong>OR</strong>
 				<FormLogin onSubmit={handleLogin}>
 					<label htmlFor="email">Email</label>
-					<input type="email" onChange={(e) => setEmail(e.target.value)} />
+					<input
+						type="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
 					<label htmlFor="password">Password</label>
 					<input
 						type="password"
+						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<LogOptions>
