@@ -13,6 +13,19 @@ const filterObj = (obj, ...otherFields) => {
 };
 
 ///
+exports.getMe = catchAsync(async (req, res, next) => {
+	const user = await User.findById(req.user.id);
+
+	if (!user) {
+		return next(new AppError("No user found", 404));
+	}
+
+	res.status(200).json({
+		status: "success",
+		user,
+	});
+});
+
 exports.updateMyProfile = catchAsync(async (req, res, next) => {
 	if (req.body.password || req.body.passwordConfirm) {
 		return next(
@@ -43,6 +56,25 @@ exports.deleteMyProfile = catchAsync(async (req, res, next) => {
 	res.status(204).json({
 		status: "success",
 		data: null,
+	});
+});
+
+exports.userSavedRecipes = catchAsync(async (req, res, next) => {
+	const user = await User.findById(req.user.id).populate({
+		path: "savedRecipe",
+		select: "name image cookingDuration totalServings",
+	});
+
+	if (!user) {
+		return next(new AppError("User not found", 404));
+	}
+
+	res.status(200).json({
+		status: "success",
+		results: user.savedRecipe.length,
+		data: {
+			savedRecipes: user.savedRecipe,
+		},
 	});
 });
 
