@@ -6,7 +6,6 @@ import {
 	useReducer,
 	useState,
 } from "react";
-// import { useGlobal } from "./GlobalContext";
 
 const RecipeContext = createContext();
 
@@ -17,13 +16,20 @@ const initialState = {
 	selectedFilter: "",
 	intoleranceText: "",
 	excludeText: "",
+	savedRecipes: [],
 	recipes: [],
 };
 
 function reducer(state, action) {
 	switch (action.type) {
-		case "data/loaded":
+		case "recipes/loaded":
 			return { ...state, recipes: action.payload };
+		case "data/loading":
+			return { ...state, isLoading: true };
+		case "data/loaded":
+			return { ...state, isLoading: false };
+		case "savedRecipes/loaded":
+			return { ...state, savedRecipes: action.payload };
 		case "searchUpdate":
 			return { ...state, searchQuery: action.payload };
 		case "filterOptionUpdate":
@@ -42,95 +48,12 @@ function reducer(state, action) {
 }
 
 function RecipesProvider({ children }) {
-	// const { API_Key } = useGlobal();
-
 	const [recipe, setRecipe] = useState(null);
 	const [tabs, setTabs] = useState("summary");
 	const [tabs2, setTabs2] = useState(null);
 	const [tabsIndex, setTabsIndex] = useState(0);
 	const [similar, setSimilar] = useState([]);
 	const [error, setError] = useState("");
-
-	// const [favorites, setFavorites] = useState(() => {
-	// 	try {
-	// 		const savedFavorites = localStorage.getItem("favorites");
-	// 		return savedFavorites ? JSON.parse(savedFavorites) : [];
-	// 	} catch {
-	// 		return [];
-	// 	}
-	// });
-	// const [localRecipes, setLocalRecipes] = useState(() => {
-	// 	try {
-	// 		const savedRecipes = localStorage.getItem("recipes");
-	// 		return savedRecipes ? JSON.parse(savedRecipes) : [];
-	// 	} catch {
-	// 		return [];
-	// 	}
-	// });
-
-	// effect for recipes
-	// useEffect(() => {
-	// 	fetch(`/api/v1/recipes`)
-	// 		.then((res) => res.json())
-	// 		// .then((data) => setLocalRecipes(data.results));
-	// 		// .then((data) => console.log(data));
-	// 		.then((data) => dispatch({ type: "data/loaded", payload: data }));
-	// }, []);
-	// useEffect(() => {
-	// 	if (!localRecipes || localRecipes.length === 0) {
-	// 		// fetch(
-	// 		// 	`https://api.spoonacular.com/recipes/complexSearch?number=50&addRecipeInformation=true&apiKey=${API_Key}`
-	// 		// )
-	// 		fetch(`/api/v1/recipes`)
-	// 			.then((res) => res.json())
-	// 			// .then((data) => setLocalRecipes(data.results));
-	// 			.then((data) => dispatch({ type: "data/loaded", payload: data }));
-	// 	}
-	// }, [API_Key]);
-
-	// useEffect(() => {
-	// 	localStorage.setItem("localRecipes", JSON.stringify(localRecipes));
-	// }, [localRecipes]);
-
-	// effect for favorites
-	// useEffect(() => {
-	// 	try {
-	// 		localStorage.setItem("favorites", JSON.stringify(favorites));
-	// 	} catch (error) {
-	// 		console.error("Failed to save favorites to localStorage:", error);
-	// 	}
-	// }, [favorites]);
-
-	// useEffect(() => {
-	// 	function syncFavoritesFromStorage() {
-	// 		const savedFavorites = localStorage.getItem("favorites");
-	// 		if (savedFavorites) {
-	// 			setFavorites(JSON.parse(savedFavorites));
-	// 		}
-	// 	}
-
-	// 	// Sync on mount
-	// 	syncFavoritesFromStorage();
-
-	// 	// Listen for storage changes
-	// 	window.addEventListener("storage", syncFavoritesFromStorage);
-
-	// 	// Cleanup
-	// 	return () =>
-	// 		window.removeEventListener("storage", syncFavoritesFromStorage);
-	// }, []);
-
-	// function addFavorite(recipe) {
-	// 	if (!favorites.some((item) => item.id === recipe.id)) {
-	// 		const updatedFavorites = [...favorites, recipe];
-	// 		setFavorites(updatedFavorites);
-	// 	}
-	// }
-
-	// function handleFavoriteDelete(id) {
-	// 	const updatedFavorites = favorites.filter((recipe) => recipe.id !== id);
-	// 	setFavorites(updatedFavorites);
-	// }
 
 	const [
 		{
@@ -141,19 +64,47 @@ function RecipesProvider({ children }) {
 			isLoading,
 			intoleranceText,
 			excludeText,
+			savedRecipes,
 		},
 		dispatch,
 	] = useReducer(reducer, initialState);
 
+	//EFFECTS
 	// effect for recipes
 	useEffect(() => {
+		dispatch({ type: "data/loading" });
 		async function fetchData() {
 			const res = await fetch(`/api/v1/recipes`);
 			const data = await res.json();
 
-			dispatch({ type: "data/loaded", payload: data.data.data });
+			dispatch({ type: "recipes/loaded", payload: data.data.data });
+			dispatch({ type: "data/loaded" });
 		}
 		fetchData();
+	}, []);
+
+	//for saved recipes
+	useEffect(() => {
+		async function getSavedRecipes() {
+			dispatch({ type: "data/loading" });
+			const res = await fetch("/api/v1/users/savedRecipes", {
+				method: "GET",
+				credentials: "include",
+			});
+
+			if (!res.ok) throw new Error("No data is loaded");
+
+			const data = await res.json();
+			dispatch({
+				type: "savedRecipes/loaded",
+				payload: data.data.savedRecipes,
+			});
+			dispatch({ type: "data/loaded" });
+		}
+
+		// if (isAuthenticated) {
+		getSavedRecipes();
+		// }
 	}, []);
 
 	return (
@@ -181,12 +132,7 @@ function RecipesProvider({ children }) {
 				similar,
 				setSimilar,
 
-				// favorites,
-				// setFavorites,
-				// addFavorite,
-				// handleFavoriteDelete,
-
-				// localRecipes,
+				savedRecipes,
 			}}
 		>
 			{children}
