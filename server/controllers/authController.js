@@ -16,14 +16,18 @@ const createToken = (user, statusCode, res) => {
 	const newtoken = token(user._id);
 
 	const cookieOptions = res.cookie("jwt", newtoken, {
-		expire: process.env.JWT_COOKIES_EXPIRES * 24 * 60 * 60 * 1000,
+		expires: new Date(
+			Date.now() + process.env.JWT_COOKIES_EXPIRES * 24 * 60 * 60 * 1000
+		),
 		httpOnly: true,
+		sameSite: "none",
 	});
 
 	if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
 	res.status(statusCode).json({
 		status: "success",
+		newtoken,
 		user,
 	});
 };
@@ -69,7 +73,9 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
 	let token;
-	if (!req.headers || !req.headers.authorization) {
+	if (req.cookies && req.cookies.jwt) {
+		token = req.cookies.jwt;
+	} else if (!req.headers || !req.headers.authorization) {
 		return next(
 			new AppError("Unathorized access to this information, please login", 401)
 		);
