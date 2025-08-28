@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const qs = require("qs");
+const cookieParser = require("cookie-parser");
 
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
@@ -22,13 +23,14 @@ const app = express();
 app.use(helmet());
 
 // Logger
+app.use(cookieParser());
 if (process.env.NODE_ENV === "development") {
 	app.use(morgan("dev"));
 }
 
 // Rate limiting
 const limiter = rateLimit({
-	max: 100,
+	max: 1000,
 	windowMs: 60 * 60 * 1000, // 1 hour
 	message: "Too many requests from this IP, please try again in an hour",
 });
