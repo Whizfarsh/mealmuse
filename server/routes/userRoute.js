@@ -36,7 +36,8 @@ router
 router
 	.route("/savedRecipes")
 	.get(authController.protect, userController.userSavedRecipes)
-	.patch(authController.protect, userController.saveRecipe);
+	.patch(authController.protect, userController.saveRecipe)
+	.delete(authController.protect, userController.deleteSavedRecipe);
 
 router
 	.route("/:id")
