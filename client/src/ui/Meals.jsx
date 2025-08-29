@@ -6,9 +6,6 @@ import styled from "styled-components";
 import { useRecipes } from "../context/RecipesContext";
 
 const MealsContainer = styled.div`
-	/* margin: 6rem 0; */
-	/* padding: 2.4rem 5.2rem; */
-	/* background-color: var(--light-0); */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -100,7 +97,6 @@ function Meals({ title, recipes, className }) {
 			<MealLists>
 				{recipes.map((recipe) => (
 					<MealsLists recipe={recipe} key={recipe._id} />
-					//key={recipe.id}
 				))}
 			</MealLists>
 			{/* </Grid> */}
@@ -111,11 +107,11 @@ function Meals({ title, recipes, className }) {
 export function MealsLists({ recipe }) {
 	const { curPage } = usePage();
 	const { convertMinutes } = useGlobal();
-	const { handleFavoriteDelete } = useRecipes();
+	const { handleSavedRecipeDelete } = useRecipes();
 
 	function onDeleteItem(e) {
 		e.preventDefault();
-		handleFavoriteDelete(recipe.id);
+		handleSavedRecipeDelete(recipe._id);
 	}
 
 	return (
