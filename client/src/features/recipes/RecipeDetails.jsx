@@ -7,6 +7,8 @@ import { useGlobal } from "../../context/GlobalContext.jsx";
 import { useRecipes } from "../../context/RecipesContext.jsx";
 import { MainTabs, TabsOptions } from "../../ui/Tabs.jsx";
 import BreakDownLists from "../../ui/BreakDownLists";
+import { BsSave2 } from "react-icons/bs";
+
 // import SimilarRecipes from "./SimilarRecipes.jsx";
 
 // Styled Components
@@ -125,6 +127,8 @@ const FavButton = styled.button`
 	&.add {
 		background-color: var(--dark-3);
 		color: var(--light-0);
+		display: flex;
+		gap: 0.8rem;
 	}
 
 	&.added {
@@ -151,7 +155,7 @@ function RecipeDetails() {
 		tabs,
 		tabsIndex,
 		favorites,
-		addFavorite,
+		handleSaveRecipe,
 	} = useRecipes();
 
 	const { id: pageId } = useParams();
@@ -216,14 +220,15 @@ function RecipeDetails() {
 										className="added"
 										onClick={() => navigate("/favorites")}
 									>
-										Go to Favorites
+										View saved
 									</FavButton>
 								) : (
 									<FavButton
 										className="add"
-										onClick={() => addFavorite(recipe)}
+										onClick={() => handleSaveRecipe(recipe._id)}
 									>
-										Add to favorites
+										<BsSave2 />
+										Save
 									</FavButton>
 								)}
 							</MiniInfo>
