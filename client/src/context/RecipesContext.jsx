@@ -87,9 +87,24 @@ function RecipesProvider({ children }) {
 			type: "savedRecipes/loaded",
 			payload: data.data,
 		});
-		// console.log(data.data);
-		// const newItem = [...savedRecipes, recipeId];
-		// console.log(newItem);
+	}
+
+	//
+	async function handleSavedRecipeDelete(id) {
+		const res = await fetch("/api/v1/users/savedRecipes", {
+			method: "DELETE",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify({ id }),
+			credentials: "include",
+		});
+
+		const data = await res.json();
+		dispatch({
+			type: "savedRecipes/loaded",
+			payload: data.data,
+		});
 	}
 
 	//EFFECTS
@@ -155,6 +170,7 @@ function RecipesProvider({ children }) {
 
 				savedRecipes,
 				handleSaveRecipe,
+				handleSavedRecipeDelete,
 				// onAddRecipe,
 			}}
 		>
