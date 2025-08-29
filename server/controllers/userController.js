@@ -59,6 +59,16 @@ exports.deleteMyProfile = catchAsync(async (req, res, next) => {
 	});
 });
 
+//////
+exports.getAllUsers = factory.getAll(User);
+exports.createUser = factory.createOne(User);
+exports.getUser = factory.getOne(User);
+
+//can't use to update password
+exports.updateUser = factory.updateOne(User);
+exports.deleteUser = factory.deleteOne(User);
+
+//
 exports.userSavedRecipes = catchAsync(async (req, res, next) => {
 	const user = await User.findById(req.user.id).populate({
 		path: "savedRecipe",
@@ -107,11 +117,23 @@ exports.saveRecipe = catchAsync(async (req, res, next) => {
 	// const newSavedRecipes = user.saveRecipe.
 });
 
-//////
-exports.getAllUsers = factory.getAll(User);
-exports.createUser = factory.createOne(User);
-exports.getUser = factory.getOne(User);
-
-//can't use to update password
-exports.updateUser = factory.updateOne(User);
-exports.deleteUser = factory.deleteOne(User);
+exports.deleteSavedRecipe = catchAsync(async (req, res, next) => {
+	const { id } = req.body;
+	const user = await User.findByIdAndUpdate(
+		req.user.id,
+		{
+			$pull: { savedRecipe: id },
+		},
+		{
+			new: true,
+			runValidators: true,
+		}
+	).populate({
+		path: "savedRecipe",
+		select: "name image cookingDuration totalServings",
+	});
+	res.status(200).json({
+		status: "success",
+		data: user.savedRecipe,
+	});
+});
