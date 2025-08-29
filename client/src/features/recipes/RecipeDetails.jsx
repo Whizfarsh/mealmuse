@@ -154,7 +154,7 @@ function RecipeDetails() {
 		setError,
 		tabs,
 		tabsIndex,
-		favorites,
+		savedRecipes,
 		handleSaveRecipe,
 	} = useRecipes();
 
@@ -173,7 +173,9 @@ function RecipeDetails() {
 		nutrients = [],
 	} = recipe || {};
 
-	const isFavorites = favorites?.some((favorite) => favorite.id === _id);
+	const isSaved = savedRecipes?.some((recipe) => recipe._id === _id);
+
+	console.log(isSaved, _id);
 
 	useEffect(() => {
 		document.title = `${name} | MealMuse`;
@@ -215,10 +217,10 @@ function RecipeDetails() {
 										: cookingDuration}{" "}
 									Minutes
 								</p>
-								{isFavorites ? (
+								{isSaved ? (
 									<FavButton
 										className="added"
-										onClick={() => navigate("/favorites")}
+										onClick={() => navigate("/savedRecipes")}
 									>
 										View saved
 									</FavButton>
