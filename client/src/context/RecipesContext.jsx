@@ -69,6 +69,29 @@ function RecipesProvider({ children }) {
 		dispatch,
 	] = useReducer(reducer, initialState);
 
+	// function to handle saving recipes
+	async function handleSaveRecipe(recipeId) {
+		const res = await fetch("/api/v1/users/savedRecipes", {
+			method: "PATCH",
+			headers: {
+				"content-type": "application/json",
+			},
+			credentials: "include",
+			body: JSON.stringify({ savedRecipe: recipeId }),
+		});
+
+		if (!res.ok) throw new Error("unable to save your recipe");
+
+		const data = await res.json();
+		dispatch({
+			type: "savedRecipes/loaded",
+			payload: data.data,
+		});
+		// console.log(data.data);
+		// const newItem = [...savedRecipes, recipeId];
+		// console.log(newItem);
+	}
+
 	//EFFECTS
 	// effect for recipes
 	useEffect(() => {
@@ -78,9 +101,9 @@ function RecipesProvider({ children }) {
 			const data = await res.json();
 
 			dispatch({ type: "recipes/loaded", payload: data.data.data });
-			dispatch({ type: "data/loaded" });
 		}
 		fetchData();
+		dispatch({ type: "data/loaded" });
 	}, []);
 
 	//for saved recipes
@@ -99,11 +122,9 @@ function RecipesProvider({ children }) {
 				type: "savedRecipes/loaded",
 				payload: data.data.savedRecipes,
 			});
-			dispatch({ type: "data/loaded" });
 		}
-
-		// if (isAuthenticated) {
 		getSavedRecipes();
+		dispatch({ type: "data/loaded" });
 		// }
 	}, []);
 
@@ -133,6 +154,8 @@ function RecipesProvider({ children }) {
 				setSimilar,
 
 				savedRecipes,
+				handleSaveRecipe,
+				// onAddRecipe,
 			}}
 		>
 			{children}
