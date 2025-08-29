@@ -78,6 +78,35 @@ exports.userSavedRecipes = catchAsync(async (req, res, next) => {
 	});
 });
 
+exports.saveRecipe = catchAsync(async (req, res, next) => {
+	const { savedRecipe } = req.body;
+	const newSavedRecipes = await User.findByIdAndUpdate(
+		req.user.id,
+		{
+			$addToSet: { savedRecipe },
+		},
+		{
+			new: true,
+			runValidators: true,
+		}
+	).populate({
+		path: "savedRecipe",
+		select: "name image cookingDuration totalServings",
+	});
+
+	if (!newSavedRecipes) {
+		return next(new AppError("User not found", 404));
+	}
+
+	res.status(200).json({
+		status: "success",
+		Results: newSavedRecipes.savedRecipe.length,
+		data: newSavedRecipes.savedRecipe,
+	});
+
+	// const newSavedRecipes = user.saveRecipe.
+});
+
 //////
 exports.getAllUsers = factory.getAll(User);
 exports.createUser = factory.createOne(User);
