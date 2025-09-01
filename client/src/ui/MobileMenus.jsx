@@ -58,7 +58,8 @@ const StyledListLink = styled(NavLink)`
 	margin-bottom: 1rem;
 
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
+	justify-content: space-between;
 	gap: 1rem;
 	color: var(--dark-0);
 	background-color: transparent;
@@ -153,10 +154,10 @@ function MobileMenus() {
 									<span>Favorites</span>
 								</StyledListLink>
 							</li>
-							<li className={curPage === "/account" ? "active" : ""}>
-								<StyledListLink to="/account" onClick={handleShowMenu}>
+							<li className={curPage === "/user" ? "active" : ""}>
+								<StyledListLink to="/user" onClick={handleShowMenu}>
 									<FaUser />
-									<span>Account</span>
+									<span>User</span>
 								</StyledListLink>
 							</li>
 						</>

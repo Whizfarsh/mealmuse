@@ -5,6 +5,8 @@ import { usePage } from "../context/Pagecontext";
 import { FaSearch, FaUser, FaUtensils } from "react-icons/fa";
 import { useUser } from "../context/UserContext";
 import { FaHeart } from "react-icons/fa6";
+// import { MdAdd } from "react-icons/md";
+import { RiAddCircleFill } from "react-icons/ri";
 
 const RecipeNavsWrapper = styled.div`
 	position: fixed;
@@ -69,8 +71,7 @@ const NavItem = styled.li`
 	border-radius: 0.6rem;
 	cursor: pointer;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	justify-content: space-between;
 	gap: 0.9rem;
 
 	border: 1px solid var(--dark-2);
@@ -142,7 +143,7 @@ function RecipeNavs() {
 	const navigate = useNavigate();
 	const { user, isAuthenticated, logout } = useUser();
 
-	const { name } = user.user || {};
+	const { name } = user || {};
 
 	function handleLogout() {
 		logout();
@@ -163,7 +164,7 @@ function RecipeNavs() {
 
 				<NavOptions>
 					<NavList>
-						<NavItem $active={curPage?.includes("search")}>
+						<NavItem $active={curPage?.startsWith("search")}>
 							<Link to="/">
 								<span>
 									<FaSearch />
@@ -171,7 +172,7 @@ function RecipeNavs() {
 								</span>
 							</Link>
 						</NavItem>
-						<NavItem $active={curPage?.includes("recipes")}>
+						<NavItem $active={curPage?.startsWith("/recipes")}>
 							<Link to="/recipes">
 								<span>
 									<FaUtensils />
@@ -182,7 +183,15 @@ function RecipeNavs() {
 
 						{isAuthenticated && (
 							<>
-								<NavItem $active={curPage === "/favorites"}>
+								<NavItem $active={curPage.startsWith("/addRecipes")}>
+									<Link to="/favorites">
+										<span>
+											<RiAddCircleFill />
+											{/* <MdAdd size={20} /> */}A Recipe
+										</span>
+									</Link>
+								</NavItem>
+								<NavItem $active={curPage.startsWith("/favorites")}>
 									<Link to="/favorites">
 										<span>
 											<FaHeart />
@@ -190,11 +199,11 @@ function RecipeNavs() {
 										</span>
 									</Link>
 								</NavItem>
-								<NavItem $active={curPage === "/account"}>
-									<Link to="/account">
+								<NavItem $active={curPage?.startsWith("/user")}>
+									<Link to="/user">
 										<span>
 											<FaUser />
-											Account
+											User
 										</span>
 									</Link>
 								</NavItem>
