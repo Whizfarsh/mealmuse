@@ -16,6 +16,20 @@ const variations = {
 			color: var(--dark-2);
 		}
 	`,
+	mini: css`
+		padding: 0.7rem 0.9rem;
+		background-color: var(--dark-2);
+		color: var(--light-0);
+		border-radius: 0.9rem;
+	`,
+	danger: css`
+		background-color: red;
+		color: #fff;
+		padding: 0.8rem;
+		border: none;
+
+		border-radius: 0.5rem;
+	`,
 	loginout: css`
 		background-color: var(--dark-3);
 		color: var(--light-0);
