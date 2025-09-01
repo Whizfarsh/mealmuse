@@ -9,8 +9,6 @@ import { MainTabs, TabsOptions } from "../../ui/Tabs.jsx";
 import BreakDownLists from "../../ui/BreakDownLists";
 import { BsSave2 } from "react-icons/bs";
 
-// import SimilarRecipes from "./SimilarRecipes.jsx";
-
 // Styled Components
 const ErrorMessage = styled.div`
 	width: 100%;
@@ -174,8 +172,6 @@ function RecipeDetails() {
 	} = recipe || {};
 
 	const isSaved = savedRecipes?.some((recipe) => recipe._id === _id);
-
-	console.log(isSaved, _id);
 
 	useEffect(() => {
 		document.title = `${name} | MealMuse`;
