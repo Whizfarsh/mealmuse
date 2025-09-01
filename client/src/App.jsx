@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import Homepage from "./pages/Homepage";
 import Recipes from "./pages/Recipes";
 import Favorites from "./pages/Favorites";
@@ -10,11 +10,14 @@ import RecipeDetails from "./features/recipes/RecipeDetails";
 import RecipesMenus from "./features/recipes/RecipesMenus";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
+import User from "./pages/User";
 import GlobalStyles from "./styles/GlobalStyles";
 import { IngredientsProvider } from "./context/IngredientsContext";
 import { UserProvider } from "./context/UserContext";
 import IngredientsSearch from "./pages/IngredientsSearch";
 import { FilterProvider } from "./context/FilterContext";
+import EditProfile from "./ui/EditProfile";
+import ChangePassword from "./ui/ChangePassword";
 
 export default function App() {
 	return (
@@ -40,6 +43,18 @@ export default function App() {
 											</Route>
 
 											<Route path="/favorites" element={<Favorites />} />
+											<Route path="/user" element={<User />}>
+												<Route
+													index
+													element={<Navigate to="changepassword" replace />}
+												/>
+												<Route path="editprofile" element={<EditProfile />} />
+												<Route
+													path="changepassword"
+													element={<ChangePassword />}
+												/>
+											</Route>
+											<Route path="*" element={<p>Page not found</p>} />
 										</Route>
 									</Routes>
 								</FilterProvider>
