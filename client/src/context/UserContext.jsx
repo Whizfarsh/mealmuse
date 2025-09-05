@@ -8,6 +8,7 @@ const userContext = createContext();
 const initialState = {
 	user: "",
 	statusMessage: "",
+	errorMessage: "",
 	isAuthenticated: false,
 };
 
@@ -28,38 +29,55 @@ function reducer(state, action) {
 			return { ...state, user: null, isAuthenticated: false };
 		case "user/updated":
 			return { ...state, statusMessage: action.payload };
+		case "error":
+			return { ...state, errorMessage: action.payload };
 		default:
 			throw new Error("Unknown action dispatched");
 	}
 }
 
 function UserProvider({ children }) {
-	const [{ user, isAuthenticated, statusMessage }, dispatch] = useReducer(
-		reducer,
-		initialState
-	);
+	const [{ user, isAuthenticated, statusMessage, errorMessage }, dispatch] =
+		useReducer(reducer, initialState);
 
 	const navigate = useNavigate();
 
 	//login
 	async function login(email, password) {
-		const res = await fetch("/api/v1/users/login", {
-			method: "POST",
+		try {
+			const res = await fetch("/api/v1/users/login", {
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+				},
+				credentials: "include",
+				body: JSON.stringify({ email: email, password: password }),
+			});
+			const data = await res.json();
+			if (!res.ok)
+				throw new Error(
+					data.message || "Incorrect email and password, please try again!"
+				);
+
+			dispatch({ type: "user/logged", payload: data });
+		} catch (err) {
+			// console.log(err.message);
+			dispatch({
+				type: "error",
+				payload: err.message,
+			});
+		}
+	}
+
+	//logout
+	async function logout() {
+		await fetch("/api/v1/users/logout", {
+			method: "GET",
 			headers: {
 				"content-type": "application/json",
 			},
 			credentials: "include",
-			body: JSON.stringify({ email: email, password: password }),
 		});
-		if (!res.ok) throw new Error("Login failed");
-
-		const data = await res.json();
-
-		dispatch({ type: "user/logged", payload: data });
-	}
-
-	//logout
-	function logout() {
 		dispatch({ type: "logout" });
 	}
 
@@ -147,6 +165,7 @@ function UserProvider({ children }) {
 				updateUser,
 				statusMessage,
 				updateCurrentPassword,
+				errorMessage,
 			}}
 		>
 			{children}
