@@ -62,7 +62,7 @@ const SmallScreensMenu = styled.div`
 
 // HeaderNav Component
 function HeaderNav() {
-	const { user, isAuthenticated, logout } = useUser();
+	const { isAuthenticated, logout } = useUser();
 
 	// const navigate = useNavigate();
 	return (
@@ -79,12 +79,11 @@ function HeaderNav() {
 									<NavLink to="/favorites">Favorites</NavLink>
 								</MenuItem>
 								<MenuItem>
-									<NavLink to="/account">Account</NavLink>
+									<NavLink to="/user">User</NavLink>
 								</MenuItem>
 							</>
 						)}
 					</MenuList>
-					{user?.name && <span>Hello, {user?.name}</span>}
 
 					{isAuthenticated ? (
 						<Link to="/">
@@ -99,7 +98,7 @@ function HeaderNav() {
 						</Link>
 					) : (
 						<Link to="/login">
-							<Button $variation="loginout">LOGIN</Button>
+							<Button $variation="loginout">Login</Button>
 						</Link>
 					)}
 				</Nav>
