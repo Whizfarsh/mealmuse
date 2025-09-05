@@ -141,7 +141,9 @@ const SignUpText = styled.p`
 function Login() {
 	document.title = "Login";
 	const navigate = useNavigate();
-	const { login, isAuthenticated } = useUser();
+	const { login, isAuthenticated, errorMessage } = useUser();
+
+	console.log(errorMessage);
 
 	// Redirect to recipes if user is authenticated
 	useEffect(() => {
@@ -183,6 +185,9 @@ function Login() {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
+					{errorMessage && (
+						<p style={{ fontSize: "1.2rem", color: "red" }}>{errorMessage}</p>
+					)}
 					<LogOptions>
 						<RememberOption>
 							<input type="checkbox" name="Remember me" />

@@ -46,7 +46,7 @@ export default function App() {
 											<Route path="/user" element={<User />}>
 												<Route
 													index
-													element={<Navigate to="changepassword" replace />}
+													element={<Navigate to="editprofile" replace />}
 												/>
 												<Route path="editprofile" element={<EditProfile />} />
 												<Route
