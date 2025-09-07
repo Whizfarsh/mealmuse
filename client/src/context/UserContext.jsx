@@ -142,6 +142,22 @@ function UserProvider({ children }) {
 		navigate("/login", { replace: true });
 	}
 
+	async function deleteMyProfile() {
+		const res = await fetch("/api/v1/users/deleteMyProfile", {
+			method: "DELETE",
+			headers: {
+				"content-type": "application/json",
+			},
+			credentials: "include",
+		});
+
+		if (!res.ok) throw new Error("Something went wrong while deleting account");
+
+		const data = res.json();
+
+		return data;
+	}
+
 	//effects
 	useEffect(() => {
 		async function fetchUser() {
@@ -165,6 +181,7 @@ function UserProvider({ children }) {
 				updateUser,
 				statusMessage,
 				updateCurrentPassword,
+				deleteMyProfile,
 				errorMessage,
 			}}
 		>
