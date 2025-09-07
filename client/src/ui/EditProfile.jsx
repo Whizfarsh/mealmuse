@@ -3,6 +3,7 @@ import Button from "./Button";
 import { FaUpload } from "react-icons/fa6";
 import { useRef, useState } from "react";
 import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const StyledEditProfile = styled.div`
 	margin: 4rem 14rem;
@@ -93,10 +94,12 @@ const StyledEditProfile = styled.div`
 function EditProfile() {
 	const [newName, setNewName] = useState("");
 	const [newEmail, setNewEmail] = useState("");
-	const { updateUser, statusMessage, user } = useUser();
+	const { updateUser, statusMessage, user, deleteMyProfile } = useUser();
 	const fileUploadRef = useRef(null);
 
 	const { name } = user || {};
+
+	const navigate = useNavigate();
 
 	function handleFileUpload() {
 		fileUploadRef.current.click();
@@ -107,6 +110,16 @@ function EditProfile() {
 			updateUser(newName, newEmail);
 		}
 	}
+
+	async function handleDelete() {
+		try {
+			const data = await deleteMyProfile();
+
+			if (data.status === "success") navigate("/recipes");
+		} catch (err) {
+			console.log(err.message);
+		}
+	}
 	return (
 		<StyledEditProfile>
 			<div className="profileHead">
@@ -115,7 +128,11 @@ function EditProfile() {
 					<span>Settings for your profile</span>
 				</div>
 
-				<Button style={{ margin: "0 0 1.4rem 1.4rem" }} $variation="danger">
+				<Button
+					style={{ margin: "0 0 1.4rem 1.4rem" }}
+					$variation="danger"
+					onClick={handleDelete}
+				>
 					Delete user
 				</Button>
 			</div>
