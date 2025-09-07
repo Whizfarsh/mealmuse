@@ -6,6 +6,7 @@ import {
 	useReducer,
 	useState,
 } from "react";
+import { useUser } from "./UserContext";
 
 const RecipeContext = createContext();
 
@@ -55,6 +56,8 @@ function RecipesProvider({ children }) {
 	const [similar, setSimilar] = useState([]);
 	const [error, setError] = useState("");
 
+	const { isAuthenticated } = useUser();
+
 	const [
 		{
 			filterOptions,
@@ -100,7 +103,7 @@ function RecipesProvider({ children }) {
 			credentials: "include",
 		});
 
-		const data = await res.json();
+		const data = (await res.json()) || [];
 		dispatch({
 			type: "savedRecipes/loaded",
 			payload: data.data,
@@ -123,25 +126,37 @@ function RecipesProvider({ children }) {
 
 	//for saved recipes
 	useEffect(() => {
-		async function getSavedRecipes() {
-			dispatch({ type: "data/loading" });
-			const res = await fetch("/api/v1/users/savedRecipes", {
-				method: "GET",
-				credentials: "include",
-			});
+		if (isAuthenticated) {
+			async function getSavedRecipes() {
+				dispatch({ type: "data/loading" });
+				try {
+					const res = await fetch("/api/v1/users/savedRecipes", {
+						method: "GET",
+						credentials: "include",
+					});
 
-			if (!res.ok) throw new Error("No data is loaded");
+					if (!res.ok) throw new Error("No data is loaded");
 
-			const data = await res.json();
-			dispatch({
-				type: "savedRecipes/loaded",
-				payload: data.data.savedRecipes,
-			});
+					const data = await res.json();
+					dispatch({
+						type: "savedRecipes/loaded",
+						payload: data.data.savedRecipes,
+					});
+				} catch (err) {
+					if (err) {
+						dispatch({
+							type: "savedRecipes/loaded",
+							payload: [],
+						});
+					}
+				}
+			}
+			getSavedRecipes();
+			dispatch({ type: "data/loaded" });
 		}
-		getSavedRecipes();
-		dispatch({ type: "data/loaded" });
+
 		// }
-	}, []);
+	}, [isAuthenticated]);
 
 	return (
 		<RecipeContext.Provider
