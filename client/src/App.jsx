@@ -22,12 +22,12 @@ import ChangePassword from "./ui/ChangePassword";
 export default function App() {
 	return (
 		<GlobalProvider>
-			<RecipesProvider>
-				<GlobalStyles />
-				<BrowserRouter>
-					<PageProvider>
-						<IngredientsProvider>
-							<UserProvider>
+			<BrowserRouter>
+				<UserProvider>
+					<RecipesProvider>
+						<GlobalStyles />
+						<PageProvider>
+							<IngredientsProvider>
 								<FilterProvider>
 									<Routes>
 										<Route path="/" element={<Dashboard />} />
@@ -58,11 +58,11 @@ export default function App() {
 										</Route>
 									</Routes>
 								</FilterProvider>
-							</UserProvider>
-						</IngredientsProvider>
-					</PageProvider>
-				</BrowserRouter>
-			</RecipesProvider>
+							</IngredientsProvider>
+						</PageProvider>
+					</RecipesProvider>
+				</UserProvider>
+			</BrowserRouter>
 		</GlobalProvider>
 	);
 }
