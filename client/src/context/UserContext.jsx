@@ -161,13 +161,19 @@ function UserProvider({ children }) {
 	//effects
 	useEffect(() => {
 		async function fetchUser() {
-			const res = await fetch("/api/v1/users/me");
+			try {
+				const res = await fetch("/api/v1/users/me", {
+					credentials: "include",
+				});
 
-			if (!res.ok) throw new Error("User not logged in");
+				if (!res.ok) throw new Error("User not logged in");
 
-			const data = await res.json();
+				const data = await res.json();
 
-			dispatch({ type: "user/loaded", payload: data.user });
+				dispatch({ type: "user/loaded", payload: data.user });
+			} catch (err) {
+				if (err) return;
+			}
 		}
 		fetchUser();
 	}, []);
