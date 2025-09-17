@@ -18,6 +18,7 @@ import IngredientsSearch from "./pages/IngredientsSearch";
 import { FilterProvider } from "./context/FilterContext";
 import EditProfile from "./ui/EditProfile";
 import ChangePassword from "./ui/ChangePassword";
+import ProtectedLayouts from "./ui/ProtectedLayouts";
 
 export default function App() {
 	return (
@@ -42,19 +43,21 @@ export default function App() {
 												<Route path=":id" element={<RecipeDetails />} />
 											</Route>
 
-											<Route path="/favorites" element={<Favorites />} />
-											<Route path="/user" element={<User />}>
-												<Route
-													index
-													element={<Navigate to="editprofile" replace />}
-												/>
-												<Route path="editprofile" element={<EditProfile />} />
-												<Route
-													path="changepassword"
-													element={<ChangePassword />}
-												/>
+											<Route element={<ProtectedLayouts />}>
+												<Route path="/favorites" element={<Favorites />} />
+												<Route path="/user" element={<User />}>
+													<Route
+														index
+														element={<Navigate to="editprofile" replace />}
+													/>
+													<Route path="editprofile" element={<EditProfile />} />
+													<Route
+														path="changepassword"
+														element={<ChangePassword />}
+													/>
+												</Route>
+												<Route path="*" element={<p>Page not found</p>} />
 											</Route>
-											<Route path="*" element={<p>Page not found</p>} />
 										</Route>
 									</Routes>
 								</FilterProvider>
