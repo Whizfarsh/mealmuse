@@ -183,11 +183,10 @@ function RecipeNavs() {
 
 						{isAuthenticated && (
 							<>
-								<NavItem $active={curPage.startsWith("/addRecipes")}>
-									<Link to="/favorites">
+								<NavItem $active={curPage.startsWith("/addRecipe")}>
+									<Link to="/addRecipe">
 										<span>
-											<RiAddCircleFill />
-											{/* <MdAdd size={20} /> */}A Recipe
+											<RiAddCircleFill />A Recipe
 										</span>
 									</Link>
 								</NavItem>

@@ -19,6 +19,7 @@ import { FilterProvider } from "./context/FilterContext";
 import EditProfile from "./ui/EditProfile";
 import ChangePassword from "./ui/ChangePassword";
 import ProtectedLayouts from "./ui/ProtectedLayouts";
+import AddRecipe from "./features/recipes/AddRecipe";
 
 export default function App() {
 	return (
@@ -44,6 +45,7 @@ export default function App() {
 											</Route>
 
 											<Route element={<ProtectedLayouts />}>
+												<Route path="/addRecipe" element={<AddRecipe />} />
 												<Route path="/favorites" element={<Favorites />} />
 												<Route path="/user" element={<User />}>
 													<Route
