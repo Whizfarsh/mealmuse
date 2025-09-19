@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled, { css } from "styled-components";
 
 const variations = {
@@ -49,11 +50,57 @@ const variations = {
 		background-color: var(--dark-2);
 		color: var(--light-0);
 	`,
+	tabsBtns: css`
+		padding: 1rem 2rem;
+		cursor: pointer;
+		border: none;
+		border-radius: 0.8rem;
+
+		font-size: 1.2rem;
+		font-weight: 600;
+
+		display: " block";
+		background-color: var(--light-1);
+		color: var(--dark-0);
+
+		&.active,
+		&:hover {
+			background-color: var(--dark-1);
+			color: var(--light-0);
+		}
+	`,
+	tabBtn: css`
+		padding: 0.8rem 1.2rem;
+		cursor: pointer;
+		border: none;
+		border-radius: 0.8rem;
+
+		font-size: 1.1rem;
+		font-weight: 600;
+
+		display: " block";
+		background-color: var(--light-1);
+		color: var(--dark-0);
+
+		&.active,
+		&:hover {
+			background-color: var(--dark-1);
+			color: var(--light-0);
+		}
+	`,
 };
 
-const Button = styled.button`
+const Styledbutton = styled.button`
 	cursor: pointer;
 	${(props) => variations[props.$variation]}
 `;
+
+function Button({ type = "button", children, ...props }) {
+	return (
+		<Styledbutton type={type} {...props}>
+			{children}
+		</Styledbutton>
+	);
+}
 
 export default Button;
