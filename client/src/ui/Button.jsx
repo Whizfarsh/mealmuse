@@ -40,7 +40,6 @@ const variations = {
 		cursor: pointer;
 	`,
 	mainUse: css`
-		margin-top: 2.4rem;
 		padding: 1.2rem 2.4rem;
 		cursor: pointer;
 		border: none;
