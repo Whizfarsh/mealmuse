@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Button from "../../ui/Button";
 import { useEffect, useState } from "react";
+import { useRecipes } from "../../context/RecipesContext";
 
 const StyledAddRecipe = styled.div`
-	margin: 12rem 24rem 0;
-	padding: 5rem 4.8rem;
+	margin: 4rem 20rem;
+	padding: 2.5rem 4.8rem;
 	border: 2px solid var(--light-2);
 	border-radius: 0.5rem;
 	box-shadow: 1px 1px 10px rgba(67, 32, 32, 0.5);
@@ -23,7 +24,7 @@ const StyledAddRecipe = styled.div`
 	}
 
 	textarea {
-		min-height: 120px;
+		height: 80px;
 		padding: 12px 14px;
 		font-size: 16px;
 		line-height: 1.45;
@@ -105,6 +106,8 @@ const StyledInput = styled.input`
 
 function AddRecipe() {
 	document.title = "Add a recipe | Mealmuse";
+
+	const { handleAddToRecipes } = useRecipes();
 	// /api/v1/diets
 	const [resName, setResName] = useState("");
 	const [resDiets, setResDiets] = useState([]);
@@ -118,6 +121,8 @@ function AddRecipe() {
 
 	const [allDiets, setAllDiets] = useState([]);
 	const [allCusines, setAllCusines] = useState([]);
+
+	const [status, setStatus] = useState();
 
 	const [toShow, setToShow] = useState("");
 
@@ -159,19 +164,34 @@ function AddRecipe() {
 	function handleAddRecipe(e) {
 		e.preventDefault();
 
-		const newRecipe = {
-			name: resName,
-			diets: resDiets,
-			cuisine: resCusine,
-			summary: resSummary,
-			instructions: convertToArray(instruction),
-			ingredients: convertToArray(resIngredients),
-			cookingDuration: Number(resCookingDuration),
-			preparationTime: Number(resPreparationTime),
-			totalServings: Number(resTotalServings),
-		};
+		if (
+			!resName.trim() ||
+			resDiets.length === 0 ||
+			resCusine.length === 0 ||
+			!resSummary.trim() ||
+			!instruction.trim() ||
+			!resIngredients.trim() ||
+			!resCookingDuration.trim() ||
+			!resPreparationTime.trim() ||
+			!resTotalServings.trim()
+		) {
+			setStatus("error");
+		} else {
+			const newRecipe = {
+				name: resName,
+				diets: resDiets,
+				cuisines: resCusine,
+				summary: resSummary,
+				instruction: convertToArray(instruction),
+				ingredients: convertToArray(resIngredients),
+				cookingDuration: Number(resCookingDuration),
+				preparationTime: Number(resPreparationTime),
+				totalServings: Number(resTotalServings),
+			};
 
-		console.log(newRecipe);
+			handleAddToRecipes(newRecipe);
+			setStatus("success");
+		}
 
 		setResName("");
 		setResDiets([]);
@@ -216,10 +236,10 @@ function AddRecipe() {
 								allDiets.map((d) => (
 									<Button
 										$variation="tabBtn"
-										className={resDiets.includes(d.name) ? "active" : ""}
+										className={resDiets.includes(d._id) ? "active" : ""}
 										key={d.name}
 										onClick={() =>
-											setResDiets((nd) => handleTabOption(nd, d.name))
+											setResDiets((nd) => handleTabOption(nd, d._id))
 										}
 									>
 										{d.name}
@@ -229,10 +249,10 @@ function AddRecipe() {
 								allCusines.map((c) => (
 									<Button
 										$variation="tabBtn"
-										className={resCusine.includes(c.name) ? "active" : ""}
+										className={resCusine.includes(c._id) ? "active" : ""}
 										key={c.name}
 										onClick={() =>
-											setResCusine((nc) => handleTabOption(nc, c.name))
+											setResCusine((nc) => handleTabOption(nc, c._id))
 										}
 									>
 										{c.name}
@@ -300,9 +320,17 @@ function AddRecipe() {
 						onChange={(e) => setResTotalServings(e.target.value)}
 					/>
 				</div>
+				{status === "error" ? (
+					<p style={{ color: "red" }}>All informations are required</p>
+				) : status === "success" ? (
+					<p style={{ color: " var(--dark-2)" }}>
+						Recipe has been added Successfully !!!
+					</p>
+				) : (
+					""
+				)}
 				<div>
 					<Button $variation="mainUse" onClick={handleAddRecipe}>
-						{" "}
 						Submit Recipe
 					</Button>
 				</div>
