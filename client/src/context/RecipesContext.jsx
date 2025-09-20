@@ -55,8 +55,16 @@ function RecipesProvider({ children }) {
 	const [tabsIndex, setTabsIndex] = useState(0);
 	const [similar, setSimilar] = useState([]);
 	const [error, setError] = useState("");
+	const [status, setStatus] = useState("");
 
 	const { isAuthenticated } = useUser();
+
+	async function fetchData() {
+		const res = await fetch(`/api/v1/recipes`);
+		const data = await res.json();
+
+		dispatch({ type: "recipes/loaded", payload: data.data.data });
+	}
 
 	const [
 		{
@@ -110,16 +118,30 @@ function RecipesProvider({ children }) {
 		});
 	}
 
+	async function handleAddToRecipes(item) {
+		const res = await fetch("/api/v1/recipes", {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(item),
+		});
+
+		if (!res.ok) setStatus("error");
+
+		const data = await res.json();
+
+		if (data.status === "success") {
+			dispatch({ type: "recipes/loaded", payload: [...recipes, data.data] });
+			await fetchData();
+		}
+	}
+
 	//EFFECTS
 	// effect for recipes
 	useEffect(() => {
 		dispatch({ type: "data/loading" });
-		async function fetchData() {
-			const res = await fetch(`/api/v1/recipes`);
-			const data = await res.json();
-
-			dispatch({ type: "recipes/loaded", payload: data.data.data });
-		}
 		fetchData();
 		dispatch({ type: "data/loaded" });
 	}, []);
@@ -182,11 +204,15 @@ function RecipesProvider({ children }) {
 				setTabsIndex,
 				similar,
 				setSimilar,
+				status,
+				setStatus,
 
 				savedRecipes,
 				handleSaveRecipe,
 				handleSavedRecipeDelete,
 				// onAddRecipe,
+
+				handleAddToRecipes,
 			}}
 		>
 			{children}
