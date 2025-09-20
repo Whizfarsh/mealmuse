@@ -152,21 +152,23 @@ function AddRecipe() {
 			: [...array, item];
 	}
 
+	function convertToArray(item) {
+		return item.split(/[\n,]+/);
+	}
+
 	function handleAddRecipe(e) {
 		e.preventDefault();
-
-		const newIns = instruction.split(/[\n,]+/);
 
 		const newRecipe = {
 			name: resName,
 			diets: resDiets,
 			cuisine: resCusine,
 			summary: resSummary,
-			instructions: instruction,
-			ingredients: newIns,
-			cookingDuration: resCookingDuration,
-			preparationTime: resPreparationTime,
-			totalServings: resTotalServings,
+			instructions: convertToArray(instruction),
+			ingredients: convertToArray(resIngredients),
+			cookingDuration: Number(resCookingDuration),
+			preparationTime: Number(resPreparationTime),
+			totalServings: Number(resTotalServings),
 		};
 
 		console.log(newRecipe);
