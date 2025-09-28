@@ -26,11 +26,11 @@ export default function App() {
 		<GlobalProvider>
 			<BrowserRouter>
 				<UserProvider>
-					<RecipesProvider>
-						<GlobalStyles />
-						<PageProvider>
-							<IngredientsProvider>
-								<FilterProvider>
+					<FilterProvider>
+						<RecipesProvider>
+							<GlobalStyles />
+							<PageProvider>
+								<IngredientsProvider>
 									<Routes>
 										<Route path="/" element={<Dashboard />} />
 										<Route path="/login" element={<Login />} />
@@ -62,10 +62,10 @@ export default function App() {
 											</Route>
 										</Route>
 									</Routes>
-								</FilterProvider>
-							</IngredientsProvider>
-						</PageProvider>
-					</RecipesProvider>
+								</IngredientsProvider>
+							</PageProvider>
+						</RecipesProvider>
+					</FilterProvider>
 				</UserProvider>
 			</BrowserRouter>
 		</GlobalProvider>
