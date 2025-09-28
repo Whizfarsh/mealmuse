@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Recipefilters from "./Recipefilters";
 import { useRecipes } from "../../context/RecipesContext";
-import { useState } from "react";
 
 const RecipeMenus = styled.div`
 	margin: -1em 1.8rem 0rem;
@@ -31,15 +30,11 @@ const SearchLink = styled(Link)`
 function RecipesMenus() {
 	document.title = "MealMuse | Recipes";
 
-	const [sortBy, setSortBy] = useState("none");
 	const { recipes } = useRecipes();
 
 	return (
 		<>
-			<Recipefilters
-				sortBy={sortBy}
-				handleSortBy={(e) => setSortBy(e.target.value)}
-			/>
+			<Recipefilters />
 			<RecipeMenus>
 				{recipes.length > 0 ? (
 					<Meals title="" recipes={recipes} />
