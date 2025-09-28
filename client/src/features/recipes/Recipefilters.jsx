@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { cuisine, dietsList, recipeTypesList } from "./apiRecipe";
 import { FaSortAlphaDown } from "react-icons/fa";
 import { useState } from "react";
 import { useFilter } from "../../context/FilterContext";
+import { useGlobal } from "../../context/GlobalContext";
 
-const filterOptions = ["All", "Cuisine", "Diets", "MealsTypes", "Duration"];
+const filterOptions = ["all", "cuisine", "diets", "mealsTypes", "duration"];
 
 const StyledRecipefilters = styled.div`
 	padding: 0.6rem 5rem;
@@ -97,19 +97,19 @@ const StyledSelected = styled.select`
 	}
 `;
 
-function Recipefilters({ sortBy, handleSortBy }) {
+function Recipefilters() {
+	const { allDiets, allCusines, allTypes: recipeTypesList } = useGlobal();
+
 	const [showSort, setShowSort] = useState(false);
+
 	const {
 		selectedFilter,
 		selectedCuisine,
 		selectedDiet,
 		selectedType,
 		duration,
-		handleFilterChange,
-		handleCuisineChange,
-		handleDietChange,
-		handleTypeChange,
-		handleDurationChange,
+		sortby,
+		dispatch,
 	} = useFilter();
 
 	return (
@@ -118,11 +118,13 @@ function Recipefilters({ sortBy, handleSortBy }) {
 				<div>
 					{filterOptions.map((option) => (
 						<button
-							className={selectedFilter === option ? "active" : ""}
-							onClick={() => handleFilterChange(option)}
+							className={selectedFilter.includes(option) ? "active" : ""}
+							onClick={() =>
+								dispatch({ type: "updateSelectedFilter", payload: option })
+							}
 							key={option}
 						>
-							{option}
+							{`${option[0].toUpperCase()}${option.slice(1)}`}
 						</button>
 					))}
 				</div>
@@ -133,42 +135,70 @@ function Recipefilters({ sortBy, handleSortBy }) {
 			</StyledOptions>
 
 			<StyledRecipeFilterOptionsLists>
-				{selectedFilter === "Cuisine" && (
+				{selectedFilter === "cuisine" && (
 					<RecipeFilterOptionsLists
-						arr={cuisine}
-						onClick={handleCuisineChange}
+						arr={allCusines}
+						onClick={(item) =>
+							dispatch({
+								type: "updateSelectedCuisine",
+								payload: item,
+							})
+						}
 						selected={selectedCuisine}
 					/>
 				)}
-				{selectedFilter === "Diets" && (
+				{selectedFilter === "diets" && (
 					<RecipeFilterOptionsLists
-						arr={dietsList}
-						onClick={handleDietChange}
+						arr={allDiets}
+						onClick={(item) =>
+							dispatch({
+								type: "updateSelectedDiet",
+								payload: item,
+							})
+						}
 						selected={selectedDiet}
 					/>
 				)}
-				{selectedFilter === "MealsTypes" && (
+				{selectedFilter === "mealsTypes" && (
 					<RecipeFilterOptionsLists
 						arr={recipeTypesList}
-						onClick={handleTypeChange}
+						onClick={(item) =>
+							dispatch({
+								type: "updateSelectedType",
+								payload: item,
+							})
+						}
 						selected={selectedType}
 					/>
 				)}
-				{selectedFilter === "Duration" && (
+				{selectedFilter === "duration" && (
 					<StyledSelected
 						value={duration}
-						onChange={(e) => handleDurationChange(e.target.value)}
+						onChange={(e) =>
+							dispatch({
+								type: "updateDuration",
+								payload: e.target.value,
+							})
+						}
 					>
 						<option value="all">All</option>
-						<option value="quick"> 0-15 min</option>
-						<option value="short">15-30 min</option>
-						<option value="medium">30-60 min</option>
-						<option value="long"> 60+ min</option>
+						<option value="15"> 0-15 min</option>
+						<option value="30">15-30 min</option>
+						<option value="60">30-60 min</option>
+						<option value="60"> 60+ min</option>
 					</StyledSelected>
 				)}
 				{showSort && (
-					<StyledSelected value={sortBy} onChange={handleSortBy}>
-						<option value="none">Sort by</option>
+					<StyledSelected
+						value={sortby}
+						onChange={(e) =>
+							dispatch({
+								type: "updateSort",
+								payload: e.target.value,
+							})
+						}
+					>
+						<option value="none">None</option>
 						<option value="name">Sort by Name</option>
 						<option value="duration">Sort by Duration</option>
 						<option value="servings">Sort by Servings</option>
@@ -193,10 +223,10 @@ function RecipeFilterOptionsLists({ arr, onClick, selected }) {
 			{arr.map((item) => (
 				<OptionList
 					className={selected === item ? "active" : ""}
-					key={item}
+					key={item.name}
 					onClick={() => onClick(item)}
 				>
-					{item}{" "}
+					{item.name}
 				</OptionList>
 			))}
 		</>
