@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 import {
 	createContext,
+	useCallback,
 	useContext,
 	useEffect,
 	useReducer,
 	useState,
 } from "react";
 import { useUser } from "./UserContext";
+import { useFilter } from "./FilterContext";
 
 const RecipeContext = createContext();
 
 const initialState = {
 	isLoading: true,
 	searchQuery: "",
-	filterOptions: "Select option",
-	selectedFilter: "",
 	intoleranceText: "",
 	excludeText: "",
 	savedRecipes: [],
@@ -33,16 +33,12 @@ function reducer(state, action) {
 			return { ...state, savedRecipes: action.payload };
 		case "searchUpdate":
 			return { ...state, searchQuery: action.payload };
-		case "filterOptionUpdate":
-			return { ...state, filterOptions: action.payload };
 		case "dataFetched":
 			return {
 				...state,
 				recipes: action.payload,
 				isLoading: false,
 			};
-		case "updateElectedFilter":
-			return { ...state, selectedFilter: action.payload };
 		default:
 			throw new Error("No action found");
 	}
@@ -59,18 +55,48 @@ function RecipesProvider({ children }) {
 
 	const { isAuthenticated } = useUser();
 
-	async function fetchData() {
-		const res = await fetch(`/api/v1/recipes`);
-		const data = await res.json();
+	const { selectedCuisine, selectedDiet, selectedType, duration, sortby } =
+		useFilter();
 
-		dispatch({ type: "recipes/loaded", payload: data.data.data });
-	}
+	const fetchData = useCallback(
+		async function fetchData() {
+			const params = new URLSearchParams();
+
+			if (selectedCuisine !== "all") {
+				params.append("cuisines", selectedCuisine);
+			}
+			if (selectedDiet !== "all") {
+				params.append("diets", selectedDiet);
+			}
+			if (selectedType !== "all") {
+				params.append("type", selectedType);
+			}
+			if (duration !== "all") {
+				params.append("cookingDuration[gte]", duration);
+			}
+			if (sortby !== "none") {
+				params.append("sortBy", sortby);
+			}
+
+			const urlToUse = `/api/v1/recipes?${params.toString()}`;
+			try {
+				const res = await fetch(urlToUse);
+
+				if (!res.ok) throw new Error("Unable to fetch new data");
+				const data = await res.json();
+
+				dispatch({ type: "recipes/loaded", payload: data.data.data });
+			} catch (err) {
+				console.log(err.messge);
+			}
+		},
+		[duration, selectedCuisine, selectedDiet, selectedType, sortby]
+	);
 
 	const [
 		{
 			filterOptions,
 			recipes,
-			selectedFilter,
 			searchQuery,
 			isLoading,
 			intoleranceText,
@@ -144,7 +170,7 @@ function RecipesProvider({ children }) {
 		dispatch({ type: "data/loading" });
 		fetchData();
 		dispatch({ type: "data/loaded" });
-	}, []);
+	}, [fetchData]);
 
 	//for saved recipes
 	useEffect(() => {
@@ -185,7 +211,6 @@ function RecipesProvider({ children }) {
 			value={{
 				filterOptions,
 				recipes,
-				selectedFilter,
 				searchQuery,
 				isLoading,
 				intoleranceText,
