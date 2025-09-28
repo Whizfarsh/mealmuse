@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Button from "../../ui/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecipes } from "../../context/RecipesContext";
+import { useGlobal } from "../../context/GlobalContext";
 
 const StyledAddRecipe = styled.div`
 	margin: 4rem 20rem;
@@ -108,7 +109,8 @@ function AddRecipe() {
 	document.title = "Add a recipe | Mealmuse";
 
 	const { handleAddToRecipes } = useRecipes();
-	// /api/v1/diets
+	const { allDiets, allCusines } = useGlobal();
+
 	const [resName, setResName] = useState("");
 	const [resDiets, setResDiets] = useState([]);
 	const [resCusine, setResCusine] = useState([]);
@@ -119,39 +121,15 @@ function AddRecipe() {
 	const [resPreparationTime, setResPreparationTime] = useState("");
 	const [resTotalServings, setResTotalServings] = useState("");
 
-	const [allDiets, setAllDiets] = useState([]);
-	const [allCusines, setAllCusines] = useState([]);
-
 	const [status, setStatus] = useState();
 
 	const [toShow, setToShow] = useState("");
-
-	useEffect(() => {
-		async function getAllDiets() {
-			const res = await fetch("/api/v1/diets");
-			const data = await res.json();
-
-			setAllDiets(data.data.data);
-		}
-		getAllDiets();
-	}, []);
-
-	useEffect(() => {
-		async function getAllCuisines() {
-			const res = await fetch("/api/v1/cuisines");
-			const data = await res.json();
-
-			setAllCusines(data.data.data);
-		}
-		getAllCuisines();
-	}, []);
 
 	function handleMainTabs(option) {
 		setToShow(toShow === option ? "" : option);
 	}
 
 	function handleTabOption(array, item) {
-		console.log(array);
 		return array.includes(item)
 			? array.filter((el) => el !== item)
 			: [...array, item];
