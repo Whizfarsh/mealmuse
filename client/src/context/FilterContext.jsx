@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FilterContexts = createContext();
 
@@ -10,6 +11,7 @@ const initialState = {
 	selectedDiet: "all",
 	selectedType: "all",
 	duration: "all",
+	sortby: "none",
 };
 
 function reducer(state, action) {
@@ -36,50 +38,46 @@ function reducer(state, action) {
 			return { ...state, selectedType: action.payload };
 		case "updateDuration":
 			return { ...state, duration: action.payload };
+		case "updateSort":
+			return { ...state, sortby: action.payload };
 		default:
 			throw new Error(`Unknown action`);
 	}
 }
 
 function FilterProvider({ children }) {
-	const [
-		{ selectedFilter, selectedCuisine, selectedDiet, selectedType, duration },
-		dispatch,
-	] = useReducer(reducer, initialState);
+	const navigate = useNavigate();
+	const [state, dispatch] = useReducer(reducer, initialState);
 
-	// functions for filters
-	function handleFilterChange(filter) {
-		dispatch({ type: "updateSelectedFilter", payload: filter });
-	}
+	const { selectedCuisine, selectedDiet, selectedType, duration, sortby } =
+		state;
 
-	function handleCuisineChange(cuisine) {
-		dispatch({ type: "updateSelectedCuisine", payload: cuisine });
-	}
+	useEffect(() => {
+		const searchParams = new URLSearchParams();
 
-	function handleDietChange(diet) {
-		dispatch({ type: "updateSelectedDiet", payload: diet });
-	}
+		if (selectedCuisine && selectedCuisine !== "all")
+			searchParams.set("cuisines", selectedCuisine.name);
 
-	function handleTypeChange(type) {
-		dispatch({ type: "updateSelectedType", payload: type });
-	}
+		if (selectedDiet && selectedDiet !== "all")
+			searchParams.set("diets", selectedDiet.name);
 
-	function handleDurationChange(duration) {
-		dispatch({ type: "updateDuration", payload: duration });
-	}
+		if (selectedType && selectedType !== "all")
+			searchParams.set("types", selectedType.name);
+
+		if (duration && duration !== "all")
+			searchParams.set("cookingDuration[gte]", duration);
+
+		if (sortby && sortby !== "none") searchParams.set("sort", sortby);
+
+		// Use navigate to update the URL with the new search params
+		navigate(`/recipes?${searchParams.toString()}`);
+	}, [selectedCuisine, selectedDiet, selectedType, duration, sortby, navigate]);
+
 	return (
 		<FilterContexts.Provider
 			value={{
-				selectedFilter,
-				selectedCuisine,
-				selectedDiet,
-				selectedType,
-				handleFilterChange,
-				handleCuisineChange,
-				handleDietChange,
-				handleTypeChange,
-				duration,
-				handleDurationChange,
+				...state,
+				dispatch,
 			}}
 		>
 			{children}
