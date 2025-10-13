@@ -10,6 +10,7 @@ const initialState = {
 	statusMessage: "",
 	errorMessage: "",
 	isAuthenticated: false,
+	isLoading: true,
 };
 
 // user reducer function
@@ -18,7 +19,12 @@ function reducer(state, action) {
 		case "user/logged":
 			return { ...state, user: action.payload, isAuthenticated: true };
 		case "user/loaded":
-			return { ...state, user: action.payload, isAuthenticated: true };
+			return {
+				...state,
+				user: action.payload,
+				isAuthenticated: true,
+				isLoading: false,
+			};
 		case "userinfo/updated":
 			return {
 				...state,
@@ -37,8 +43,10 @@ function reducer(state, action) {
 }
 
 function UserProvider({ children }) {
-	const [{ user, isAuthenticated, statusMessage, errorMessage }, dispatch] =
-		useReducer(reducer, initialState);
+	const [
+		{ user, isAuthenticated, statusMessage, errorMessage, isLoading },
+		dispatch,
+	] = useReducer(reducer, initialState);
 
 	const navigate = useNavigate();
 
@@ -189,6 +197,7 @@ function UserProvider({ children }) {
 				updateCurrentPassword,
 				deleteMyProfile,
 				errorMessage,
+				isLoading,
 			}}
 		>
 			{children}
