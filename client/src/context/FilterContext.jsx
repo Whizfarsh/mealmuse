@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const FilterContexts = createContext();
 
@@ -47,12 +47,15 @@ function reducer(state, action) {
 
 function FilterProvider({ children }) {
 	const navigate = useNavigate();
+	const gtetUrlLocation = useLocation();
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const { selectedCuisine, selectedDiet, selectedType, duration, sortby } =
 		state;
 
 	useEffect(() => {
+		if (gtetUrlLocation.pathname != "/recipes") return;
+
 		const searchParams = new URLSearchParams();
 
 		if (selectedCuisine && selectedCuisine !== "all")
@@ -69,9 +72,16 @@ function FilterProvider({ children }) {
 
 		if (sortby && sortby !== "none") searchParams.set("sort", sortby);
 
-		// Use navigate to update the URL with the new search params
 		navigate(`/recipes?${searchParams.toString()}`);
-	}, [selectedCuisine, selectedDiet, selectedType, duration, sortby, navigate]);
+	}, [
+		selectedCuisine,
+		selectedDiet,
+		selectedType,
+		duration,
+		sortby,
+		navigate,
+		gtetUrlLocation.pathname,
+	]);
 
 	return (
 		<FilterContexts.Provider
