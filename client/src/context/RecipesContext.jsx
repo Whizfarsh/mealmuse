@@ -60,6 +60,8 @@ function RecipesProvider({ children }) {
 
 	const fetchData = useCallback(
 		async function fetchData() {
+			dispatch({ type: "data/loading" });
+
 			const params = new URLSearchParams();
 
 			if (selectedCuisine !== "all") {
@@ -86,6 +88,7 @@ function RecipesProvider({ children }) {
 				const data = await res.json();
 
 				dispatch({ type: "recipes/loaded", payload: data.data.data });
+				dispatch({ type: "data/loaded" });
 			} catch (err) {
 				console.log(err.messge);
 			}
@@ -167,9 +170,7 @@ function RecipesProvider({ children }) {
 	//EFFECTS
 	// effect for recipes
 	useEffect(() => {
-		dispatch({ type: "data/loading" });
 		fetchData();
-		dispatch({ type: "data/loaded" });
 	}, [fetchData]);
 
 	//for saved recipes
