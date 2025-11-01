@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
 	createContext,
@@ -84,8 +83,9 @@ function RecipesProvider({ children }) {
 				const typeValue = allTypes.find((c) => c.name == selectedType);
 				params.append("types", typeValue._id);
 			}
-			if (duration !== "all") {
-				params.append("cookingDuration[gte]", duration);
+			if (duration && duration !== "all") {
+				const operator = duration === "61" ? "[gte]" : "[lte]";
+				params.set(`cookingDuration${operator}`, duration);
 			}
 			if (sortby !== "none") {
 				params.append("sortBy", sortby);

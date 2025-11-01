@@ -8,8 +8,7 @@ import { useGlobal } from "../../context/GlobalContext";
 const filterOptions = ["all", "cuisine", "diets", "mealsTypes", "duration"];
 
 const StyledRecipefilters = styled.div`
-	padding: 0.6rem 5rem;
-	margin-top: 1.4rem;
+	margin: 1.4rem;
 
 	@media (max-width: 900px) {
 		margin-top: 2rem;
@@ -61,17 +60,18 @@ const StyledRecipeFilterOptionsLists = styled.div`
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 1rem;
-	padding: 2rem 1rem;
+	padding: 2rem 1.4rem;
 	font-size: 1.4rem;
 `;
 
 const OptionList = styled.span`
 	cursor: pointer;
+	padding: 0.4rem 0.5rem;
+	background-color: var(--light-1);
 
 	&.active {
 		background-color: var(--dark-1);
 		color: var(--light-1);
-		padding: 0.5rem 1rem;
 	}
 `;
 
@@ -153,7 +153,7 @@ function Recipefilters() {
 						onClick={(item) =>
 							dispatch({
 								type: "updateSelectedDiet",
-								payload: item._id,
+								payload: item,
 							})
 						}
 						selected={selectedDiet}
@@ -185,7 +185,7 @@ function Recipefilters() {
 						<option value="15"> 0-15 min</option>
 						<option value="30">15-30 min</option>
 						<option value="60">30-60 min</option>
-						<option value="60"> 60+ min</option>
+						<option value="61"> 60+ min</option>
 					</StyledSelected>
 				)}
 				{showSort && (
