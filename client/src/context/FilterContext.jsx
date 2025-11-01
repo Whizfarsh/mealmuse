@@ -67,9 +67,10 @@ function FilterProvider({ children }) {
 		if (selectedType && selectedType !== "all")
 			searchParams.set("type", selectedType);
 
-		if (duration && duration !== "all")
-			searchParams.set("cookingDuration[gte]", duration);
-
+		if (duration && duration !== "all") {
+			const operator = duration === "60" ? "[gte]" : "[lte]";
+			searchParams.set(`cookingDuration${operator}`, duration);
+		}
 		if (sortby && sortby !== "none") searchParams.set("sort", sortby);
 
 		navigate(`/recipes?${searchParams.toString()}`);
