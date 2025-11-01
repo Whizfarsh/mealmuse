@@ -138,12 +138,12 @@ function Recipefilters() {
 				{selectedFilter === "cuisine" && (
 					<RecipeFilterOptionsLists
 						arr={allCusines}
-						onClick={(item) =>
+						onClick={(item) => {
 							dispatch({
 								type: "updateSelectedCuisine",
 								payload: item,
-							})
-						}
+							});
+						}}
 						selected={selectedCuisine}
 					/>
 				)}
@@ -153,7 +153,7 @@ function Recipefilters() {
 						onClick={(item) =>
 							dispatch({
 								type: "updateSelectedDiet",
-								payload: item,
+								payload: item._id,
 							})
 						}
 						selected={selectedDiet}
@@ -165,7 +165,7 @@ function Recipefilters() {
 						onClick={(item) =>
 							dispatch({
 								type: "updateSelectedType",
-								payload: item,
+								payload: item._id,
 							})
 						}
 						selected={selectedType}
@@ -223,7 +223,7 @@ function RecipeFilterOptionsLists({ arr, onClick, selected }) {
 			{arr.map((item) => (
 				<OptionList
 					className={selected === item ? "active" : ""}
-					key={item.name}
+					key={item._id}
 					onClick={() => onClick(item)}
 				>
 					{item.name}

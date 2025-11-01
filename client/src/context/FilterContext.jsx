@@ -65,7 +65,7 @@ function FilterProvider({ children }) {
 			searchParams.set("diets", selectedDiet.name);
 
 		if (selectedType && selectedType !== "all")
-			searchParams.set("types", selectedType.name);
+			searchParams.set("type", selectedType);
 
 		if (duration && duration !== "all")
 			searchParams.set("cookingDuration[gte]", duration);
