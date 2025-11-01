@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
 	createContext,
@@ -9,10 +10,12 @@ import {
 } from "react";
 import { useUser } from "./UserContext";
 import { useFilter } from "./FilterContext";
+import { useGlobal } from "./GlobalContext";
 
 const RecipeContext = createContext();
 
 const initialState = {
+	errMsg: "",
 	isLoading: true,
 	searchQuery: "",
 	intoleranceText: "",
@@ -29,6 +32,8 @@ function reducer(state, action) {
 			return { ...state, isLoading: true };
 		case "data/loaded":
 			return { ...state, isLoading: false };
+		case "data/error":
+			return { ...state, errMsg: action.payload };
 		case "savedRecipes/loaded":
 			return { ...state, savedRecipes: action.payload };
 		case "searchUpdate":
@@ -57,6 +62,7 @@ function RecipesProvider({ children }) {
 
 	const { selectedCuisine, selectedDiet, selectedType, duration, sortby } =
 		useFilter();
+	const { allDiets, allCusines, allTypes } = useGlobal();
 
 	const fetchData = useCallback(
 		async function fetchData() {
@@ -65,13 +71,18 @@ function RecipesProvider({ children }) {
 			const params = new URLSearchParams();
 
 			if (selectedCuisine !== "all") {
-				params.append("cuisines", selectedCuisine);
+				const cuisineValue = allCusines.find(
+					(c) => c.name === selectedCuisine.name
+				);
+				params.append("cuisines", cuisineValue._id);
 			}
 			if (selectedDiet !== "all") {
-				params.append("diets", selectedDiet);
+				const dietValue = allDiets.find((c) => c.name === selectedDiet.name);
+				params.append("diets", dietValue._id);
 			}
 			if (selectedType !== "all") {
-				params.append("type", selectedType);
+				const typeValue = allTypes.find((c) => c.name == selectedType);
+				params.append("types", typeValue._id);
 			}
 			if (duration !== "all") {
 				params.append("cookingDuration[gte]", duration);
@@ -81,6 +92,7 @@ function RecipesProvider({ children }) {
 			}
 
 			const urlToUse = `/api/v1/recipes?${params.toString()}`;
+			console.log(urlToUse);
 			try {
 				const res = await fetch(urlToUse);
 
@@ -90,10 +102,20 @@ function RecipesProvider({ children }) {
 				dispatch({ type: "recipes/loaded", payload: data.data.data });
 				dispatch({ type: "data/loaded" });
 			} catch (err) {
+				dispatch({ type: "data/error", payload: err.messge });
 				console.log(err.messge);
 			}
 		},
-		[duration, selectedCuisine, selectedDiet, selectedType, sortby]
+		[
+			allCusines,
+			allDiets,
+			allTypes,
+			duration,
+			selectedCuisine,
+			selectedDiet,
+			selectedType,
+			sortby,
+		]
 	);
 
 	const [
