@@ -1,7 +1,6 @@
 import Meals from "../../ui/Meals";
 
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Recipefilters from "./Recipefilters";
 import { useRecipes } from "../../context/RecipesContext";
 import Loader from "../../ui/Loading";
@@ -21,13 +20,6 @@ const NoRecipe = styled.div`
 	gap: 1.4rem;
 `;
 
-const SearchLink = styled(Link)`
-	text-decoration: none;
-	color: var(--dark-2);
-	font-size: 1.6rem;
-	font-weight: 700;
-`;
-
 function RecipesMenus() {
 	document.title = "MealMuse | Recipes";
 
@@ -37,17 +29,18 @@ function RecipesMenus() {
 		<>
 			<Recipefilters />
 			<RecipeMenus>
-				{isLoading || recipes.length == 0 ? (
+				{isLoading ? (
 					<Loader />
 				) : recipes.length > 0 ? (
-					<Meals title="" recipes={recipes} />
+					<>
+						<Meals title="" recipes={recipes} />
+					</>
 				) : (
 					<NoRecipe className="no-recipes">
 						<p>
-							No recipes found. Please adjust your filters or search for new
-							recipes.
+							No recipes found for the selected filters. Please adjust your
+							filters.
 						</p>
-						<SearchLink to="/">Search for a recipe</SearchLink>
 					</NoRecipe>
 				)}
 			</RecipeMenus>
