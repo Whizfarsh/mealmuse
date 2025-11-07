@@ -88,7 +88,7 @@ function RecipesProvider({ children }) {
 				params.set(`cookingDuration${operator}`, duration);
 			}
 			if (sortby !== "none") {
-				params.append("sortBy", sortby);
+				params.append("sort", sortby);
 			}
 
 			const urlToUse = `/api/v1/recipes?${params.toString()}`;

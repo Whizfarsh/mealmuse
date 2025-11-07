@@ -200,8 +200,8 @@ function Recipefilters() {
 					>
 						<option value="none">None</option>
 						<option value="name">Sort by Name</option>
-						<option value="duration">Sort by Duration</option>
-						<option value="servings">Sort by Servings</option>
+						<option value="cookingDuration">Sort by Duration</option>
+						<option value="totalServings">Sort by Servings</option>
 					</StyledSelected>
 				)}
 			</StyledRecipeFilterOptionsLists>
