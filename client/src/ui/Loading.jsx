@@ -28,12 +28,12 @@ const d7 = keyframes`
 
 // Styled component for the loading container
 const Loading = styled.div`
-	width: 80vw;
-	height: 100vh;
+	width: 60vw;
+	height: 30vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0 auto;
+	margin: 10rem auto;
 `;
 
 // Styled component for the dots animation
