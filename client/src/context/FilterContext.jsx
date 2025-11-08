@@ -12,6 +12,7 @@ const initialState = {
 	selectedType: "all",
 	duration: "all",
 	sortby: "none",
+	exclude: "",
 };
 
 function reducer(state, action) {
@@ -40,6 +41,8 @@ function reducer(state, action) {
 			return { ...state, duration: action.payload };
 		case "updateSort":
 			return { ...state, sortby: action.payload };
+		case "exclude/updated":
+			return { ...state, exclude: action.payload };
 		default:
 			throw new Error(`Unknown action`);
 	}
@@ -50,8 +53,14 @@ function FilterProvider({ children }) {
 	const gtetUrlLocation = useLocation();
 	const [state, dispatch] = useReducer(reducer, initialState);
 
-	const { selectedCuisine, selectedDiet, selectedType, duration, sortby } =
-		state;
+	const {
+		selectedCuisine,
+		selectedDiet,
+		selectedType,
+		duration,
+		exclude,
+		sortby,
+	} = state;
 
 	useEffect(() => {
 		if (gtetUrlLocation.pathname != "/recipes") return;
@@ -71,6 +80,9 @@ function FilterProvider({ children }) {
 			const operator = duration === "60" ? "[gte]" : "[lte]";
 			searchParams.set(`cookingDuration${operator}`, duration);
 		}
+		if (exclude.length > 3 && exclude.length !== "") {
+			searchParams.set("exclude", exclude);
+		}
 		if (sortby && sortby !== "none") searchParams.set("sort", sortby);
 
 		navigate(`/recipes?${searchParams.toString()}`);
@@ -79,6 +91,7 @@ function FilterProvider({ children }) {
 		selectedDiet,
 		selectedType,
 		duration,
+		exclude,
 		sortby,
 		navigate,
 		gtetUrlLocation.pathname,
