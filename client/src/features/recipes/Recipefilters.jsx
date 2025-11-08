@@ -5,7 +5,14 @@ import { useState } from "react";
 import { useFilter } from "../../context/FilterContext";
 import { useGlobal } from "../../context/GlobalContext";
 
-const filterOptions = ["all", "cuisine", "diets", "mealsTypes", "duration"];
+const filterOptions = [
+	"all",
+	"cuisine",
+	"diets",
+	"mealsTypes",
+	"duration",
+	"exclude",
+];
 
 const StyledRecipefilters = styled.div`
 	margin: 1.4rem;
@@ -97,6 +104,17 @@ const StyledSelected = styled.select`
 	}
 `;
 
+const StyledExcluded = styled.input`
+	background-color: var(--light-1);
+	font-size: 1.4rem;
+	width: 55rem;
+	height: 3rem;
+	padding: 1.2rem;
+	outline: none;
+	border: 1px solid var(--dark-2);
+	border-radius: 0.6rem;
+`;
+
 function Recipefilters() {
 	const { allDiets, allCusines, allTypes: recipeTypesList } = useGlobal();
 
@@ -109,8 +127,11 @@ function Recipefilters() {
 		selectedType,
 		duration,
 		sortby,
+		exclude,
 		dispatch,
 	} = useFilter();
+
+	console.log(exclude);
 
 	return (
 		<StyledRecipefilters>
@@ -187,6 +208,23 @@ function Recipefilters() {
 						<option value="60">30-60 min</option>
 						<option value="61"> 60+ min</option>
 					</StyledSelected>
+				)}
+				{selectedFilter === "exclude" && (
+					<>
+						<StyledExcluded
+							type="text"
+							value={exclude}
+							placeholder="Seperate with comma"
+							onChange={(e) => {
+								dispatch({ type: "exclude/updated", payload: e.target.value });
+							}}
+						/>
+						{exclude.length > 0 && exclude.length <= 3 ? (
+							<p>The exlude box must have more than 3 characters</p>
+						) : (
+							""
+						)}
+					</>
 				)}
 				{showSort && (
 					<StyledSelected
