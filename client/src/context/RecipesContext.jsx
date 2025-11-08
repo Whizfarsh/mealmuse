@@ -59,8 +59,14 @@ function RecipesProvider({ children }) {
 
 	const { isAuthenticated } = useUser();
 
-	const { selectedCuisine, selectedDiet, selectedType, duration, sortby } =
-		useFilter();
+	const {
+		selectedCuisine,
+		selectedDiet,
+		selectedType,
+		duration,
+		exclude,
+		sortby,
+	} = useFilter();
 	const { allDiets, allCusines, allTypes } = useGlobal();
 
 	const fetchData = useCallback(
@@ -87,6 +93,9 @@ function RecipesProvider({ children }) {
 				const operator = duration === "61" ? "[gte]" : "[lte]";
 				params.set(`cookingDuration${operator}`, duration);
 			}
+			if (exclude.length > 3 && exclude.length !== "") {
+				params.set("exclude", exclude);
+			}
 			if (sortby !== "none") {
 				params.append("sort", sortby);
 			}
@@ -111,6 +120,7 @@ function RecipesProvider({ children }) {
 			allDiets,
 			allTypes,
 			duration,
+			exclude,
 			selectedCuisine,
 			selectedDiet,
 			selectedType,
