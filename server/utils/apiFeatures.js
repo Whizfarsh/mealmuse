@@ -1,3 +1,7 @@
+function escapeRegExp(string) {
+	return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 class APIFeatures {
 	constructor(query, queryString) {
 		this.query = query;
@@ -6,8 +10,12 @@ class APIFeatures {
 
 	filter() {
 		const queryObj = { ...this.queryString };
-		const excludedFields = ["page", "sort", "limit", "fields"];
+		const excludedFields = ["page", "sort", "limit", "fields", "exclude"];
 		excludedFields.forEach((el) => delete queryObj[el]);
+
+		if (this.queryString.exclude) {
+			this.handleExclude();
+		}
 
 		// 1B) Advanced filtering
 		let queryStr = JSON.stringify(queryObj);
@@ -17,6 +25,35 @@ class APIFeatures {
 
 		return this;
 	}
+
+	handleExclude() {
+		const excludeItems = this.queryString.exclude
+			.split(",")
+			.map((item) => item.trim().toLowerCase())
+			.filter((item) => item.length > 0);
+
+		if (excludeItems.length > 0) {
+			// Since ingredients is [String], we need to check each string in the array
+			// Use $and to ensure ALL excluded ingredients are absent
+			const excludeConditions = excludeItems.map((ingredient) => ({
+				ingredients: {
+					$not: {
+						$elemMatch: {
+							$regex: escapeRegExp(ingredient),
+							$options: "i",
+						},
+					},
+				},
+			}));
+
+			this.query = this.query.find({
+				$and: excludeConditions,
+			});
+		}
+
+		return this;
+	}
+
 	sorting() {
 		if (this.queryString.sort) {
 			const sortBy = this.queryString.sort.split(",").join(" ");
